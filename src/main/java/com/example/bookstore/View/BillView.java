@@ -4,17 +4,14 @@ package com.example.bookstore.View;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
@@ -26,8 +23,6 @@ import com.example.bookstore.Models.Book;
 import com.example.bookstore.Models.Librarian;
 import com.example.bookstore.Models.Person;
 import com.example.bookstore.helperClasses.writingToFiles;
-
-import java.util.ArrayList;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -52,7 +47,7 @@ public class BillView extends BorderPane{
         generateBillButton.setCursor(Cursor.HAND);
         generateBillButton.setPrefSize(100,20);
         generateBillButton.setOnAction(e -> {
-            if (books1.size() > 0) {
+            if (!books1.isEmpty()) {
 // Call writeBill method of UtilityHelper class to write bill details into a file
                 writingToFiles.writeBill(String.valueOf(billId), totalPrice, books1);
                 // Show an information alert to the user that the bill has been generated
