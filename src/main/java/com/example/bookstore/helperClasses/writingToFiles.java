@@ -10,11 +10,12 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Calendar;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class writingToFiles {
 
-    //Method that is used to read the information about the person loggin in.
+    //Method that is used to read the information about the person logging in.
     //Based on their username and password(which will be saved in a file)
     //The program decides with which credentials in the text the user's input matches with
     //In the roles.txt file,the role of the person is stored as the third element
@@ -66,7 +67,7 @@ public class writingToFiles {
             writer.close();
         } catch (IOException exception) {
             // Print the stack trace if an IOException is thrown
-            exception.printStackTrace();
+            throw new RuntimeException(exception);
         }
     }
 
@@ -170,7 +171,7 @@ public class writingToFiles {
         try{
             if (file.exists()) {
 // If it exists, return the number of files (bills) in the directory
-                return file.listFiles().length;
+                return Objects.requireNonNull(file.listFiles()).length;
             }}
         catch(NullPointerException e){
             throw new RuntimeException(e);
@@ -257,7 +258,6 @@ public class writingToFiles {
         // Create the file "res/books.txt"
         File file = new File("res/books.txt");
         try {
-            file.createNewFile();
             // Create a FileWriter instance to write the data to the file
             FileWriter writer = new FileWriter(file);
             // Write each book's information to the file
@@ -276,7 +276,6 @@ public class writingToFiles {
     public static void writePersons(){
         File file = new File("res/persons.txt");
         try {
-            file.createNewFile();
             FileWriter writer = new FileWriter(file);
             for (Person person: Controller.people){
                 writer.write(person.toString() + "\n");
@@ -292,7 +291,6 @@ public class writingToFiles {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             DataOutputStream dos = new DataOutputStream(fos);
-            file.createNewFile();
             dos.writeDouble(total);
             dos.close();
             fos.close();
@@ -306,7 +304,6 @@ public class writingToFiles {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             DataOutputStream dos = new DataOutputStream(fos);
-            file.createNewFile();
             dos.writeDouble(total);
             dos.close();
             fos.close();
@@ -320,7 +317,6 @@ public class writingToFiles {
         try {
             FileOutputStream fos = new FileOutputStream(file);
             DataOutputStream dos = new DataOutputStream(fos);
-            file.createNewFile();
             dos.writeInt(quantity);
             dos.close();
             fos.close();
