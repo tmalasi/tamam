@@ -104,25 +104,28 @@ public class writingToFiles {
         File file = new File("res/persons.txt");
         try {
             // Create the file if it does not exist
-            file.createNewFile();
-            // Create a Scanner object to read the file
-            Scanner scanner = new Scanner(file);
-            // Read the file line by line
-            while (scanner.hasNextLine()){
-                // Split the line into data fields
-                String[] Data = scanner.nextLine().split(",");
-                // Determine the type of person based on the role field
-                if (Data[6].equalsIgnoreCase("Librarian")){
-                    // Create a new Librarian object using the data fields
-                    people.add(new Librarian(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Librarian,Double.parseDouble(Data[7])));
-                }else if (Data[6].equalsIgnoreCase("Manager")){
-                    // Create a new Manager object using the data fields
-                    people.add(new Manager(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Manager));
-                }else if (Data[6].equalsIgnoreCase("Administrator")){
-                    // Create a new Administrator object using the data fields
-                    people.add(new Administrator(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Administrator));
+                if (file.createNewFile()) {
+// If it exists, return the number of files (bills) in the directory
+
+                    // Create a Scanner object to read the file
+                    Scanner scanner = new Scanner(file);
+                    // Read the file line by line
+                    while (scanner.hasNextLine()){
+                        // Split the line into data fields
+                        String[] Data = scanner.nextLine().split(",");
+                        // Determine the type of person based on the role field
+                        if (Data[6].equalsIgnoreCase("Librarian")){
+                            // Create a new Librarian object using the data fields
+                            people.add(new Librarian(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Librarian,Double.parseDouble(Data[7])));
+                        }else if (Data[6].equalsIgnoreCase("Manager")){
+                            // Create a new Manager object using the data fields
+                            people.add(new Manager(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Manager));
+                        }else if (Data[6].equalsIgnoreCase("Administrator")){
+                            // Create a new Administrator object using the data fields
+                            people.add(new Administrator(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Administrator));
+                        }
+                    }
                 }
-            }
         } catch (IOException e) {
             // Throw a runtime exception if there is an error reading the file
             throw new RuntimeException(e);
@@ -164,9 +167,13 @@ public class writingToFiles {
 // Create a File object representing the directory "res/Bills"
         File file = new File("res/Bills");
 // Check if the directory exists
-        if (file.exists()) {
+        try{
+            if (file.exists()) {
 // If it exists, return the number of files (bills) in the directory
-            return file.listFiles().length;
+                return file.listFiles().length;
+            }}
+        catch(NullPointerException e){
+            throw new RuntimeException(e);
         }
 // If the directory does not exist, return 0
         return 0;
@@ -180,7 +187,7 @@ public class writingToFiles {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
             // Create a new file
-            file.createNewFile();
+            if (file.createNewFile()){
             // Create a FileWriter to write to the file
             FileWriter writer = new FileWriter(file);
             // Write the bill header information
@@ -194,7 +201,7 @@ public class writingToFiles {
             // Write the total bill amount
             writer.write("\nTotal: " + totalBill);
             // Close the FileWriter
-            writer.close();
+            writer.close();}
         } catch (IOException e) {
             // Throw a runtime exception if an IOException occurs
             throw new RuntimeException(e);

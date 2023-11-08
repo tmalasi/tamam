@@ -2,3 +2,4 @@
 123-123-123,Atlas of the Heart,78.0,80.0,100.0,Brene Brown,Self-Help,Amazon,3,2023-02-07
 123-123-123,The Subtle Art of Not Giving a Fu*k,75.0,75.0,100.0,Mark Manson,Self-Help,Amazon,13,2023-01-03
 123-123-123,The 48 Laws of Power,65.0,60.0,100.0,Robert Greene,Self-Help,Amazon,40,2023-02-01
+364,The rich man,32.0,21.0,45.0,Tea,Comedy,Tea,1,2023-11-06

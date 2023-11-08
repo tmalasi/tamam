@@ -50,11 +50,11 @@ public class BooksView extends VBox{
                     private final Button editButton = new Button("Edit");
                     private final Button deleteButton = new Button("Delete");
 
-                    String absolutePathDelete = "C:\\Users\\xhbaz\\OneDrive\\Desktop\\tryingpr\\res\\delete.png";
+                    String absolutePathDelete = "C:\\Users\\User\\IdeaProjects\\bookstore\\res\\delete.png";
                     Image imageDelete = new Image("file:" + absolutePathDelete);
                     ImageView deleteIcon = new ImageView(imageDelete);
 
-                    String absolutePathEdit = "C:\\Users\\xhbaz\\OneDrive\\Desktop\\tryingpr\\res\\edit.png";
+                    String absolutePathEdit = "C:\\Users\\User\\IdeaProjects\\bookstore\\res\\edit.png";
                     Image imageEdit = new Image("file:" + absolutePathEdit);
                     ImageView editIcon = new ImageView(imageEdit);
 

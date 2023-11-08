@@ -36,7 +36,7 @@ public class BillView extends BorderPane{
     private AtomicInteger quantity = new AtomicInteger();
     private double totalPrice = 0.0;
     private int billId = writingToFiles.getNumberOfBills();
-    private ObservableList<Book> books1 = FXCollections.observableArrayList();
+    private final ObservableList<Book> books1 = FXCollections.observableArrayList();
     private Label totalPriceLabel = new Label("Total: $" + totalPrice);
 
     public static double total = Controller.totalBill;
