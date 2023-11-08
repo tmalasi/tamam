@@ -1,1 +1,5 @@
+xhbaze,12345678,Manager
+emma,12345678,Librarian
+antea,12345678,Manager
+1,12345678,Librarian
 admin,admin,Administrator
