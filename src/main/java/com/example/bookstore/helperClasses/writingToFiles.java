@@ -104,7 +104,7 @@ public class writingToFiles {
         File file = new File("res/persons.txt");
         try {
             // Create the file if it does not exist
-                if (file.createNewFile()) {
+                if (file.exists()) {
 // If it exists, return the number of files (bills) in the directory
 
                     // Create a Scanner object to read the file
