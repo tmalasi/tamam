@@ -13,10 +13,6 @@ public class Book {
     private int stock; // The number of copies of the book in stock
 
     private LocalDate purchaseDate; // The date when the book was purchased
-
-    // A default constructor
-    public Book(){}
-
     // A constructor with isbn, title, purchase price, selling price, and category
     public Book(String isbn,String title,double purchasePrice,double sellPrice,String category) {
         this.isbn = isbn;
@@ -115,8 +111,14 @@ public class Book {
     }
 
     public void setSellPrice(double sellPrice) {
-        this.sellPrice = sellPrice;
+        // Ensure that sellPrice is greater than purchasePrice
+        if (sellPrice < purchasePrice) {
+            throw new IllegalArgumentException("Selling price must be greater than or equal to purchase price.");
+        } else {
+            this.sellPrice = sellPrice; // Sell price is valid
+        }
     }
+
 
     public void setAuthor(String author) {
         this.author = author;
@@ -157,7 +159,13 @@ public class Book {
     }
 
     public void setStock(int stock) {
-        this.stock = stock;
+        // Ensure that stock is within the range of 0 to 1
+        if (stock < 0 || stock > 1) {
+            throw new IllegalArgumentException("Stock must be between 0 and 1 (inclusive).");
+        } else {
+            this.stock = stock; // Stock is within the valid range
+        }
     }
+
 
 }
