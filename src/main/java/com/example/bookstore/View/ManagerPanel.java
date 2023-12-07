@@ -28,16 +28,20 @@ import com.example.bookstore.Models.*;
 import com.example.bookstore.helperClasses.Role;
 import com.example.bookstore.helperClasses.writingToFiles;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ManagerPanel extends BorderPane {
     MenuBar bar;
     public BooksView view = new BooksView(Controller.books);
     Background background;
+
     public ManagerPanel() {
 
         ObservableList<Librarian> librarians = FXCollections.observableArrayList();
 
-        for (Person person: Controller.people){
-            if (person instanceof Librarian){
+        for (Person person : Controller.people) {
+            if (person instanceof Librarian) {
                 librarians.add((Librarian) person);
             }
         }
@@ -47,7 +51,7 @@ public class ManagerPanel extends BorderPane {
                 CycleMethod.REPEAT,                  //cycling
                 new Stop(0, Color.web("#FFFFFF")),
                 new Stop(1, Color.web("#6C6C6CFF")))   //colors
-                ,null,null));
+                , null, null));
 
         setBackground(background);
 
@@ -79,17 +83,18 @@ public class ManagerPanel extends BorderPane {
         item4.setOnAction(actionEvent -> {
             setCenter(statsPanel(librarians));
         });
-        menu1.getItems().addAll(item2,item3);
+        menu1.getItems().addAll(item2, item3);
         menu2.getItems().addAll(item4);
 
         bar = new MenuBar();
         bar.setCursor(Cursor.HAND);
-        bar.getMenus().addAll(men,menu1,menu2);
+        bar.getMenus().addAll(men, menu1, menu2);
         bar.setStyle("-fx-background-color: lightgray;");
         VBox vBox = new VBox(bar);
         setTop(vBox);
     }
-    private GridPane addNewBook(){
+
+    private GridPane addNewBook() {
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
         grid.setVgap(8);
@@ -176,9 +181,9 @@ public class ManagerPanel extends BorderPane {
         // -fx-body-color: rgb(r, g, b);
         // with r, g, b integers between 0 and 255
         final StringBinding cssColorSpec = Bindings.createStringBinding(() -> String.format("-fx-body-color: rgb(%d, %d, %d);",
-                (int) (256*color.get().getRed()),
-                (int) (256*color.get().getGreen()),
-                (int) (256*color.get().getBlue())), color);
+                (int) (256 * color.get().getRed()),
+                (int) (256 * color.get().getGreen()),
+                (int) (256 * color.get().getBlue())), color);
 
         // bind the button's style property
         submitButton.styleProperty().bind(cssColorSpec);
@@ -219,7 +224,7 @@ public class ManagerPanel extends BorderPane {
                     alert.setContentText("Please make sure you don't enter any character in prices and stock fields");
                     alert.showAndWait();
                 }
-            }else {
+            } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("There is some error, please confirm all fields are filled!");
@@ -234,7 +239,7 @@ public class ManagerPanel extends BorderPane {
         return grid;
     }
 
-    private VBox statsPanel(ObservableList<Librarian> librarians){
+    private VBox statsPanel(ObservableList<Librarian> librarians) {
 
         VBox vBox = new VBox();
 
@@ -253,18 +258,26 @@ public class ManagerPanel extends BorderPane {
         totalBilledColumn.setCellValueFactory(new PropertyValueFactory<>("totalBilled"));
 
 
-        tableView.getColumns().addAll(ISBNColumn, titleColumn, roleColumn, totalBilledColumn);
+        List<TableColumn<Librarian, ?>> columnsArray = new ArrayList<>();
+        columnsArray.add(ISBNColumn);
+        columnsArray.add(titleColumn);
+        columnsArray.add(roleColumn);
+        columnsArray.add(totalBilledColumn);
+
+
+// Add all columns to the tableView
+        tableView.getColumns().addAll(columnsArray);
         tableView.setItems(librarians);
 
         Label lblHeading = new Label("List of Librarians");
         lblHeading.setStyle("-fx-font-size: 20px;");
-        vBox.getChildren().addAll(lblHeading,tableView);
+        vBox.getChildren().addAll(lblHeading, tableView);
         vBox.setSpacing(10);
         vBox.setPadding(new Insets(10));
         return vBox;
     }
 
-    private GridPane homePage(){
+    private GridPane homePage() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -272,8 +285,8 @@ public class ManagerPanel extends BorderPane {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Label welcomeLabel = new Label("Welcome to Manager Panel");
-        welcomeLabel.setFont(Font.font("Tahoma",FontWeight.EXTRA_BOLD,22));
-        grid.add(welcomeLabel,0,0);
+        welcomeLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 22));
+        grid.add(welcomeLabel, 0, 0);
 
         // Add labels and values for books sold, librarians, managers, and bill
         Label librarians = new Label("Number of Books Sold: ");

@@ -23,6 +23,10 @@ import com.example.bookstore.Models.Book;
 import com.example.bookstore.Models.Librarian;
 import com.example.bookstore.Models.Person;
 import com.example.bookstore.helperClasses.writingToFiles;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -106,6 +110,8 @@ public class BillView extends BorderPane{
     }
 
     private TableView<Book> billTable(){
+
+        List<TableColumn<Book, ?>> columns = new ArrayList<>();
         // Create a TableColumn object for ISBN
         TableColumn<Book, String> isbnColumn = new TableColumn<>("ISBN");
         // Bind the ISBN value from the Book object to the ISBN column
@@ -126,7 +132,25 @@ public class BillView extends BorderPane{
         // Bind the Sell Price value from the Book object to the Sell Price column
         sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
 
-        // Create a TableColumn object for Quantity
+        TableColumn<Book, Void> quantityColumn = getBookVoidTableColumn();
+        //Quodana
+
+        List<TableColumn<Book, ?>> columnsArray = new ArrayList<>();
+        columnsArray.add(isbnColumn);
+        columnsArray.add(titleColumn);
+        columnsArray.add(categoryColumn);
+        columnsArray.add(sellPriceColumn);
+        columnsArray.add(quantityColumn);
+
+// Add all columnsArray to the table
+        table.getColumns().addAll(columnsArray);
+        // Set the items of the table to books1
+        table.setItems(books1);
+        return table;
+    }
+
+    @NotNull
+    private TableColumn<Book, Void> getBookVoidTableColumn() {
         TableColumn<Book, Void> quantityColumn = new TableColumn<>("Quantity");
         // Define a callback function to create cells for the Quantity column
         Callback<TableColumn<Book, Void>, TableCell<Book, Void>> cellFactory1 = new Callback<>() {
@@ -149,12 +173,7 @@ public class BillView extends BorderPane{
         };
         // Set the cell factory for the Quantity column
         quantityColumn.setCellFactory(cellFactory1);
-
-        // Add all columns to the table
-        table.getColumns().addAll(isbnColumn, titleColumn, categoryColumn, sellPriceColumn, quantityColumn);
-        // Set the items of the table to books1
-        table.setItems(books1);
-        return table;
+        return quantityColumn;
     }
 
 
@@ -168,19 +187,30 @@ public class BillView extends BorderPane{
 
         TableView<Book> bookTable = new TableView<>();
         bookTable.setItems(books);
+        List<TableColumn<Book, ?>> columns = new ArrayList<>();
 
+// Assuming TableColumn types are TableColumn<Book, Void>
         TableColumn<Book, String> isbnColumn = new TableColumn<>("ISBN");
         isbnColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
+        columns.add(isbnColumn);
+
         TableColumn<Book, String> titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
+        columns.add(titleColumn);
+
         TableColumn<Book, String> categoryColumn = new TableColumn<>("Category");
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
+        columns.add(categoryColumn);
+
         TableColumn<Book, Double> sellPriceColumn = new TableColumn<>("Sell Price");
         sellPriceColumn.setCellValueFactory(new PropertyValueFactory<>("sellPrice"));
+        columns.add(sellPriceColumn);
+
         TableColumn<Book, Integer> stockColumn = new TableColumn<>("Stock");
         stockColumn.setCellValueFactory(new PropertyValueFactory<>("stock"));
+        columns.add(stockColumn);
 
-        bookTable.getColumns().addAll(isbnColumn, titleColumn, categoryColumn, sellPriceColumn, stockColumn);
+        bookTable.getColumns().addAll(columns);
 
         // Handle the double-click event on a row in the book table
         bookTable.setOnMouseClicked(e -> {

@@ -16,7 +16,10 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 import com.example.bookstore.Models.Book;
 
-public class BooksView extends VBox{
+import java.util.ArrayList;
+import java.util.List;
+
+public class BooksView extends VBox {
     private TableView<Book> tableView;
     private ObservableList<Book> books;
 
@@ -97,12 +100,23 @@ public class BooksView extends VBox{
         };
 
         actionColumn.setCellFactory(cellFactory);
-        tableView.getColumns().addAll(ISBNColumn, titleColumn, purchasePriceColumn, salesPriceColumn, categoryColumn, actionColumn);
+//Quodana
+        List<TableColumn<Book, ?>> columnsArray = new ArrayList<>();
+        columnsArray.add(ISBNColumn);
+        columnsArray.add(titleColumn);
+        columnsArray.add(purchasePriceColumn);
+        columnsArray.add(salesPriceColumn);
+        columnsArray.add(categoryColumn);
+        columnsArray.add(actionColumn);
+
+
+// Add all columns to the tableView
+        tableView.getColumns().addAll(columnsArray);
         tableView.setItems(books);
 
         Label lblHeading = new Label("List of Books");
         lblHeading.setStyle("-fx-font-size: 20px;");
-        getChildren().addAll(lblHeading,tableView);
+        getChildren().addAll(lblHeading, tableView);
         setSpacing(10);
         setPadding(new Insets(10));
     }
@@ -168,7 +182,7 @@ public class BooksView extends VBox{
         grid.add(new Label("Supplier"), 0, 3);
         grid.add(supplierField, 1, 3);
         grid.add(new Label("Purchased Date"), 0, 4);
-        grid.add(purchasedDate,1,4);
+        grid.add(purchasedDate, 1, 4);
         grid.add(new Label("Purchased Price"), 0, 5);
         grid.add(purchasedPriceField, 1, 5);
         grid.add(new Label("Original Price"), 0, 6);

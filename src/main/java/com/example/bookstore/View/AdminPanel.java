@@ -34,6 +34,7 @@ import java.time.LocalDate;
 public class AdminPanel extends BorderPane {
 
     MenuBar bar;
+    private Logger logger;
     public BooksView view = new BooksView(Controller.books);
     public PersonsView personsView = new PersonsView(Controller.people);
     public BillView billView = new BillView(Controller.books);
@@ -245,7 +246,7 @@ public class AdminPanel extends BorderPane {
                     alert.showAndWait();
                 } catch (Exception e) {
                     // Catch any exception and show error alert
-                    e.printStackTrace();
+                    logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Please make sure you don't enter any character in salary field");

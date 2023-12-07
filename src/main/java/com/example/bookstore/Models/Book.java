@@ -14,6 +14,8 @@ public class Book {
 
     private LocalDate purchaseDate; // The date when the book was purchased
     // A constructor with isbn, title, purchase price, selling price, and category
+    // A default constructor
+    public Book(){}
     public Book(String isbn,String title,double purchasePrice,double sellPrice,String category) {
         this.isbn = isbn;
         this.title = title;
@@ -160,8 +162,8 @@ public class Book {
 
     public void setStock(int stock) {
         // Ensure that stock is within the range of 0 to 1
-        if (stock < 0 || stock > 1) {
-            throw new IllegalArgumentException("Stock must be between 0 and 1 (inclusive).");
+        if (stock < 0) {
+            throw new IllegalArgumentException("Stock must be more than 0");
         } else {
             this.stock = stock; // Stock is within the valid range
         }

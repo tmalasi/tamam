@@ -19,6 +19,9 @@ import com.example.bookstore.Models.Person;
 import com.example.bookstore.helperClasses.Role;
 import javafx.util.Callback;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PersonsView extends VBox{
     private TableView<Person> tableView;
 
@@ -95,7 +98,18 @@ public class PersonsView extends VBox{
         };
 
         actionColumn.setCellFactory(cellFactory);
-        tableView.getColumns().addAll(ISBNColumn, titleColumn, purchasePriceColumn, salesPriceColumn, actionColumn);
+
+        List<TableColumn<Person, ?>> columnsArray = new ArrayList<>();
+
+        columnsArray.add(ISBNColumn);
+        columnsArray.add(titleColumn);
+        columnsArray.add(purchasePriceColumn);
+        columnsArray.add(salesPriceColumn);
+        columnsArray.add(actionColumn);
+
+// Add all columns to the tableView
+        tableView.getColumns().addAll(columnsArray);
+
         tableView.setItems(people);
 
         Label lblHeading = new Label("List of Employees");
