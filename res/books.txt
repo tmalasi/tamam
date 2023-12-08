@@ -1,6 +1,6 @@
 9781428108325,Pride and Prejudice,10.99,9.99,15.99,Jane Austin,Romance,Amazon,12,2022-02-09
 123-123-123,Atlas of the Heart,78.0,80.0,100.0,Brene Brown,Self-Help,Amazon,3,2023-02-07
 123-123-123,The Subtle Art of Not Giving a Fu*k,75.0,75.0,100.0,Mark Manson,Self-Help,Amazon,12,2023-01-03
-123-123-123,The 48 Laws of Power,65.0,60.0,100.0,Robert Greene,Self-Help,Amazon,38,2023-02-01
+123-123-123,The 48 Laws of Power,65.0,60.0,100.0,Robert Greene,Self-Help,Amazon,37,2023-02-01
 364,The rich man,32.0,21.0,45.0,Tea,Comedy,Tea,1,2023-11-06
-454,trial,1121.0,222.0,2426.0,tea,testing,tea,1,2023-11-08
+454,trial,1121.0,222.0,2426.0,tea,testing,tea,10,2023-11-08

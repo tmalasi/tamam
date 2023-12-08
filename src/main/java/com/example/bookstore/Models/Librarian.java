@@ -31,9 +31,16 @@ public class Librarian extends Person {
     }
 
     // setter method for totalBilled
+    //test:eAttempt to set a negative totalBilled value.
+    //Set a valid positive totalBilled value.
+
     public void setTotalBilled(double totalBilled) {
         // setting the value of totalBilled with the provided value
-        this.totalBilled = totalBilled;
+        if (totalBilled < 0) {
+            throw new IllegalArgumentException("cant be negative");
+        } else {
+            this.totalBilled = totalBilled;
+        }
     }
 
     // overriding the toString method from the super class (Person)

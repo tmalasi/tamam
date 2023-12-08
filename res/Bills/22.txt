@@ -1,0 +1,4 @@
+Bill Id: 22
+Date: 08-12-2023
+1: ISBN: 454 ,Title: trial ,Author: tea
+Total: 2426.0

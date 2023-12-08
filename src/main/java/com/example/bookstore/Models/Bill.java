@@ -55,8 +55,17 @@ public class Bill {
     }
 
     // Setter method for quantity
+    //test cases:
+    //Set a negative quantity using setQuantity() and ensure it throws an IllegalArgumentException.
+    //test cases bvt:
+    //Test case 1: Set the quantity to the minimum valid value (0).
+    //Set the quantity to the maximum valid value.
     public void setQuantity(int quantity) {
-        this.quantity = quantity;
+        if (quantity < 1 || quantity > 10) {
+            throw new IllegalArgumentException("Quantity must be more than 0 and less then 10");
+        } else {
+            this.quantity = quantity; // Quantity is within the valid range
+        }
     }
 
     // Getter method for total amount
@@ -65,8 +74,14 @@ public class Bill {
     }
 
     // Setter method for total amount
+   //test Set a negative quantity using setQuantity() and ensure it throws an IllegalArgumentException
+   // Set the total amount to the minimum valid value (0.0).
     public void setTotalAmount(double totalAmount) {
-        this.totalAmount = totalAmount;
+        if (totalAmount < 0) {
+            throw new IllegalArgumentException("Amount must be more than 0");
+        } else {
+            this.totalAmount = totalAmount; // total amount is within the valid range
+        }
     }
 
     // Getter method for date of transaction

@@ -20,6 +20,8 @@ public class writingToFiles {
     //The program decides with which credentials in the text the user's input matches with
     //In the roles.txt file,the role of the person is stored as the third element
     //The method will return data[2] for this reason.
+
+    //test read credentials for : valid , invalid password , not existent username
     public static String readCredentials(String username, String password) {
         // Create a file object for the roles file
         File file = new File("res/roles.txt");
@@ -46,6 +48,9 @@ public class writingToFiles {
     }
 
     //Method used to write roles in the roles.txt file
+
+    //Test for roles file is created successfully, roles file contains the correct number of lines,
+    // roles file contains the expected data.
     public static void writeRoles() {
         // Create a file object for the roles file
         File file = new File("res/roles.txt");
@@ -72,6 +77,9 @@ public class writingToFiles {
     }
 
     //Method used to write books in the books.txt file
+    //Test if the method returns a non-null ObservableList,
+    // list contains the correct number of books.
+    //if the book attributes are correctly populated.
     public static ObservableList<Book> getBooks(){
         // Create an ObservableList to store the books
         ObservableList<Book> books = FXCollections.observableArrayList();
@@ -98,6 +106,7 @@ public class writingToFiles {
         return books;
     }
 
+    //Test same with books
     public static ObservableList<Person> getPersons(){
         // Create an ObservableList to store the persons
         ObservableList<Person> people = FXCollections.observableArrayList();
@@ -134,6 +143,7 @@ public class writingToFiles {
         return people;
     }
 
+    //Test Check if the method returns the correct number of librarians.
     public static String getNumberOfLibrarians(){
         // retrieve list of people from the BooksPersonsController
         ObservableList<Person> people = Controller.people;
@@ -149,6 +159,7 @@ public class writingToFiles {
         return String.valueOf(numberOfLibrarians);
     }
 
+    //Test Check if the method returns the correct number of managers
     public static String getNumberOfManagers(){
         // retrieve list of people from the BooksPersonsController
         ObservableList<Person> people = Controller.people;
@@ -164,6 +175,8 @@ public class writingToFiles {
         return String.valueOf(numberOfManagers);
     }
 
+    //Test Check if the method returns the correct number of bills.
+    //Check if the method handles the absence of the Bills directory.
     public static int getNumberOfBills(){
 // Create a File object representing the directory "res/Bills"
         File file = new File("res/Bills");
@@ -180,6 +193,9 @@ public class writingToFiles {
         return 0;
     }
 
+    //Test check if the bill file contains the correct header information.
+    //if the bill file contains the correct book information.
+    //if the total bill is correctly written.
     public static void writeBill(String billId, double totalBill, ObservableList<Book> books){
         // Create a File object representing the bill file
         File file = new File("res/Bills/" + billId + ".txt");
@@ -209,6 +225,8 @@ public class writingToFiles {
         }
     }
 
+    //Test Check if the method returns the correct total bill.
+    //Test Check if the method handles the absence of the totalBill file.
     public static double getTotalBill(){
         File file = new File("res/totalBill.bin"); // Create a file object with the file path "res/totalBill.bin"
         if (file.exists()) { // Check if the file exists
@@ -222,6 +240,8 @@ public class writingToFiles {
         return 0; // Return 0 if the file does not exist
     }
 
+    //Test Check if the method returns the correct total cost.
+    //Test Check if the method handles the absence of the totalCost file.
     public static double getTotalCost(){
         File file = new File("res/totalCost.bin"); // Create a file object with the file path "res/totalCost.bin"
         if (file.exists()) { // Check if the file exists
@@ -235,7 +255,8 @@ public class writingToFiles {
         return 0; // Return 0 if the file does not exist
     }
 
-
+    //Test Check if the method returns the correct number of books sold.
+    //Test Check if the method handles the absence of the booksSold file.
     public static int getBooksSold(){
 // Check if the file "res/booksSold.bin" exists
         File file = new File("res/booksSold.bin");
@@ -254,6 +275,8 @@ public class writingToFiles {
         return 0;
     }
 
+    //Test Check if the books file is created successfully.
+    //Test Check if the books file contains the correct book information.
     public static void writeBooks(){
         // Create the file "res/books.txt"
         File file = new File("res/books.txt");
@@ -273,6 +296,8 @@ public class writingToFiles {
     }
 
 
+    //Test Check if the persons file is created successfully.
+    //Test Check if the persons file contains the correct person information.
     public static void writePersons(){
         File file = new File("res/persons.txt");
         try {
@@ -286,6 +311,8 @@ public class writingToFiles {
         }
     }
 
+    //Test Check if the totalBill file is created successfully.
+    //Test Check if the totalBill file contains the correct total.
     public static void writeTotalBill(double total){
         File file = new File("res/totalBill.bin");
         try {
@@ -299,6 +326,8 @@ public class writingToFiles {
         }
     }
 
+    //Test Check if the totalCost file is created successfully.
+    //Test Check if the totalCost file contains the correct total.
     public static void writeTotalCost(double total){
         File file = new File("res/totalCost.bin");
         try {
@@ -312,6 +341,8 @@ public class writingToFiles {
         }
     }
 
+    //Test Check if the booksSold file is created successfully.
+    //Test  Check if the booksSold file contains the correct quantity.
     public static void writeBooksSold(int quantity){
         File file = new File("res/booksSold.bin");
         try {

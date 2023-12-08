@@ -13,9 +13,10 @@ public class Book {
     private int stock; // The number of copies of the book in stock
 
     private LocalDate purchaseDate; // The date when the book was purchased
-    // A constructor with isbn, title, purchase price, selling price, and category
     // A default constructor
     public Book(){}
+    // A constructor with isbn, title, purchase price, selling price, and category
+
     public Book(String isbn,String title,double purchasePrice,double sellPrice,String category) {
         this.isbn = isbn;
         this.title = title;
@@ -60,8 +61,15 @@ public class Book {
     }
 
     // Setter method for totalPurchased
+    //test:eAttempt to set a negative total purchased value.
+    //Set a valid positive total purchased value.
+
     public void setTotalPurchased(double totalPurchased) {
-        this.totalPurchased = totalPurchased;
+        if (totalPurchased < 0) {
+        throw new IllegalArgumentException("cant be negative");
+    } else {
+            this.totalPurchased = totalPurchased;
+    }
     }
 
     // Getter method for title
@@ -100,18 +108,33 @@ public class Book {
         this.title = title;
     }
 
+//Test Attempt to set a negative purchase price.
+// Set a valid positive purchase price.
     public void setPurchasePrice(double purchasePrice) {
-        this.purchasePrice = purchasePrice;
+        if (purchasePrice < 0) {
+            throw new IllegalArgumentException("cant be negative");
+        } else {
+            this.purchasePrice = purchasePrice; // Stock is within the valid range
+        }
     }
 
     public double getOriginalPrice() {
         return originalPrice;
     }
 
+    //Test Attempt to set a negative original price.
+    //Set a valid positive original price.
+
     public void setOriginalPrice(double originalPrice) {
-        this.originalPrice = originalPrice;
+        if (originalPrice < 0) {
+            throw new IllegalArgumentException("cant be negative");
+        } else {
+            this.originalPrice = originalPrice;
+        }
     }
 
+    //Test Attempt to set a sell price less than the purchase price.
+    //Test Set a valid sell price greater than or equal to the purchase price
     public void setSellPrice(double sellPrice) {
         // Ensure that sellPrice is greater than purchasePrice
         if (sellPrice < purchasePrice) {
@@ -160,8 +183,9 @@ public class Book {
         return stock;
     }
 
+    //Test  Attempt to set a negative stock value.
+    // Set a valid positive stock value.
     public void setStock(int stock) {
-        // Ensure that stock is within the range of 0 to 1
         if (stock < 0) {
             throw new IllegalArgumentException("Stock must be more than 0");
         } else {

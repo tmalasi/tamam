@@ -42,8 +42,13 @@ public abstract class Person {
         return salary;
     }
 
+    //test
     public void setSalary(int salary) {
-        this.salary = salary;
+        if (salary < 0) {
+            throw new IllegalArgumentException("cant be negative");
+        } else {
+            this.salary = salary;
+        }
     }
 
     public String getUserName() {
@@ -58,9 +63,14 @@ public abstract class Person {
         return password;
     }
 
+
+    //test +add req
     public void setPassword(String password) {
-        this.password = password;
-    }
+        if (password.length() < 3) {
+            throw new IllegalArgumentException("Password must be at least 3 characters long.");
+        } else {
+            this.password = password;
+        }}
 
     public Role getRole() {
         return role;
