@@ -1,0 +1,4 @@
+Bill Id: 23
+Date: 10-12-2023
+1: ISBN: 364 ,Title: The rich man ,Author: Tea
+Total: 45.0

@@ -23,7 +23,7 @@ import com.example.bookstore.Models.Book;
 import com.example.bookstore.Models.Librarian;
 import com.example.bookstore.Models.Person;
 import com.example.bookstore.helperClasses.writingToFiles;
-import org.jetbrains.annotations.NotNull;
+//import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class BillView extends BorderPane{
     private TableView<Book> table = new TableView<>();
     private AtomicInteger quantity = new AtomicInteger();
     private double totalPrice = 0.0;
-    private int billId = writingToFiles.getNumberOfBills();
+    private int billId = writingToFiles.getNumberOfBills("res/Bills");
     private final ObservableList<Book> books1 = FXCollections.observableArrayList();
     private Label totalPriceLabel = new Label("Total: $" + totalPrice);
 
@@ -149,7 +149,7 @@ public class BillView extends BorderPane{
         return table;
     }
 
-    @NotNull
+//    @NotNull
     private TableColumn<Book, Void> getBookVoidTableColumn() {
         TableColumn<Book, Void> quantityColumn = new TableColumn<>("Quantity");
         // Define a callback function to create cells for the Quantity column

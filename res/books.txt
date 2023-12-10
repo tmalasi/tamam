@@ -4,3 +4,4 @@
 123-123-123,The 48 Laws of Power,65.0,60.0,100.0,Robert Greene,Self-Help,Amazon,37,2023-02-01
 364,The rich man,32.0,21.0,45.0,Tea,Comedy,Tea,1,2023-11-06
 454,trial,1121.0,222.0,2426.0,tea,testing,tea,10,2023-11-08
+SampleTitle,SampleAuthor,20.0,15.0,5.0,SampleGenre,SamplePublisher,SampleLanguage,2021,2022-01-01

@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerPanel extends BorderPane {
+    private Logger logger;
     MenuBar bar;
     public BooksView view = new BooksView(Controller.books);
     Background background;
@@ -172,7 +173,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(stockInput, 1, 9);
 
         Button submitButton = new Button("Submit");
-        final Color startColor = Color.web("#6C6C6CFF");
+        final Color startColor = Color.web("#89CFF0");
         final Color endColor = Color.web("#FFFFFF");
 
         final ObjectProperty<Color> color = new SimpleObjectProperty<>(Color.web("#FFFFFF"));
@@ -219,6 +220,7 @@ public class ManagerPanel extends BorderPane {
                     alert.setContentText("Book is added successfully!");
                     alert.showAndWait();
                 } catch (Exception e) {
+                    logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Please make sure you don't enter any character in prices and stock fields");
@@ -291,11 +293,11 @@ public class ManagerPanel extends BorderPane {
         // Add labels and values for books sold, librarians, managers, and bill
         Label librarians = new Label("Number of Books Sold: ");
         librarians.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
-        Label librariansValue = new Label(String.valueOf(writingToFiles.getBooksSold()));
+        Label librariansValue = new Label(String.valueOf(writingToFiles.getBooksSold("res/booksSold.bin")));
         librariansValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         Label managers = new Label("Total Earning: ");
         managers.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
-        Label managersValue = new Label("$" + writingToFiles.getTotalBill());
+        Label managersValue = new Label("$" + writingToFiles.getTotalBill("res/totalBill.bin"));
         managersValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
 
         // Add the labels to the grid

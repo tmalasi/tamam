@@ -47,8 +47,8 @@ public class AdminPanel extends BorderPane {
         background = new Background(new BackgroundFill(new LinearGradient(
                 0, 0, 1, 1, true,                      //sizing
                 CycleMethod.REPEAT,                  //cycling
-                new Stop(0, Color.web("#FFFFFF")),
-                new Stop(1, Color.web("#6C6C6CFF")))   //colors
+                new Stop(0, Color.web("#89CFF0")),
+                new Stop(1, Color.web("#ffffff")))   //colors
                 ,null,null));
         setBackground(background);
 
@@ -411,6 +411,7 @@ public class AdminPanel extends BorderPane {
                     alert.setContentText("Book is added successfully!");
                     alert.showAndWait();
                 } catch (Exception e) {
+                    logger.log(e.getMessage());
                     // Show an error message if the prices or stock fields contain non-numeric characters
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -459,7 +460,7 @@ public class AdminPanel extends BorderPane {
         managersValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         Label bill = new Label("Total Income: ");
         bill.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
-        Label billValue = new Label(String.valueOf(writingToFiles.getTotalBill()));
+        Label billValue = new Label(String.valueOf(writingToFiles.getTotalBill("res/totalBill.bin")));
         billValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
 
         // Add the labels to the grid

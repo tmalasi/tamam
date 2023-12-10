@@ -50,10 +50,9 @@ public class mainApplication extends Application {
             // Write the data to files when the application is closed
             writingToFiles.writeBooks();
             writingToFiles.writePersons();
-            writingToFiles.writeRoles();
-            writingToFiles.writeTotalBill(BillView.total);
+            writingToFiles.writeRoles("res/roles.txt");
+            writingToFiles.writeTotalBill(BillView.total, "res/totalBill.bin");
             writingToFiles.writeTotalCost(Controller.totalCost);
-            writingToFiles.writeBooksSold(BillView.booksSold);
         });
         primaryStage.show(); // Show the stage
     }

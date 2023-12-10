@@ -1,0 +1,4 @@
+Bill Id: 25
+Date: 10-12-2023
+1: ISBN: SampleTitle ,Title: SampleAuthor ,Author: SampleGenre
+Total: 5.0
