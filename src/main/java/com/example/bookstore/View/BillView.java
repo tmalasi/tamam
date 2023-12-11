@@ -219,6 +219,8 @@ public class BillView extends BorderPane{
                 // Get the selected book from the table
                 Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
                 // Check if the selected book is in stock
+
+                //maybe a method
                 if (selectedBook.getStock() > 0) {
                     // Show a text input dialog to enter the quantity of books to add
                     TextInputDialog dialog = new TextInputDialog("1");

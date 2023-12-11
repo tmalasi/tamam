@@ -147,6 +147,7 @@ public class writingToFiles {
         return people;
     }
 
+    //mock controller
     //Test Check if the method returns the correct number of librarians.
     public static String getNumberOfLibrarians(){
         // retrieve list of people from the BooksPersonsController

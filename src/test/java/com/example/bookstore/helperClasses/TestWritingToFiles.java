@@ -112,7 +112,7 @@ class TestWritingToFiles {
     @Test
     public void testGetPersons_ContainsTheCorrectNumberOfPersons(){
         ObservableList<Person> people=writingToFiles.getPersons();
-        assertEquals(6,people.size());
+        assertEquals(7,people.size());
     }
 
     @Test
@@ -129,7 +129,7 @@ class TestWritingToFiles {
     @Test
     public void testGetNumberOfLibrarians_inWrittingToFiles(){
         String numberOfLibrarians = writingToFiles.getNumberOfLibrarians();
-        assertEquals("3",numberOfLibrarians);
+        assertEquals("4",numberOfLibrarians);
     }
 
 

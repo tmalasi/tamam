@@ -22,6 +22,7 @@ import javafx.util.Callback;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class PersonsView extends VBox{
     private TableView<Person> tableView;
 

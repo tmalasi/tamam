@@ -211,6 +211,7 @@ public class AdminPanel extends BorderPane {
             timeline.play();
 
             // Check if all fields are filled
+            //might crate as method and test
             if (!(usernameField.getText().isEmpty() || nameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
                     birthdayField.getValue() == null || salaryField.getText().isEmpty() || phoneField.getText().isEmpty() || roleComboBox.getSelectionModel().isEmpty())) {
                 try {
@@ -246,7 +247,7 @@ public class AdminPanel extends BorderPane {
                     alert.showAndWait();
                 } catch (Exception e) {
                     // Catch any exception and show error alert
-                    logger.log(e.getMessage());
+                    Logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Please make sure you don't enter any character in salary field");
@@ -381,6 +382,7 @@ public class AdminPanel extends BorderPane {
             timeline.play();
 
             // Check if all the inputs are filled
+            //same method
             if (!(isbn.isEmpty() || title.isEmpty() || purchasedPrice.isEmpty() || sellingPrice.isEmpty() ||
                     originalPrice.isEmpty() || author.isEmpty() || category.isEmpty() || supplier.isEmpty() ||
                     stock.isEmpty() || purchasedDate == null)) {
@@ -411,7 +413,7 @@ public class AdminPanel extends BorderPane {
                     alert.setContentText("Book is added successfully!");
                     alert.showAndWait();
                 } catch (Exception e) {
-                    logger.log(e.getMessage());
+                    Logger.log(e.getMessage());
                     // Show an error message if the prices or stock fields contain non-numeric characters
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
@@ -419,6 +421,7 @@ public class AdminPanel extends BorderPane {
                     alert.showAndWait();
                 }
             } else {
+
                 // Show an error message if any of the inputs are not filled
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
