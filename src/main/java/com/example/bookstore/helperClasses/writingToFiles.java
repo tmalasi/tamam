@@ -52,8 +52,8 @@ public class writingToFiles {
     //Test for exceptions.
     public static void writeRoles(String filePath, ArrayList<Person> peopleList) {
         // Create a file object for the roles file
-        File file = new File(filePath);
         try {
+            File file = new File(filePath);
             // Create a FileWriter object to write to the file
             FileWriter writer = new FileWriter(file);
             //As the first line we need to write some credentials that we ourselves will use to log in

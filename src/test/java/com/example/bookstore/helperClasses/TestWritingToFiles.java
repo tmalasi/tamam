@@ -16,6 +16,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class TestWritingToFiles {
+
+    @Test
+    public void testReadCredentials_CheckFileIsCreatedCorrectlly() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1.getUserName() + "," + person1.getPassword() + "," + person1.getRole().toString());
+            writer.newLine();
+            writer.write(person2.getUserName() + "," + person2.getPassword() + "," + person2.getRole().toString());
+        }
+        writingToFiles.readCredentials(null,null,tempFile.toString());
+        assertFileExistsAndNotEmpty(Path.of(tempFile.toString()));
+        tempFile.deleteOnExit();
+    }
     @Test
     public void testReadCredentials_ValidCredentials_MatchFound() throws IOException {
         File tempFile = File.createTempFile( "prefix", "txt");
@@ -100,28 +115,55 @@ class TestWritingToFiles {
     }
 
     @Test
-    public void testReadCredentials_ExceptionThrown() throws IOException {
-
+    public void testReadCredentials_ExceptionThrown() {
         String role = writingToFiles.readCredentials(null, null, null);
         assertNull(role);
     }
 
 
     @Test
-    public void testWriteRoles_CheckFileIsCreatedCorrectlly(){
-//        Path tempFile = createTempFilePath();
-//        writingToFiles.writeRoles(tempFile.toString());
-//        assertFileExistsAndNotEmpty(tempFile);
-//        deleteFile(tempFile);
+    public void testWriteRoles_CheckFileIsCreatedCorrectlly() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        ArrayList<Person> personArrayList= new ArrayList<>();
+        writingToFiles.writeRoles(tempFile.toString(),personArrayList);
+        assertFileExistsAndNotEmpty(Path.of(tempFile.toString()));
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testWriteRoles_CheckContentOfFileWhenYouDontWriteAnything() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        ArrayList<Person> personArrayList= new ArrayList<>();
+        writingToFiles.writeRoles(tempFile.toString(),personArrayList);
+        String fileContent= readFileContents(tempFile.toString());
+        assertEquals("admin,admin,Administrator\n", fileContent);
+        tempFile.deleteOnExit();
 
     }
     @Test
-    public void testWriteRoles_CheckContentOfFile(){
-//        Path tempFile = createTempFilePath();
-//        writingToFiles.writeRoles(tempFile.toString());
-//        assertFileExistsAndNotEmpty(tempFile);
-//        assertFileContent(tempFile, "admin,admin,Administrator");
-//        deleteFile(tempFile);
+    public void testWriteRoles_CheckContentOfFile() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+        Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+        ArrayList<Person> personArrayList= new ArrayList<>();
+        personArrayList.add(person1);
+        personArrayList.add(person2);
+        writingToFiles.writeRoles(tempFile.toString(),personArrayList);
+        String fileContent= readFileContents(tempFile.toString());
+        assertEquals("admin,admin,Administrator\n" +
+                "SampleAddress,SamplePhone,Librarian\n" +
+                "Author 2,2024,Manager\n", fileContent);
+        tempFile.deleteOnExit();
+
+    }
+
+    @Test
+    public void testWriteRoles_ThrowException() {
+        ArrayList<Person> personArrayList= new ArrayList<>();
+        assertThrows(RuntimeException.class, () -> {
+            writingToFiles.writeRoles(null, personArrayList);
+        });
+
     }
 
     @Test
