@@ -1,6 +1,7 @@
 package com.example.bookstore;
 
 
+import com.example.bookstore.Models.Book;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -9,6 +10,8 @@ import com.example.bookstore.Models.Librarian;
 import com.example.bookstore.Models.Person;
 import com.example.bookstore.helperClasses.writingToFiles;
 import com.example.bookstore.View.*;
+
+import java.util.ArrayList;
 
 public class mainApplication extends Application {
 
@@ -28,7 +31,7 @@ public class mainApplication extends Application {
         page.btn.setOnAction(actionEvent -> {
             String username = page.userTextField.getText(); // Get the entered username
             String password = page.pwBox.getText(); // Get the entered password
-            String Role = writingToFiles.readCredentials(username, password); // Get the user's role based on the entered credentials
+            String Role = writingToFiles.readCredentials(username, password, "res/roles.txt"); // Get the user's role based on the entered credentials
             assert Role != null;
             if (Role.equalsIgnoreCase("Administrator")) {
                 scene.setRoot(panel); // Set the scene's root to the AdminPanel if the user is an Administrator
@@ -48,11 +51,13 @@ public class mainApplication extends Application {
         primaryStage.setScene(scene); // Set the stage's scene to the Scene object created earlier
         primaryStage.setOnCloseRequest(event -> {
             // Write the data to files when the application is closed
-            writingToFiles.writeBooks();
-            writingToFiles.writePersons();
-            writingToFiles.writeRoles("res/roles.txt");
+            ArrayList<Book> bookList = new ArrayList<>(Controller.books);
+            ArrayList<Person> peopleList = new ArrayList<>(Controller.people);
+            writingToFiles.writeBooks("res/books.txt",bookList );
+            writingToFiles.writePersons("res/persons.txt", peopleList);
+            writingToFiles.writeRoles("res/roles.txt",  peopleList);
             writingToFiles.writeTotalBill(BillView.total, "res/totalBill.bin");
-            writingToFiles.writeTotalCost(Controller.totalCost);
+            writingToFiles.writeTotalCost(Controller.totalCost, "res/totalCost.bin");
         });
         primaryStage.show(); // Show the stage
     }

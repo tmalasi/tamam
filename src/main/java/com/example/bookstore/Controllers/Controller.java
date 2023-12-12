@@ -12,10 +12,10 @@ import com.example.bookstore.helperClasses.writingToFiles;
 public class Controller {
 
     // ObservableList to store the books data
-    public static ObservableList<Book> books = writingToFiles.getBooks();
+    public static ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
 
     // ObservableList to store the persons data
-    public static ObservableList<Person> people = writingToFiles.getPersons();
+    public static ObservableList<Person> people = writingToFiles.getPersons("res/persons.txt");
 
     // Total cost of books
     public static double totalCost = writingToFiles.getTotalCost("res/totalCost.bin");

@@ -1,6 +1,7 @@
 package com.example.bookstore.View;
 
 
+import com.example.bookstore.Models.*;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -22,19 +23,15 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import com.example.bookstore.Controllers.Controller;
-import com.example.bookstore.Models.Administrator;
-import com.example.bookstore.Models.Book;
-import com.example.bookstore.Models.Librarian;
-import com.example.bookstore.Models.Manager;
 import com.example.bookstore.helperClasses.Role;
 import com.example.bookstore.helperClasses.writingToFiles;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class AdminPanel extends BorderPane {
 
     MenuBar bar;
-    private Logger logger;
     public BooksView view = new BooksView(Controller.books);
     public PersonsView personsView = new PersonsView(Controller.people);
     public BillView billView = new BillView(Controller.books);
@@ -448,6 +445,8 @@ public class AdminPanel extends BorderPane {
         welcomeLabel.setFont(Font.font("Tahoma",FontWeight.EXTRA_BOLD,22));
         grid.add(welcomeLabel,0,0);
 
+        ///
+        ArrayList<Person> peopleList = new ArrayList<>(Controller.people);
         // Add labels and values for books sold, librarians, managers, and bill
         Label TotalCost = new Label("Total Cost: ");
         TotalCost.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
@@ -455,11 +454,12 @@ public class AdminPanel extends BorderPane {
         TotalCostValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         Label librarians = new Label("Librarians: ");
         librarians.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
-        Label librariansValue = new Label(writingToFiles.getNumberOfLibrarians());
+        Label librariansValue = new Label(writingToFiles.getNumberOfLibrarians(peopleList));
         librariansValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         Label managers = new Label("Managers: ");
         managers.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
-        Label managersValue = new Label(writingToFiles.getNumberOfManagers());
+        ///////
+        Label managersValue = new Label(writingToFiles.getNumberOfManagers(peopleList));
         managersValue.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));
         Label bill = new Label("Total Income: ");
         bill.setFont(Font.font("Tahoma", FontWeight.BOLD, 14));

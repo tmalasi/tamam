@@ -3,15 +3,12 @@ package com.example.bookstore.helperClasses;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import com.example.bookstore.Controllers.Controller;
 import com.example.bookstore.Models.*;
 
 import java.io.*;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Calendar;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class writingToFiles {
 
@@ -23,9 +20,9 @@ public class writingToFiles {
 
     //test read credentials for : valid , invalid password , not existent username
     //Test for exception!
-    public static String readCredentials(String username, String password) {
+    public static String readCredentials(String username, String password, String filepath) {
         // Create a file object for the roles file
-        File file = new File("res/roles.txt");
+        File file = new File(filepath);
 
         try {
             // Create a Scanner object to read the file
@@ -54,10 +51,9 @@ public class writingToFiles {
     // roles file contains the expected data.
 
     //Test for exceptions.
-    public static void writeRoles(String filePath) {
+    public static void writeRoles(String filePath, ArrayList<Person> peopleList) {
         // Create a file object for the roles file
         File file = new File(filePath);
-
         try {
             // Create a FileWriter object to write to the file
             FileWriter writer = new FileWriter(file);
@@ -68,7 +64,7 @@ public class writingToFiles {
             //information from another method called getPersons.
             //Accessing it through the Controller component we write
             //each person's username, password, and role in separate lines
-            for (Person person : Controller.people) {
+            for (Person person : peopleList) {
                 writer.write("\n" + person.getUserName() + "," + person.getPassword() + "," + person.getRole().toString());
             }
             // Close the writer to save the file
@@ -84,11 +80,11 @@ public class writingToFiles {
     //Test if the method returns a non-null ObservableList,
     // list contains the correct number of books.
     //if the book attributes are correctly populated.!!!
-    public static ObservableList<Book> getBooks(){
+    public static ObservableList<Book> getBooks( String filepath){
         // Create an ObservableList to store the books
         ObservableList<Book> books = FXCollections.observableArrayList();
         // Define the file location for the books data
-        File file = new File("res/books.txt");
+        File file = new File( filepath);
         try {
             // Check if the file has been created
             if (file.exists()){
@@ -111,11 +107,11 @@ public class writingToFiles {
     }
 
     //Test same with books !!
-    public static ObservableList<Person> getPersons(){
+    public static ObservableList<Person> getPersons(String filepath){
         // Create an ObservableList to store the persons
         ObservableList<Person> people = FXCollections.observableArrayList();
         // Define the file location for the persons data
-        File file = new File("res/persons.txt");
+        File file = new File(filepath);
         try {
             // Create the file if it does not exist
                 if (file.exists()) {
@@ -149,12 +145,11 @@ public class writingToFiles {
 
     //mock controller
     //Test Check if the method returns the correct number of librarians.
-    public static String getNumberOfLibrarians(){
+    public static String getNumberOfLibrarians(ArrayList<Person> peopleList){
         // retrieve list of people from the BooksPersonsController
-        ObservableList<Person> people = Controller.people;
         int numberOfLibrarians = 0;
         // iterate over each person in the list
-        for (Person person: people) {
+        for (Person person: peopleList) {
             // check if the person is an instance of Librarian
             if (person instanceof Librarian){
                 numberOfLibrarians++;
@@ -165,12 +160,11 @@ public class writingToFiles {
     }
 
     //Test Check if the method returns the correct number of managers
-    public static String getNumberOfManagers(){
+    public static String getNumberOfManagers(ArrayList <Person> peopleList){
         // retrieve list of people from the BooksPersonsController
-        ObservableList<Person> people = Controller.people;
         int numberOfManagers = 0;
         // iterate over each person in the list
-        for (Person person: people) {
+        for (Person person: peopleList) {
             // check if the person is an instance of Manager
             if (person instanceof Manager){
                 numberOfManagers++;
@@ -280,14 +274,14 @@ public class writingToFiles {
     }
 
     //Test Check if the books file contains the correct book information.
-    public static void writeBooks(){
+    public static void writeBooks(String filepath, ArrayList<Book> bookArrayList){
         // Create the file "res/books.txt"
-        File file = new File("res/books.txt");
+        File file = new File(filepath);
         try {
             // Create a FileWriter instance to write the data to the file
             FileWriter writer = new FileWriter(file);
             // Write each book's information to the file
-            for (Book book: Controller.books){
+            for (Book book: bookArrayList){
                 writer.write(book.toString() + "\n");
             }
             // Close the FileWriter
@@ -300,11 +294,12 @@ public class writingToFiles {
 
 
     //Test Check if the persons file contains the correct person information.
-    public static void writePersons(){
-        File file = new File("res/persons.txt");
+    //mockfilewriter
+    public static void writePersons(String filepath, ArrayList<Person> personArrayList){
+        File file = new File(filepath);
         try {
             FileWriter writer = new FileWriter(file);
-            for (Person person: Controller.people){
+            for (Person person: personArrayList){
                 writer.write(person.toString() + "\n");
             }
             writer.close();
@@ -328,8 +323,8 @@ public class writingToFiles {
     }
 
     //Test Check if the totalCost file contains the correct total.
-    public static void writeTotalCost(double total){
-        File file = new File("res/totalCost.bin");
+    public static void writeTotalCost(double total, String filepath){
+        File file = new File(filepath);
         try {
             FileOutputStream fos = new FileOutputStream(file);
             DataOutputStream dos = new DataOutputStream(fos);
