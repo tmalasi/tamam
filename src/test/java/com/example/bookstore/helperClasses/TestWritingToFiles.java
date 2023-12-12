@@ -17,51 +17,96 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TestWritingToFiles {
     @Test
-    public void testReadCredentials_ValidCredentials_MatchFound() {
-        try{
-        String username = "admin";
-        String password = "admin";
-
-        String role = writingToFiles.readCredentials(username, password, "res/roles.txt");
-        assertEquals("Administrator", role); }
-        catch (Exception e){
-            throw new RuntimeException(e);
+    public void testReadCredentials_ValidCredentials_MatchFound() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1.getUserName() + "," + person1.getPassword() + "," + person1.getRole().toString());
+            writer.newLine();
+            writer.write(person2.getUserName() + "," + person2.getPassword() + "," + person2.getRole().toString());
         }
-    }
-    @Test
-    public void testReadCredentials_NonValidUsername() {
-        try{
-        String username = "adminn";
-        String password = "admin";
+        // Read data from the temporary file and find the role
+        String username = "SampleAddress";
+        String password = "SamplePhone";
 
-        String role = writingToFiles.readCredentials(username, password,"res/roles.txt");
-        assertNull(role);}
-        catch (Exception e){
-            throw new RuntimeException(e);
-        }
+        String role = writingToFiles.readCredentials(username, password, tempFile.toString());
+        assertEquals("Librarian", role);
+        tempFile.deleteOnExit();
     }
-    @Test
-    public void testReadCredentials_NonValidPassword() {
-        try{
-        String username = "admin";
-        String password = "1234556";
 
-        String role = writingToFiles.readCredentials(username, password, "res/roles.txt");
-        assertNull(role);}
-        catch (Exception e){
-            throw new RuntimeException(e);
-        }
-    }
 
     @Test
-    public void testReadCredentials_NullCredentials() {
-        try {
-            String role = writingToFiles.readCredentials(null, null, null);
-            assertNull(role);
-        }   catch (Exception e){
-            throw new RuntimeException(e);
+    public void testReadCredentials_NonValidUsername() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1.getUserName() + "," + person1.getPassword() + "," + person1.getRole().toString());
+            writer.newLine();
+            writer.write(person2.getUserName() + "," + person2.getPassword() + "," + person2.getRole().toString());
         }
+        // Read data from the temporary file and find the role
+        String username = "SampleAddresss";
+        String password = "SamplePhone";
+
+        String role = writingToFiles.readCredentials(username, password, tempFile.toString());
+        assertNull(role);
+        tempFile.deleteOnExit();
     }
+
+    @Test
+    public void testReadCredentials_NonValidPassword() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1.getUserName() + "," + person1.getPassword() + "," + person1.getRole().toString());
+            writer.newLine();
+            writer.write(person2.getUserName() + "," + person2.getPassword() + "," + person2.getRole().toString());
+        }
+        // Read data from the temporary file and find the role
+        String username = "SampleAddress";
+        String password = "SamplePhoneee";
+
+        String role = writingToFiles.readCredentials(username, password, tempFile.toString());
+        assertNull(role);
+        tempFile.deleteOnExit();
+    }
+    @Test
+    public void testReadCredentials_EmptyFile() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        // Read data from the temporary file and find the role
+        String username = "SampleAddress";
+        String password = "SamplePhone";
+        String role = writingToFiles.readCredentials(username, password, tempFile.toString());
+        assertNull(role);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testReadCredentials_NullCredentials() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1.getUserName() + "," + person1.getPassword() + "," + person1.getRole().toString());
+            writer.newLine();
+            writer.write(person2.getUserName() + "," + person2.getPassword() + "," + person2.getRole().toString());
+        }
+        String role = writingToFiles.readCredentials(null, null, tempFile.toString());
+        assertNull(role);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testReadCredentials_ExceptionThrown() throws IOException {
+
+        String role = writingToFiles.readCredentials(null, null, null);
+        assertNull(role);
+    }
+
+
     @Test
     public void testWriteRoles_CheckFileIsCreatedCorrectlly(){
 //        Path tempFile = createTempFilePath();
@@ -249,11 +294,12 @@ class TestWritingToFiles {
         }
     }
 
-    private void deleteFile(Path tempFile) {
+    private void deleteFile(Path filePath) {
         try {
-            Files.deleteIfExists(tempFile);
+            Files.deleteIfExists(filePath);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            // Handle or log the exception
+            e.printStackTrace();
         }
     }
 
@@ -266,12 +312,8 @@ class TestWritingToFiles {
         }
     }
 
-    private Path createTempFilePath() {
-        try {
-            return Files.createTempFile("tempRoles", ".txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    private Path createTempFilePath() throws IOException {
+        return Files.createTempFile("tempFile", ".txt");
     }
 
     private void assertFileExistsAndNotEmpty(Path filePath) {

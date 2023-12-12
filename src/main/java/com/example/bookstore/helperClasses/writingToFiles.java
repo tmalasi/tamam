@@ -22,9 +22,8 @@ public class writingToFiles {
     //Test for exception!
     public static String readCredentials(String username, String password, String filepath) {
         // Create a file object for the roles file
-        File file = new File(filepath);
-
         try {
+            File file = new File(filepath);
             // Create a Scanner object to read the file
             Scanner scanner = new Scanner(file);
             // Read each line of the file
@@ -39,7 +38,7 @@ public class writingToFiles {
             }
             // Return null if no match is found
             return null;
-        } catch (Exception ignored) {
+        } catch (Exception ex) {
             // Return null if an exception is thrown while reading the file
             return null;
         }
