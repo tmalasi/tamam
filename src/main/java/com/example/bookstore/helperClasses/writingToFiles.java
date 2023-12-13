@@ -83,9 +83,9 @@ public class writingToFiles {
         // Create an ObservableList to store the books
         ObservableList<Book> books = FXCollections.observableArrayList();
         // Define the file location for the books data
-        File file = new File( filepath);
         try {
-            // Check if the file has been created
+            File file = new File( filepath);
+// Check if the file has been created
             if (file.exists()){
                 // Create a Scanner object to read the file
                 Scanner scanner = new Scanner(file);
