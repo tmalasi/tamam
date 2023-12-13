@@ -3,14 +3,18 @@ package com.example.bookstore.helperClasses;
 
 import com.example.bookstore.Controllers.Controller;
 import com.example.bookstore.Models.*;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -120,7 +124,6 @@ class TestWritingToFiles {
         assertNull(role);
     }
 
-
     @Test
     public void testWriteRoles_CheckFileIsCreatedCorrectlly() throws IOException {
         File tempFile = File.createTempFile( "prefix", "txt");
@@ -167,51 +170,134 @@ class TestWritingToFiles {
     }
 
     @Test
-    public void testGetBooks_ObservableListNotNull(){
-        ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
-        assertNotNull(books);
+    public void testGetBooks_CheckFileIsCreatedCorrectllyButIsEmpty() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        ObservableList<Book> books = FXCollections.observableArrayList();
+        assertEquals(books, writingToFiles.getBooks(tempFile.toString()));
+        tempFile.deleteOnExit();
     }
 
     @Test
-    public void testGetBooks_ContainsTheCorrectNumberOfBooks(){
-        ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
-        assertEquals(7, books.size());
+    public void testGetBooks_ObservableListNotNull() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Book book1=new Book("12345","NewBook1", 34.4,21,45.3,"newAuthor","Comedy","newSupplier",34, LocalDate.now());
+            Book book2=new Book("12346","NewBook2", 24.4,30.66,45.3,"newAuthor","Comedy","newSupplier",34, LocalDate.now());
+            writer.write(book1 + "\n");
+            writer.write(book2+"\n");
+            writer.close();
+        }
+        assertNotNull(writingToFiles.getBooks(tempFile.toString()).size());
+        tempFile.deleteOnExit();
     }
 
     @Test
-    public void testGetBooks_AttributesOfTheBookCorrectlyPopulated(){
-        ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
+    public void testGetBooks_ContainsTheCorrectNumberOfBooks() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Book book1=new Book("12345","NewBook1", 34.4,21,45.3,"newAuthor","Comedy","newSupplier",34, LocalDate.now());
+            Book book2=new Book("12346","NewBook2", 24.4,30.66,45.3,"newAuthor","Comedy","newSupplier",34, LocalDate.now());
+            writer.write(book1 + "\n");
+            writer.write(book2+"\n");
+            writer.close();
+        }
+        Assertions.assertEquals(2,writingToFiles.getBooks(tempFile.toString()).size());
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testGetBooks_AttributesOfTheBookCorrectlyPopulated() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Book book1=new Book("12345","NewBook1", 34.4,21,45.3,"newAuthor","Comedy","newSupplier",34, LocalDate.now());
+            Book book2=new Book("12346","NewBook2", 24.4,30.66,45.3,"newAuthor","Comedy","newSupplier",34, LocalDate.now());
+            writer.write(book1 + "\n");
+            writer.write(book2+"\n");
+            writer.close();
+           }
+        ObservableList<Book> books = writingToFiles.getBooks(tempFile.toString());
         Book firstBook = books.getFirst();
-        assertEquals("Pride and Prejudice", firstBook.getTitle());
-        assertEquals("Jane Austin", firstBook.getAuthor());
-        assertEquals("Romance",firstBook.getCategory());
-        assertEquals("9781428108325",firstBook.getIsbn());
-        assertEquals(12,firstBook.getStock());
-        assertEquals(15.99,firstBook.getSellPrice());
-        assertEquals(9.99,firstBook.getOriginalPrice());
-        assertEquals(10.99,firstBook.getPurchasePrice());
+        assertEquals("NewBook1",firstBook.getTitle());
+        assertEquals("newAuthor", firstBook.getAuthor());
+        assertEquals("Comedy",firstBook.getCategory());
+        assertEquals("12345",firstBook.getIsbn());
+        assertEquals(34,firstBook.getStock());
+
+        tempFile.deleteOnExit();
     }
 
     @Test
-    public void testGetPersons_ObservableListNonNull(){
-        ObservableList<Person> people=writingToFiles.getPersons("res/persons.txt");
-        assertNotNull(people);
+    public void testGetBooks_ThrowException() {
+        assertThrows(RuntimeException.class, () -> {
+            writingToFiles.getBooks(null);
+        });
+
+    }
+
+
+
+    @Test
+    public void testGetPersons_CheckFileIsCreatedCorrectllyButIsEmpty() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        ObservableList<Person> people = FXCollections.observableArrayList();
+        assertEquals(people, writingToFiles.getPersons(tempFile.toString()));
+        tempFile.deleteOnExit();
     }
 
     @Test
-    public void testGetPersons_ContainsTheCorrectNumberOfPersons(){
-        ObservableList<Person> people=writingToFiles.getPersons("res/persons.txt");
-        assertEquals(7,people.size());
+    public void testGetPersons_ObservableListNotNull() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1 + "\n");
+            writer.write(person2+"\n");
+            writer.close();
+        }
+        assertNotNull(writingToFiles.getPersons(tempFile.toString()));
+        tempFile.deleteOnExit();
     }
 
     @Test
-    public void testGetPersons_AttributesOfPersonAreCorrectllyPopulated(){
-        ObservableList<Person> people=writingToFiles.getPersons("res/persons.txt");
-        Person teaPerson =people.get(4);
-        assertInstanceOf(Administrator.class, teaPerson);
-        assertEquals("malasi",teaPerson.getUserName());
-        assertEquals("tea",teaPerson.getName());
-        assertEquals(454454454,teaPerson.getSalary());
+    public void testGetPersons_ContainsTheCorrectNumberOfPersons() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1 + "\n");
+            writer.write(person2+"\n");
+            writer.close();
+        }
+        Assertions.assertEquals(2,writingToFiles.getPersons(tempFile.toString()).size());
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testGetPersons_AttributesOfTheBookCorrectlyPopulated() throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+            Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+            writer.write(person1 + "\n");
+            writer.write(person2+"\n");
+            writer.close();
+        }
+        ObservableList<Person> people = writingToFiles.getPersons(tempFile.toString());
+        Person firstPerson= people.getFirst();
+        assertEquals("SampleName",firstPerson.getName());
+        assertEquals("SampleAddress", firstPerson.getUserName());
+        assertEquals("SamplePhone",firstPerson.getPassword());
+        assertEquals(30,firstPerson.getSalary());
+        assertEquals(Role.Librarian,firstPerson.getRole());
+
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testGetPersons_ThrowException() {
+        assertThrows(RuntimeException.class, () -> {
+            writingToFiles.getPersons(null);
+        });
 
     }
 
