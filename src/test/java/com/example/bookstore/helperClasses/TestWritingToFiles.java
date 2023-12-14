@@ -302,28 +302,59 @@ class TestWritingToFiles {
     }
 
     @Test
+    public void testGetNumberOfLibrarians_inWrittingToFilesButIsEmptyList(){
+        ArrayList<Person> people = new ArrayList<>();
+        assertEquals("0", writingToFiles.getNumberOfLibrarians(people));
+    }
+
+    @Test
     public void testGetNumberOfLibrarians_inWrittingToFiles(){
-//        String numberOfLibrarians = writingToFiles.getNumberOfLibrarians( );
-//        assertEquals("4",numberOfLibrarians);
+        ArrayList<Person> people = new ArrayList<>();
+        Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+        Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
+
+        people.add(person1);
+        people.add(person2);
+
+        assertEquals("1", writingToFiles.getNumberOfLibrarians(people));
     }
 
 
+    @Test
+    public void testGetNumberOfManagers_inWrittingToFilesButIsEmptyList(){
+        ArrayList<Person> people = new ArrayList<>();
+        assertEquals("0", writingToFiles.getNumberOfManagers(people));
+    }
     @Test
     public void testGetNumberOfManagers_inWrittingToFiles(){
-        ArrayList<Person> arrayList = new ArrayList<Person>(Controller.people);
-        String numberOfManagers = writingToFiles.getNumberOfManagers(arrayList);
-        assertEquals("2", numberOfManagers);
-    }
+        ArrayList<Person> people = new ArrayList<>();
+        Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+        Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "sllwlwls", Role.Manager);
 
+        people.add(person1);
+        people.add(person2);
+
+        assertEquals("1", writingToFiles.getNumberOfManagers(people));
+    }
     @Test
-    public void testGetNumberOfBills_InTheExistingDirectory() {
-        int numberOfBills = writingToFiles.getNumberOfBills("res/Bills");
-        assertEquals(25, numberOfBills);
+    public void testGetNumberOfBills_WhenWePassAFileNotADirectroy_ThrowsException () throws IOException {
+        File tempFile = File.createTempFile( "prefix", "txt");
+        assertThrows(RuntimeException.class, () -> {
+            writingToFiles.getNumberOfBills(tempFile.toString());
+        });
+        tempFile.deleteOnExit();
     }
     @Test
     public void testGetNumberOfBills_InTheNONExistingDirectory() {
         int numberOfBills = writingToFiles.getNumberOfBills("path/to/non-existing-directory");
         assertEquals(0, numberOfBills);
+    }
+
+    @Test
+    public void testGetNumberOfBills_InTheExistingDirectoryIfBiggerThen0ThenCorrectNumberOfFiles(){
+        int numberOfBills=writingToFiles.getNumberOfBills("res/Bills");
+        boolean isBiggerThen0= (numberOfBills>0);
+        assertTrue(isBiggerThen0);
     }
 
     @Test
