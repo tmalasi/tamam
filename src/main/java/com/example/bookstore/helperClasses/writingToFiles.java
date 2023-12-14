@@ -195,11 +195,11 @@ public class writingToFiles {
     //if the total bill is correctly written.
     public static void writeBill(String billId, double totalBill, ObservableList<Book> books){
         // Create a File object representing the bill file
-        File file = new File("res/Bills/" + billId + ".txt");
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         try {
+            File file = new File("res/Bills/" + billId + ".txt");
             // Create a new file
             if (file.createNewFile()){
             // Create a FileWriter to write to the file
