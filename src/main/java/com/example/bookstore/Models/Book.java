@@ -1,5 +1,7 @@
 package com.example.bookstore.Models;
 
+import javafx.scene.control.Label;
+
 import java.time.LocalDate;
 
 public class Book {
@@ -227,6 +229,32 @@ public class Book {
         this.purchaseDate = purchaseDate;
     }
 
+    public static boolean canAddBook(Book selectedBook, int enteredQuantity, Label label) {
+        if (selectedBook.getStock() > 0) {
+            if (enteredQuantity>0 && enteredQuantity<= selectedBook.getStock()) {
+                return true;
+            } else {
+                label.setText("Invalid quantity. Please enter a value between 1 and " + selectedBook.getStock());
+            }
+        } else {
+            label.setText("The selected book is out of stock. Please select another book.");
+        }
+        return false;
+    }
+    public int getStock() {
+        return stock;
+    }
+
+    //Test  Attempt to set a negative stock value.
+    // Set a valid positive stock value.
+    public void setStock(int stock) {
+        if (stock < 0) {
+            throw new IllegalArgumentException("Stock must be more than 0");
+        } else {
+            this.stock = stock; // Stock is within the valid range
+        }
+    }
+
     @Override
     public String toString() {
         return this.isbn + "," + this.title + "," + this.purchasePrice +
@@ -241,19 +269,6 @@ public class Book {
                 " ,Author: " + getAuthor();
     }
 
-    public int getStock() {
-        return stock;
-    }
-
-    //Test  Attempt to set a negative stock value.
-    // Set a valid positive stock value.
-    public void setStock(int stock) {
-        if (stock < 0) {
-            throw new IllegalArgumentException("Stock must be more than 0");
-        } else {
-            this.stock = stock; // Stock is within the valid range
-        }
-    }
 
 
 }

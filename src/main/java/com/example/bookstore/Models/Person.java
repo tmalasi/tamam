@@ -88,6 +88,19 @@ public abstract class Person {
         this.name = name;
     }
 
+    public static Person createPerson(String name, String username, String password,
+                                      String birthday, int salary, String phone, Role role) {
+        switch (role) {
+            case Librarian:
+                return new Librarian(name, username, password, birthday, salary, phone, Role.Librarian);
+            case Manager:
+                return new Manager(name, username, password, birthday, salary, phone, Role.Manager);
+            case Administrator:
+                return new Administrator(name, username, password, birthday, salary, phone, Role.Administrator);
+            default:
+                throw new IllegalArgumentException("Invalid role");
+        }
+    }
     @Override
     public String toString() {
         return name + "," + birthday + "," +

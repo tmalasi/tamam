@@ -220,9 +220,9 @@ public class BillView extends BorderPane{
                 Book selectedBook = bookTable.getSelectionModel().getSelectedItem();
                 // Check if the selected book is in stock
 
-                //maybe a method
                 if (selectedBook.getStock() > 0) {
                     // Show a text input dialog to enter the quantity of books to add
+
                     TextInputDialog dialog = new TextInputDialog("1");
                     dialog.setTitle("Enter Quantity");
                     dialog.setHeaderText("Enter the number of books you want to add:");
@@ -231,27 +231,22 @@ public class BillView extends BorderPane{
                     // If the user enters a value
                     if (result.isPresent()) {
                         // Update the quantity of books to add
-                        quantity.set(Integer.parseInt(result.get()));
-                        // Keep track of the total number of books sold
+                        quantity.set(Integer.parseInt(result.get()));                        // Keep track of the total number of books sold
                         booksSold += quantity.get();
                         // Check if the entered quantity is valid (between 1 and the stock of the selected book)
-                        if (quantity.get() > 0 && quantity.get() <= selectedBook.getStock()) {
-                            // Update the total price
-                            totalPrice += selectedBook.getSellPrice() * quantity.get();
+                        //MaybeMethod
+                        if (Book.canAddBook(selectedBook, quantity.get(), label)) {
+                            double totalPrice = selectedBook.getSellPrice() * quantity.get();
                             totalPriceLabel.setText("Total: $" + totalPrice);
-                            // Decrease the stock of the selected book
-                            for (Book book: books) {
-                                if (book.equals(selectedBook)){
-                                    book.setStock(book.getStock()- quantity.get());
-                                }
-                            }
+
+                            // Call the model method to update the book and total
+                            selectedBook.setStock(selectedBook.getStock() - quantity.get());
+
                             // Add the selected book to the bill
                             books1.add(selectedBook);
                             // Close the book stage
                             bookStage.fireEvent(new WindowEvent(bookStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-                            // Close the text input dialog
-                            dialog.close();
-                        } else {
+                        }else {
                             // Show an error message if the entered quantity is invalid
                             label.setText("Invalid quantity. Please enter a value between 1 and " + selectedBook.getStock());
                         }

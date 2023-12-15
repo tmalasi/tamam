@@ -212,17 +212,18 @@ public class AdminPanel extends BorderPane {
             if (!(usernameField.getText().isEmpty() || nameField.getText().isEmpty() || passwordField.getText().isEmpty() ||
                     birthdayField.getValue() == null || salaryField.getText().isEmpty() || phoneField.getText().isEmpty() || roleComboBox.getSelectionModel().isEmpty())) {
                 try {
-                    // Determine the role selected in the ComboBox and add the corresponding person to the "people" list
-                    if (roleComboBox.getSelectionModel().getSelectedItem() == Role.Librarian) {
-                        Controller.people.add(new Librarian(nameField.getText(), usernameField.getText(),
-                                passwordField.getText(), birthdayField.toString(), Integer.parseInt(salaryField.getText()), phoneField.getText(), Role.Librarian));
-                    } else if (roleComboBox.getSelectionModel().getSelectedItem() == Role.Manager) {
-                        Controller.people.add(new Manager(nameField.getText(), usernameField.getText(),
-                                passwordField.getText(), birthdayField.toString(), Integer.parseInt(salaryField.getText()), phoneField.getText(), Role.Manager));
-                    } else if (roleComboBox.getSelectionModel().getSelectedItem() == Role.Administrator) {
-                        Controller.people.add(new Administrator(nameField.getText(), usernameField.getText(),
-                                passwordField.getText(), birthdayField.toString(), Integer.parseInt(salaryField.getText()), phoneField.getText(), Role.Administrator));
-                    }
+
+                    Role selectedRole = roleComboBox.getSelectionModel().getSelectedItem();
+                    Person newPerson = Person.createPerson(
+                            nameField.getText(),
+                            usernameField.getText(),
+                            passwordField.getText(),
+                            birthdayField.toString(),
+                            Integer.parseInt(salaryField.getText()),
+                            phoneField.getText(),
+                            selectedRole
+                    );
+                    Controller.people.add(newPerson);
                     // Increment the total cost with the salary entered
                     Controller.totalCost += Integer.parseInt(salaryField.getText());
 
@@ -379,7 +380,7 @@ public class AdminPanel extends BorderPane {
             timeline.play();
 
             // Check if all the inputs are filled
-            //same method
+
             if (!(isbn.isEmpty() || title.isEmpty() || purchasedPrice.isEmpty() || sellingPrice.isEmpty() ||
                     originalPrice.isEmpty() || author.isEmpty() || category.isEmpty() || supplier.isEmpty() ||
                     stock.isEmpty() || purchasedDate == null)) {
