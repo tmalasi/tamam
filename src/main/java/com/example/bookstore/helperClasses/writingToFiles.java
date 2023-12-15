@@ -193,7 +193,7 @@ public class writingToFiles {
 
     //if the bill file contains the correct book information.
     //if the total bill is correctly written.
-    public static void writeBill(String billId, double totalBill, ObservableList<Book> books){
+    public static void writeBill(String billId, double totalBill, List<Book> books){
         // Create a File object representing the bill file
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();
@@ -224,6 +224,9 @@ public class writingToFiles {
 
     //Test Check if the method returns the correct total bill.
     //Test Check if the method handles the absence of the totalBill file.
+    //use mocking to isolate the method from external dependencies, such as file operations.
+    // This allows you to test the logic of your method without
+    // actually reading from a file or performing other external operations.
     public static double getTotalBill(String filepath){
         File file = new File(filepath); // Create a file object with the file path "res/totalBill.bin"
         if (file.exists()) { // Check if the file exists
@@ -275,8 +278,8 @@ public class writingToFiles {
     //Test Check if the books file contains the correct book information.
     public static void writeBooks(String filepath, ArrayList<Book> bookArrayList){
         // Create the file "res/books.txt"
-        File file = new File(filepath);
         try {
+            File file = new File(filepath);
             // Create a FileWriter instance to write the data to the file
             FileWriter writer = new FileWriter(file);
             // Write each book's information to the file
@@ -334,7 +337,5 @@ public class writingToFiles {
             throw new RuntimeException(e);
         }
     }
-
-
 }
 
