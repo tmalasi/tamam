@@ -223,6 +223,12 @@ public class AdminPanel extends BorderPane {
                             phoneField.getText(),
                             selectedRole
                     );
+                    newPerson.setName(nameField.getText());
+                    newPerson.setUserName(usernameField.getText());
+                    newPerson.setPassword(passwordField.getText());
+                    newPerson.setBirthday(birthdayField.toString());
+                    newPerson.setSalary(Integer.parseInt(salaryField.getText()));
+                    newPerson.setPhone(phoneField.getText());
                     Controller.people.add(newPerson);
                     // Increment the total cost with the salary entered
                     Controller.totalCost += Integer.parseInt(salaryField.getText());
@@ -248,7 +254,7 @@ public class AdminPanel extends BorderPane {
                     Logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
-                    alert.setContentText("Please make sure you don't enter any character in salary field");
+                    alert.setContentText(e.getMessage());
                     alert.showAndWait();
                 }
             } else {

@@ -140,6 +140,10 @@ public class PersonsView extends VBox{
         userNameField.setPromptText("Username");
         userNameField.setText(person.getUserName());
 
+        TextField passwordField = new TextField();
+        userNameField.setPromptText("Password");
+        userNameField.setText(person.getPassword());
+
         TextField phoneNumberField = new TextField();
         phoneNumberField.setPromptText("Phone Number");
         phoneNumberField.setText(person.getPhone());
@@ -157,25 +161,28 @@ public class PersonsView extends VBox{
         grid.add(nameField, 1, 0);
         grid.add(new Label("Username"), 0, 1);
         grid.add(userNameField, 1, 1);
-        grid.add(new Label("Phone Number"), 0, 2);
-        grid.add(phoneNumberField, 1, 2);
-        grid.add(new Label("Salary"), 0, 3);
-        grid.add(salaryField, 1, 3);
-        grid.add(new Label("Role"), 0, 4);
-        grid.add(comboBox,1,4);
+        grid.add(new Label("Password"), 0, 2);
+        grid.add(passwordField, 1, 2);
+        grid.add(new Label("Phone Number"), 0, 3);
+        grid.add(phoneNumberField, 1,3 );
+        grid.add(new Label("Salary"), 0, 4);
+        grid.add(salaryField, 1, 4);
+        grid.add(new Label("Role"), 0, 5);
+        grid.add(comboBox,1,5);
 
         // create a save button to save the changes
         Button saveButton = new Button("Save");
         saveButton.setOnAction((ActionEvent event) -> {
             // validate the form
             if (nameField.getText().isEmpty() || userNameField.getText().isEmpty() || salaryField.getText().isEmpty()
-                    || phoneNumberField.getText().isEmpty()) {
+                    || phoneNumberField.getText().isEmpty()|| passwordField.getText().isEmpty()) {
                 // show an error if any of the fields is empty
                 System.out.println("Fill all fields");
             } else {
                 // update the person with the new values
                 person.setName(nameField.getText());
                 person.setUserName(userNameField.getText());
+                person.setPassword(passwordField.getText());
                 person.setSalary(Integer.parseInt(salaryField.getText()));
                 person.setPhone(phoneNumberField.getText());
                 person.setRole(comboBox.getValue());
