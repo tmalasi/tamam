@@ -169,8 +169,8 @@ class TestWritingToFiles {
     public void testGetBooks_ObservableListNotNull() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
             writer.write(book1 + "\n");
             writer.write(book2 + "\n");
         }
@@ -182,8 +182,8 @@ class TestWritingToFiles {
     public void testGetBooks_ContainsTheCorrectNumberOfBooks() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
             writer.write(book1 + "\n");
             writer.write(book2 + "\n");
         }
@@ -195,8 +195,8 @@ class TestWritingToFiles {
     public void testGetBooks_AttributesOfTheBookCorrectlyPopulated() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
             writer.write(book1 + "\n");
             writer.write(book2 + "\n");
         }
@@ -354,8 +354,8 @@ class TestWritingToFiles {
 
     @Test
     public void testWriteBills_CheckFileContentIsCreatedCorrectly() {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
             ArrayList<Book> books = new ArrayList<>();
             books.add(book1);
             books.add(book2);
@@ -364,7 +364,7 @@ class TestWritingToFiles {
             String fileContent = readFileContents(expFile);
             assertEquals("""
                     Bill Id: 123i9
-                    Date: 15-12-2023
+                    Date: 01-01-2023
                     1: ISBN: 12345 ,Title: NewBook1 ,Author: newAuthor
                     2: ISBN: 12346 ,Title: NewBook2 ,Author: newAuthor
                     Total: 345.0
@@ -402,8 +402,8 @@ class TestWritingToFiles {
 
     @Test
     public void testWriteBooks_CheckFileIsCreatedCorrectly() throws IOException {
-        Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
-        Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
+        Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+        Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
         ArrayList<Book> books = new ArrayList<>();
         books.add(book1);
         books.add(book2);
@@ -417,8 +417,8 @@ class TestWritingToFiles {
     @Test
     public void testWriteBooks_CheckFileContentIsCreatedCorrectly() throws IOException {
 
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.now());
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
             ArrayList<Book> books = new ArrayList<>();
             books.add(book1);
             books.add(book2);
@@ -427,8 +427,8 @@ class TestWritingToFiles {
             String fileContent = readFileContents(tempFile.toString());
 
         assertEquals("""
-                12345,NewBook1,34.4,21.0,45.3,newAuthor,Comedy,newSupplier,34,2023-12-15
-                12346,NewBook2,24.4,30.66,45.3,newAuthor,Comedy,newSupplier,34,2023-12-15
+                12345,NewBook1,34.4,21.0,45.3,newAuthor,Comedy,newSupplier,34,2023-01-01
+                12346,NewBook2,24.4,30.66,45.3,newAuthor,Comedy,newSupplier,34,2023-01-01
                 """, fileContent);
         tempFile.deleteOnExit();
     }

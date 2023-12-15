@@ -16,7 +16,7 @@ public class Book {
 
     private LocalDate purchaseDate; // The date when the book was purchased
     // A default constructor
-    public Book(){}
+
     // A constructor with isbn, title, purchase price, selling price, and category
 
     public Book(String isbn,String title,double purchasePrice,double sellPrice,String category) {
@@ -26,6 +26,7 @@ public class Book {
         this.sellPrice = sellPrice;
         this.category = category;
     }
+    public Book(){}
 
     // A constructor with isbn, title, purchase price, selling price, category, and stock
     public Book(String isbn,String title,double purchasePrice,double sellPrice,String category, int stock) {
@@ -57,23 +58,6 @@ public class Book {
         return isbn;
     }
 
-    // Getter method for totalPurchased
-    public double getTotalPurchased() {
-        return totalPurchased;
-    }
-
-    // Setter method for totalPurchased
-    //test:eAttempt to set a negative total purchased value.
-    //Set a valid positive total purchased value.
-
-    public void setTotalPurchased(double totalPurchased) {
-        if (totalPurchased < 0) {
-        throw new IllegalArgumentException("cant be negative or bigger than 5000");
-    } else {
-            this.totalPurchased = totalPurchased;
-    }
-    }
-
     // Getter method for title
     public String getTitle() {
         return title;
@@ -100,43 +84,46 @@ public class Book {
 
     public void setCategory(String category) {
         // Ensure that the category is not null
+        int maxLength = 25;
         if (category == null) {
             throw new IllegalArgumentException("Category cannot be null");
         }
         // Ensure that the category does not exceed the maximum length
-        int maxLength = 255;
-        if (category.length() > maxLength) {
+        else if(category.length() > maxLength) {
             throw new IllegalArgumentException("Category length exceeds the maximum allowed (" + maxLength + " characters)");
         }
+        else{
         this.category = category;
+        }
     }
     public void setIsbn(String isbn) {
-        // Ensure that the ISBN is not null
+        int maxLength = 15;// Ensure that the ISBN is not null
         if (isbn == null) {
             throw new IllegalArgumentException("ISBN cannot be null");
         }
         // Ensure that the ISBN does not exceed the maximum length (adjust the value accordingly)
-        int maxLength = 30;
-        if (isbn.length() > maxLength) {
+        else if (isbn.length() > maxLength) {
             throw new IllegalArgumentException("ISBN length exceeds the maximum allowed (" + maxLength + " characters)");
         }
+        else {
         // Set the ISBN
-        this.isbn = isbn;
+        this.isbn = isbn;}
     }
 
     public void setTitle(String title) {
+        int maxLength = 100;
+        int minLength=3;
         // Ensure that the title is not null
         if (title == null) {
             throw new IllegalArgumentException("Title cannot be null");
         }
         // Ensure that the title does not exceed the maximum length (adjust the value accordingly)
-        int maxLength = 355;
-        if (title.length() > maxLength) {
+        else if (title.length() >= maxLength || title.length()<minLength) {
             throw new IllegalArgumentException("Title length exceeds the maximum allowed (" + maxLength + " characters)");
         }
-
+        else {
         // Set the title
-        this.title = title;
+        this.title = title;}
     }
 
 //Test Attempt to set a negative purchase price.
@@ -177,17 +164,17 @@ public class Book {
 
 
     public void setAuthor(String author) {
+        int maxLength = 25;
         // Ensure that the author is not null
         if (author == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }
         // Ensure that the author does not exceed the maximum length (adjust the value accordingly)
-        int maxLength = 255;
-        if (author.length() > maxLength) {
+        else if (author.length() > maxLength) {
             throw new IllegalArgumentException("Author length exceeds the maximum allowed (" + maxLength + " characters)");
         }
-        // Set the author
-        this.author = author;
+        else{// Set the author
+        this.author = author;}
     }
 
     public String getSupplier() {
@@ -196,19 +183,31 @@ public class Book {
 
     public void setSupplier(String supplier) {
         // Ensure that the supplier is not null
+        int maxLength = 25;
         if (supplier == null) {
             throw new IllegalArgumentException("Supplier cannot be null");
         }
         // Ensure that the supplier does not exceed the maximum length (adjust the value accordingly)
-        int maxLength = 255;
-        if (supplier.length() > maxLength) {
+        else if (supplier.length() > maxLength) {
             throw new IllegalArgumentException("Supplier length exceeds the maximum allowed (" + maxLength + " characters)");
         }
-
+        else{
         // Set the supplier
-        this.supplier = supplier;
+        this.supplier = supplier;}
+    }
+    public int getStock() {
+        return stock;
     }
 
+    //Test  Attempt to set a negative stock value.
+    // Set a valid positive stock value.
+    public void setStock(int stock) {
+        if (stock < 0) {
+            throw new IllegalArgumentException("Stock must be more than 0");
+        } else {
+            this.stock = stock; // Stock is within the valid range
+        }
+    }
     public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
@@ -241,19 +240,7 @@ public class Book {
         }
         return false;
     }
-    public int getStock() {
-        return stock;
-    }
 
-    //Test  Attempt to set a negative stock value.
-    // Set a valid positive stock value.
-    public void setStock(int stock) {
-        if (stock < 0) {
-            throw new IllegalArgumentException("Stock must be more than 0");
-        } else {
-            this.stock = stock; // Stock is within the valid range
-        }
-    }
 
     @Override
     public String toString() {
