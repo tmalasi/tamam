@@ -235,7 +235,7 @@ public class BillView extends BorderPane{
                         booksSold += quantity.get();
                         // Check if the entered quantity is valid (between 1 and the stock of the selected book)
                         //MaybeMethod
-                        if (Book.canAddBook(selectedBook, quantity.get(), label)) {
+                        if (Book.canAddBook(selectedBook, quantity.get())) {
                             double totalPrice = selectedBook.getSellPrice() * quantity.get();
                             totalPriceLabel.setText("Total: $" + totalPrice);
 

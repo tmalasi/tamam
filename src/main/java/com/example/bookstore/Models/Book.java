@@ -202,7 +202,7 @@ public class Book {
     //Test  Attempt to set a negative stock value.
     // Set a valid positive stock value.
     public void setStock(int stock) {
-        if (stock < 0) {
+        if (stock <= 0) {
             throw new IllegalArgumentException("Stock must be more than 0");
         } else {
             this.stock = stock; // Stock is within the valid range
@@ -213,32 +213,27 @@ public class Book {
     }
 
     public void setPurchaseDate(LocalDate purchaseDate) {
+        LocalDate currentDate = LocalDate.now();
+        LocalDate oneYearLater = currentDate.plusYears(1);
         // Ensure that the purchase date is not null
         if (purchaseDate == null) {
             throw new IllegalArgumentException("Purchase date cannot be null");
         }
-
-//        // Optionally, you can check for other constraints on the date (e.g., not in the future)
-//        LocalDate currentDate = LocalDate.now();
-//        if (purchaseDate.isAfter(currentDate)) {
-//            throw new IllegalArgumentException("Purchase date cannot be in the future");
-//        }
-
+        //not more than one year in the future
+        else if (purchaseDate.isAfter(oneYearLater)) {
+            throw new IllegalArgumentException("Purchase date cannot be in the future");
+        }
         // Set the purchase date
-        this.purchaseDate = purchaseDate;
+        else{
+        this.purchaseDate = purchaseDate;}
     }
 
-    public static boolean canAddBook(Book selectedBook, int enteredQuantity, Label label) {
-        if (selectedBook.getStock() > 0) {
-            if (enteredQuantity>0 && enteredQuantity<= selectedBook.getStock()) {
-                return true;
-            } else {
-                label.setText("Invalid quantity. Please enter a value between 1 and " + selectedBook.getStock());
-            }
+    public static boolean canAddBook(Book selectedBook, int enteredQuantity) {
+        if(selectedBook.getStock() > 0 && enteredQuantity>0 && enteredQuantity<= selectedBook.getStock()) {
+            return true;
         } else {
-            label.setText("The selected book is out of stock. Please select another book.");
+            return false;
         }
-        return false;
     }
 
 

@@ -251,4 +251,102 @@ class BookTest {
             book.setSupplier("abcdefghijklmnopqrstuvwxyzs");
         });
     }
+
+    @Test
+    void testSetStock_WithNegativeValue() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Book book = new Book("123","SampleTitle",45.5,87,55.5,
+                    "TestAuthor","Comedy",null,-12, LocalDate.of(2023,1,1));
+            book.setStock(book.getStock());
+        });
+    }
+
+    @Test
+    public void testSetStock_WhenTheValueOfItIsZero() {
+        assertThrows(IllegalArgumentException.class, () -> {
+        Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                "TestAuthor","Comedy","SampleSupplier",0, LocalDate.of(2023,1,1));
+        book.setStock(book.getStock());
+        });
+    }
+    @Test
+    public void testSetStock_WhenNormalValueBiggerThan0() {
+        Book book = new Book();
+        book.setStock(4);
+        assertEquals(4, book.getStock());
+    }
+    @Test
+    void testSetPurchaseDate_WithNullPurchaseDate() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                    "TestAuthor","Comedy","SampleSupplier",0, null);
+            book.setPurchaseDate(book.getPurchaseDate());
+        });
+    }
+
+    @Test
+    public void testSetPurchaseDate_WhenNotMoreThanOneYearFromCurrentDate() {
+        Book book = new Book();
+        LocalDate currentDate = LocalDate.now();
+        LocalDate oneYearLater = currentDate.plusYears(1).plusDays(1);
+        assertThrows(IllegalArgumentException.class, () -> {
+            book.setPurchaseDate(oneYearLater);
+        });
+    }
+    @Test
+    public void testSetPurchaseDate_WhenExcactlyOneYearFromCurrentDate() {
+        Book book = new Book();
+        LocalDate currentDate = LocalDate.now();
+        LocalDate oneYearLater = currentDate.plusYears(1);
+        book.setPurchaseDate(oneYearLater);
+        assertEquals(oneYearLater,book.getPurchaseDate());
+    }
+
+    @Test
+    public void testSetPurchaseDate_WhenDateisTheLocalDateOfNow() {
+        Book book = new Book();
+        book.setPurchaseDate(LocalDate.now());
+        assertEquals(LocalDate.now(), book.getPurchaseDate());
+    }
+    @Test
+    void testCanAddBook_WithStockZero() {
+            Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                    "TestAuthor","Comedy","SampleSupplier",0, LocalDate.of(2023,1,1));
+            assertFalse(Book.canAddBook(book,2));
+    }
+    @Test
+    void testCanAddBook_WithEnteredQuantityZero() {
+        Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
+        assertFalse(Book.canAddBook(book,0));
+    }
+    @Test
+    void testCanAddBook_WithEnteredQuantityMoreThanStock() {
+        Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
+        assertFalse(Book.canAddBook(book,3));
+    }
+    @Test
+    void testCanAddBook_WithEnteredQuantityEqualWithTheStock() {
+        Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
+        assertTrue(Book.canAddBook(book,2));
+    }
+
+
+    @Test
+    void testToStringMethod() {
+        Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
+        assertEquals("123,SampleTitle,45.5,67.0,55.5,TestAuthor,Comedy,SampleSupplier,2,2023-01-01",book.toString());
+    }
+    @Test
+    void testToStringBillMethod() {
+        Book book = new Book("123","SampleTitle",45.5,67,55.5,
+                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
+        assertEquals("ISBN: 123 ,Title: SampleTitle ,Author: TestAuthor",book.toStringBill());
+    }
+
+
+
 }
