@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class LibrarianTest {
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTotalBilledNegativeValue() {
         assertThrows(IllegalArgumentException.class, () -> {
@@ -13,6 +15,16 @@ class LibrarianTest {
             librarian.setTotalBilled(librarian.getTotalBilled());
         });
     }
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
+    @Test
+    public void testSetTotalBilledValueJustMinValue() {
+        Librarian librarian=new Librarian("TestName","TestUsername","TestPasword","01-01-2002",400,"+3555555",Role.Librarian,0);
+        librarian.setTotalBilled(librarian.getTotalBilled());
+        assertEquals(20, librarian.getTotalBilled());
+    }
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTotalBilledValuePositive() {
         Librarian librarian=new Librarian("TestName","TestUsername","TestPasword","01-01-2002",400,"+3555555",Role.Librarian,20);
