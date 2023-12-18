@@ -6,5 +6,3 @@ antea,12345678,Manager
 malasi,teatea,Administrator
 SampleAddress,SamplePhone,Librarian
 Llaca,12345,Librarian
-malasiii,1234,Administrator
-duududu,2156,Administrator

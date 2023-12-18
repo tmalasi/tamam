@@ -31,6 +31,7 @@ import java.util.ArrayList;
 
 public class AdminPanel extends BorderPane {
 
+    private Logger logger;
     MenuBar bar;
     public BooksView view = new BooksView(Controller.books);
     public PersonsView personsView = new PersonsView(Controller.people);
@@ -251,7 +252,7 @@ public class AdminPanel extends BorderPane {
                     alert.showAndWait();
                 } catch (Exception e) {
                     // Catch any exception and show error alert
-                    Logger.log(e.getMessage());
+                    logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText(e.getMessage());
@@ -417,7 +418,7 @@ public class AdminPanel extends BorderPane {
                     alert.setContentText("Book is added successfully!");
                     alert.showAndWait();
                 } catch (Exception e) {
-                    Logger.log(e.getMessage());
+                    logger.log(e.getMessage());
                     // Show an error message if the prices or stock fields contain non-numeric characters
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");

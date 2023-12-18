@@ -220,7 +220,7 @@ public class ManagerPanel extends BorderPane {
                     alert.setContentText("Book is added successfully!");
                     alert.showAndWait();
                 } catch (Exception e) {
-                    Logger.log(e.getMessage());
+                    logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Please make sure you don't enter any character in prices and stock fields");

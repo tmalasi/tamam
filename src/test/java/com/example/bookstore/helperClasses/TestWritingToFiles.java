@@ -8,8 +8,12 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
+
+
 class TestWritingToFiles {
     @Test
     public void testReadCredentials_CheckFileIsCreatedCorrectly() throws IOException {
@@ -362,13 +366,12 @@ class TestWritingToFiles {
             writingToFiles.writeBill("123i9", 345, books);
             String expFile = "res/Bills/" + "123i9" + ".txt";
             String fileContent = readFileContents(expFile);
-            assertEquals("""
-                    Bill Id: 123i9
-                    Date: 01-01-2023
-                    1: ISBN: 12345 ,Title: NewBook1 ,Author: newAuthor
-                    2: ISBN: 12346 ,Title: NewBook2 ,Author: newAuthor
-                    Total: 345.0
-                    """, fileContent);
+            assertEquals("Bill Id: 123i9\n" +
+                    //Fix date
+                    "Date: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+"\n" +
+                    "1: ISBN: 12345 ,Title: NewBook1 ,Author: newAuthor\n" +
+                    "2: ISBN: 12346 ,Title: NewBook2 ,Author: newAuthor\n" +
+                    "Total: 345.0\n", fileContent);
             deleteFile(expFile);
     }
 
@@ -380,6 +383,111 @@ class TestWritingToFiles {
 //            writingToFiles.writeRoles(null, personArrayList);
 //        });
 //    }
+
+    //CHANGES NEEDSEDD-----
+    @Test
+    void testGetTotalBillWithExistingFile() {
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        //To with TempFile
+
+        double totalBill = WriteBill.getTotalBill("res/totalBill.bin");
+        assertEquals(1165.32, totalBill, 0.001);
+    }
+
+    @Test
+    void testGetTotalBillWithNonExistingFile() {
+        FileOperations fileOperations = new MockFileOperations(false, 0.0);
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+
+        double totalBill = WriteBill.getTotalBill("nonExistingFile.bin");
+
+        assertEquals(0.0, totalBill, 0.001);
+    }
+
+    @Test
+    void testGetTotalBillWithIOException() {
+        FileOperations fileOperations = new MockFileOperations(true, 0.0) {
+            @Override
+            public double readDoubleFromFile(String filepath) throws IOException {
+                throw new IOException("Mock IOException");
+            }
+        };
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+
+        double totalBill = WriteBill.getTotalBill("existingFile.bin");
+
+        assertEquals(0.0, totalBill, 0.001);
+    }
+    @Test
+    void testGetTotalCostWithExistingFile() {
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteCost = new writingToFiles(fileOperations);
+        //To with TempFile
+        double totalBill = WriteCost.getTotalCost("res/totalCost.bin");
+        assertEquals(808786.78, totalBill, 0.001);
+
+
+    }
+
+    @Test
+    void testGetTotalCostWithNonExistingFile() {
+        FileOperations fileOperations = new MockFileOperations(false, 0.0);
+        writingToFiles WriteCost = new writingToFiles(fileOperations);
+
+        double totalBill = WriteCost.getTotalCost("nonExistingFile.bin");
+
+        assertEquals(0.0, totalBill, 0.001);
+    }
+
+    @Test
+    void testGetTotalCostWithIOException() {
+        FileOperations fileOperations = new MockFileOperations(true, 0.0) {
+            @Override
+            public double readDoubleFromFile(String filepath) throws IOException {
+                throw new IOException("Mock IOException");
+            }
+        };
+        writingToFiles WriteCost = new writingToFiles(fileOperations);
+
+        double totalBill = WriteCost.getTotalCost("existingFile.bin");
+
+        assertEquals(0.0, totalBill, 0.001);
+    }
+
+    @Test
+    void testGetBooksSoldWithExistingFile() {
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
+        //To with TempFile
+        int totalBill = WriteBooksSold.getBooksSold("res/booksSold.bin");
+        assertEquals(808786, totalBill);//Fix
+    }
+
+    @Test
+    void testGetBooksSoldWithNonExistingFile() {
+        FileOperations fileOperations = new MockFileOperations(false, 0.0);
+        writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
+
+        int totalBill = WriteBooksSold.getBooksSold("nonExistingFile.bin");
+
+        assertEquals(0, totalBill);
+    }
+
+    @Test
+    void testGetBooksSoldWithIOException() {
+        FileOperations fileOperations = new MockFileOperations(true, 0.0) {
+            @Override
+            public double readDoubleFromFile(String filepath) throws IOException {
+                throw new IOException("Mock IOException");
+            }
+        };
+        writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
+
+        int totalBill = WriteBooksSold.getBooksSold("existingFile.bin");
+
+        assertEquals(0, totalBill);
+    }
 
     //all mock
 //    @Test

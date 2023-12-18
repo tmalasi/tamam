@@ -44,6 +44,19 @@ class PersonTest {
         assertEquals("123456", person.getPhone());
     }
     @Test
+    public void testSetPhoneWhenLengthLargerThan6() {
+        Person person = new Administrator("TestName","TestUsername","TestPassword","01-01-2002",400,"1234567",Role.Administrator);
+        person.setPhone(person.getPhone());
+        assertEquals("1234567", person.getPhone());
+    }
+    @Test
+    public void testSetPhoneWithEmptyString() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Person person = new Administrator("TestName","TestUsername","TestPassword","01-01-2002",400,"",Role.Administrator);
+            person.setPhone(person.getPhone());
+        });
+    }
+    @Test
     public void testSetSalaryWhenItIsNegative() {
         assertThrows(IllegalArgumentException.class, () -> {
             Person person = new Manager("TestName","TestUsername","testPassword","01-01-2002", -1,"+35555555",Role.Manager);

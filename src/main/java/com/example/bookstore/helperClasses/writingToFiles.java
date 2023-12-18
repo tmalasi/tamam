@@ -227,51 +227,47 @@ public class writingToFiles {
     //use mocking to isolate the method from external dependencies, such as file operations.
     // This allows you to test the logic of your method without
     // actually reading from a file or performing other external operations.
-    public static double getTotalBill(String filepath){
-        File file = new File(filepath); // Create a file object with the file path "res/totalBill.bin"
-        if (file.exists()) { // Check if the file exists
-            try (FileInputStream fis = new FileInputStream(file); // Create a FileInputStream object
-                 DataInputStream dis = new DataInputStream(fis)) { // Wrap the FileInputStream object with a DataInputStream object
-                return dis.readDouble(); // Read the double value from the DataInputStream object
-            } catch (IOException e) { // Catch the IOException in case of any error
-                return 0; // Return 0 if an error occurs
+    private static FileOperations fileOperations = new DefaultFileOperations();
+
+    public writingToFiles(FileOperations fileOperations) {
+        this.fileOperations = fileOperations;
+    }
+
+    public static double getTotalBill(String filepath) {
+        if (fileOperations.fileExists(filepath)) {
+            try {
+                return fileOperations.readDoubleFromFile(filepath);
+            } catch (IOException e) {
+                return 0;
             }
         }
-        return 0; // Return 0 if the file does not exist
+        return 0;
     }
 
     //Test Check if the method returns the correct total cost.
     //Test Check if the method handles the absence of the totalCost file.
-    public static double getTotalCost(String filePath){
-        File file = new File(filePath); // Create a file object with the file path "res/totalCost.bin"
-        if (file.exists()) { // Check if the file exists
-            try (FileInputStream fis = new FileInputStream(file); // Create a FileInputStream object
-                 DataInputStream dis = new DataInputStream(fis)) { // Wrap the FileInputStream object with a DataInputStream object
-                return dis.readDouble(); // Read the double value from the DataInputStream object
-            } catch (IOException e) { // Catch the IOException in case of any error
-                return 0; // Return 0 if an error occurs
+    public static double getTotalCost(String filePath) {
+        if (fileOperations.fileExists(filePath)) {
+            try {
+                return fileOperations.readDoubleFromFile(filePath);
+            } catch (IOException e) {
+                return 0;
             }
         }
-        return 0; // Return 0 if the file does not exist
+        return 0;
     }
 
     //Test Check if the method returns the correct number of books sold.
     //Test Check if the method handles the absence of the booksSold file.
     public static int getBooksSold(String filePath){
 // Check if the file "res/booksSold.bin" exists
-        File file = new File(filePath);
-        if (file.exists()) {
-// If the file exists, try to read the integer value from the file
-            try (FileInputStream fis = new FileInputStream(file);
-                 DataInputStream dis = new DataInputStream(fis)) {
-// Return the read integer value
-                return dis.readInt();
+        if (fileOperations.fileExists(filePath)) {
+            try {
+                return (int) fileOperations.readDoubleFromFile(filePath);
             } catch (IOException e) {
-// In case of IOException, return 0
                 return 0;
             }
         }
-// If the file doesn't exist, return 0
         return 0;
     }
 
