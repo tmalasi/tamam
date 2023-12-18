@@ -26,7 +26,7 @@ public class Person {
     }
 
     public void setBirthday(String birthday) {
-        if (birthday == null) {
+        if (birthday == null || birthday.isEmpty()) {
             throw new IllegalArgumentException("Birthday cannot be null");
         }
         this.birthday = birthday;
