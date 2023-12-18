@@ -84,30 +84,31 @@ public class Book {
 
     public void setCategory(String category) {
         // Ensure that the category is not null
+        int minLength=1;
         int maxLength = 25;
         if (category == null) {
             throw new IllegalArgumentException("Category cannot be null");
-        }
-        // Ensure that the category does not exceed the maximum length
-        else if(category.length() > maxLength) {
+        } else if(minLength > category.length() || category.length() > maxLength) {
             throw new IllegalArgumentException("Category length exceeds the maximum allowed (" + maxLength + " characters)");
-        }
-        else{
-        this.category = category;
+        } else{
+            this.category = category;
         }
     }
+
+
     public void setIsbn(String isbn) {
+        int minLength=1;
         int maxLength = 15;// Ensure that the ISBN is not null
         if (isbn == null) {
             throw new IllegalArgumentException("ISBN cannot be null");
         }
         // Ensure that the ISBN does not exceed the maximum length (adjust the value accordingly)
-        else if (isbn.length() > maxLength) {
+        else if (isbn.length()<minLength || isbn.length() > maxLength) {
             throw new IllegalArgumentException("ISBN length exceeds the maximum allowed (" + maxLength + " characters)");
         }
         else {
-        // Set the ISBN
-        this.isbn = isbn;}
+            // Set the ISBN
+            this.isbn = isbn;}
     }
 
     public void setTitle(String title) {
@@ -122,11 +123,13 @@ public class Book {
             throw new IllegalArgumentException("Title length exceeds the maximum allowed (" + maxLength + " characters)");
         }
         else {
-        // Set the title
-        this.title = title;}
+            // Set the title
+            this.title = title;}
     }
 
-//Test Attempt to set a negative purchase price.
+
+
+    //Test Attempt to set a negative purchase price.
 // Set a valid positive purchase price.
     public void setPurchasePrice(double purchasePrice) {
         if (purchasePrice < 0|| purchasePrice>5000) {
@@ -164,18 +167,21 @@ public class Book {
 
 
     public void setAuthor(String author) {
+        int minLength=1;
         int maxLength = 25;
         // Ensure that the author is not null
         if (author == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }
         // Ensure that the author does not exceed the maximum length (adjust the value accordingly)
-        else if (author.length() > maxLength) {
+        else if (author.length()<minLength || author.length() > maxLength) {
             throw new IllegalArgumentException("Author length exceeds the maximum allowed (" + maxLength + " characters)");
         }
         else{// Set the author
-        this.author = author;}
+            this.author = author;}
     }
+
+
 
     public String getSupplier() {
         return supplier;
@@ -183,17 +189,18 @@ public class Book {
 
     public void setSupplier(String supplier) {
         // Ensure that the supplier is not null
+        int minLength=1;
         int maxLength = 25;
         if (supplier == null) {
             throw new IllegalArgumentException("Supplier cannot be null");
         }
         // Ensure that the supplier does not exceed the maximum length (adjust the value accordingly)
-        else if (supplier.length() > maxLength) {
+        else if (supplier.length()<minLength || supplier.length() > maxLength) {
             throw new IllegalArgumentException("Supplier length exceeds the maximum allowed (" + maxLength + " characters)");
         }
         else{
-        // Set the supplier
-        this.supplier = supplier;}
+            // Set the supplier
+            this.supplier = supplier;}
     }
     public int getStock() {
         return stock;
