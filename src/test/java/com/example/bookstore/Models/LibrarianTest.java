@@ -17,6 +17,7 @@ class LibrarianTest {
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
+    //TODO fix this
     @Test
     public void testSetTotalBilledValueJustMinValue() {
         Librarian librarian=new Librarian("TestName","TestUsername","TestPasword","01-01-2002",400,"+3555555",Role.Librarian,0);

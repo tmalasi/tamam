@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 // Model class for representing a bill
 public class Bill {
+    //TODO test this
+
 
     // List of books in the bill
     private ArrayList<Book> books;
@@ -36,6 +38,9 @@ public class Bill {
 
     // Setter method for books
     public void setBooks(ArrayList<Book> books) {
+        if (books==null){
+            throw new IllegalArgumentException("books cannot be null");
+        }
         this.books = books;
     }
 
@@ -46,7 +51,18 @@ public class Bill {
 
     // Setter method for bill id
     public void setBillId(String billId) {
-        this.billId = billId;
+        int minLength=1;
+        int maxLength = 15;// Ensure that the ISBN is not null
+        if (billId == null) {
+            throw new IllegalArgumentException("BillID cannot be null");
+        }
+        // Ensure that the ISBN does not exceed the maximum length (adjust the value accordingly)
+        else if (billId.length()<minLength || billId.length() > maxLength) {
+            throw new IllegalArgumentException("BillID length exceeds the maximum allowed (" + maxLength + " characters)");
+        }
+        else {
+            // Set the ISBN
+            this.billId = billId;}
     }
 
     // Getter method for quantity

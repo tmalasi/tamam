@@ -123,6 +123,8 @@ public class Person {
         }
     }
 
+    //TODO fix default test maybe
+
     public static Person createPerson(String name, String username, String password,
                                       String birthday, int salary, String phone, Role role) {
         switch (role) {

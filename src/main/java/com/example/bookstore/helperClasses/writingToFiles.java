@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class writingToFiles {
+    //TODO look at each method and its test claify them
 
     //Method that is used to read the information about the person logging in.
     //Based on their username and password(which will be saved in a file)
@@ -68,7 +69,7 @@ public class writingToFiles {
             }
             // Close the writer to save the file
             writer.close();
-        } catch (IOException exception) {
+        } catch (Exception exception) {
             // Print the stack trace if an IOException is thrown
             throw new RuntimeException(exception);
         }
@@ -97,10 +98,16 @@ public class writingToFiles {
                     books.add(new Book(Data[0],Data[1],Double.parseDouble(Data[2]),Double.parseDouble(Data[3]),Double.parseDouble(Data[4]),Data[5],Data[6],Data[7],Integer.parseInt(Data[8]), LocalDate.parse(Data[9])));
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Throw a runtime exception if there is an error reading the file
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
+        //TODO check this possibility
+        //// catch (FileNotFoundException e1)
+        //            e1.printStackTrace();
+        //        } catch (IOException e) {
+        //            System.out.println(e);
+        //        }
         // Return the list of books
         return books;
     }
@@ -110,12 +117,11 @@ public class writingToFiles {
         // Create an ObservableList to store the persons
         ObservableList<Person> people = FXCollections.observableArrayList();
         // Define the file location for the persons data
-        File file = new File(filepath);
         try {
+            File file = new File(filepath);
             // Create the file if it does not exist
                 if (file.exists()) {
 // If it exists, return the number of files (bills) in the directory
-
                     // Create a Scanner object to read the file
                     Scanner scanner = new Scanner(file);
                     // Read the file line by line
@@ -135,9 +141,9 @@ public class writingToFiles {
                         }
                     }
                 }
-        } catch (IOException e) {
+        } catch (Exception e) {
             // Throw a runtime exception if there is an error reading the file
-            throw new RuntimeException(e);
+            throw new RuntimeException(e.getMessage());
         }
         return people;
     }
@@ -216,9 +222,9 @@ public class writingToFiles {
             writer.write("\nTotal: " + totalBill);
             // Close the FileWriter
             writer.close();}
-        } catch (IOException e) {
-            // Throw a runtime exception if an IOException occurs
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            // Throw a runtime exception if there is an error reading the file
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -284,9 +290,9 @@ public class writingToFiles {
             }
             // Close the FileWriter
             writer.close();
-        } catch (IOException e) {
-            // In case of IOException, throw a new RuntimeException with the caught exception
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            // Throw a runtime exception if there is an error reading the file
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -294,18 +300,21 @@ public class writingToFiles {
     //Test Check if the persons file contains the correct person information.
     //mockfilewriter
     public static void writePersons(String filepath, ArrayList<Person> personArrayList){
-        File file = new File(filepath);
+
         try {
+            File file = new File(filepath);
             FileWriter writer = new FileWriter(file);
             for (Person person: personArrayList){
                 writer.write(person.toString() + "\n");
             }
             writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            // Throw a runtime exception if there is an error reading the file
+            throw new RuntimeException(e.getMessage());
         }
     }
 
+    //TODO fix these
     //Test Check if the totalBill file contains the correct total.
     public static void writeTotalBill(double total, String filePath){
         File file = new File(filePath);
@@ -315,8 +324,9 @@ public class writingToFiles {
             dos.writeDouble(total);
             dos.close();
             fos.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            // Throw a runtime exception if there is an error reading the file
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -329,8 +339,9 @@ public class writingToFiles {
             dos.writeDouble(total);
             dos.close();
             fos.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            // Throw a runtime exception if there is an error reading the file
+            throw new RuntimeException(e.getMessage());
         }
     }
 }

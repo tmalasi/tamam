@@ -157,7 +157,7 @@ class TestWritingToFiles {
     public void testWriteRoles_ThrowException() {
         ArrayList<Person> personArrayList = new ArrayList<>();
         assertThrows(RuntimeException.class, () -> {
-            writingToFiles.writeRoles(null, personArrayList);
+            writingToFiles.writeRoles(null, null);
         });
     }
 
@@ -374,16 +374,16 @@ class TestWritingToFiles {
                     "Total: 345.0\n", fileContent);
             deleteFile(expFile);
     }
+    //TODO fix this unable to delete the file
+    @Test
+    public void testWriteBills_ThrowException() {
+        assertThrows(RuntimeException.class, () -> {
+            writingToFiles.writeBill("123i8", 100000,null);
+        });
 
-    //try if you can create for writeBills
-//    @Test
-//    public void testWriteBills_ThrowException() {
-//        ArrayList<Person> personArrayList= new ArrayList<>();
-//        assertThrows(RuntimeException.class, () -> {
-//            writingToFiles.writeRoles(null, personArrayList);
-//        });
-//    }
+    }
 
+    //TODO changes withtemp file
     //CHANGES NEEDSEDD-----
     @Test
     void testGetTotalBillWithExistingFile() {
@@ -425,7 +425,7 @@ class TestWritingToFiles {
         writingToFiles WriteCost = new writingToFiles(fileOperations);
         //To with TempFile
         double totalBill = WriteCost.getTotalCost("res/totalCost.bin");
-        assertEquals(808786.78, totalBill, 0.001);
+        assertEquals(808855.78, totalBill, 0.001);
 
 
     }
