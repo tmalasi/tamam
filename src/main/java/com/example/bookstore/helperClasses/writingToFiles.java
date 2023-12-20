@@ -11,16 +11,13 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class writingToFiles {
-    //TODO look at each method and its test claify them
+    //TODO look at each method and its test clarify them
 
     //Method that is used to read the information about the person logging in.
     //Based on their username and password(which will be saved in a file)
     //The program decides with which credentials in the text the user's input matches with
     //In the roles.txt file,the role of the person is stored as the third element
     //The method will return data[2] for this reason.
-
-    //test read credentials for : valid , invalid password , not existent username
-    //Test for exception!
     public static String readCredentials(String username, String password, String filepath) {
         // Create a file object for the roles file
         try {
@@ -315,7 +312,6 @@ public class writingToFiles {
     }
 
     //TODO fix these
-    private static FileOutputInterface fileOutput = new DefaultFileOutput();
 
     //Test Check if the totalBill file contains the correct total.
     public static void writeTotalBill(double total, String filePath, FileOutputInterface fileOutput){
