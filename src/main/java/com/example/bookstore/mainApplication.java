@@ -2,6 +2,8 @@ package com.example.bookstore;
 
 
 import com.example.bookstore.Models.Book;
+import com.example.bookstore.helperClasses.DefaultFileOutput;
+import com.example.bookstore.helperClasses.FileOutputInterface;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -49,6 +51,7 @@ public class mainApplication extends Application {
             }
         });
         primaryStage.setScene(scene); // Set the stage's scene to the Scene object created earlier
+        FileOutputInterface fileOutput = new DefaultFileOutput();
         primaryStage.setOnCloseRequest(event -> {
             // Write the data to files when the application is closed
             ArrayList<Book> bookList = new ArrayList<>(Controller.books);
@@ -56,8 +59,8 @@ public class mainApplication extends Application {
             writingToFiles.writeBooks("res/books.txt",bookList );
             writingToFiles.writePersons("res/persons.txt", peopleList);
             writingToFiles.writeRoles("res/roles.txt",  peopleList);
-            writingToFiles.writeTotalBill(BillView.total, "res/totalBill.bin");
-            writingToFiles.writeTotalCost(Controller.totalCost, "res/totalCost.bin");
+            writingToFiles.writeTotalBill(BillView.total, "res/totalBill.bin",fileOutput);
+            writingToFiles.writeTotalCost(Controller.totalCost, "res/totalCost.bin", fileOutput);
         });
         primaryStage.show(); // Show the stage
     }

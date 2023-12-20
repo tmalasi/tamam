@@ -315,32 +315,24 @@ public class writingToFiles {
     }
 
     //TODO fix these
+    private static FileOutputInterface fileOutput = new DefaultFileOutput();
+
     //Test Check if the totalBill file contains the correct total.
-    public static void writeTotalBill(double total, String filePath){
-        File file = new File(filePath);
-        try{
-            FileOutputStream fos = new FileOutputStream(file);
-            DataOutputStream dos = new DataOutputStream(fos);
-            dos.writeDouble(total);
-            dos.close();
-            fos.close();
-        } catch (Exception e) {
-            // Throw a runtime exception if there is an error reading the file
-            throw new RuntimeException(e.getMessage());
-        }
+    public static void writeTotalBill(double total, String filePath, FileOutputInterface fileOutput){
+            try {
+                fileOutput.writeDoubleToFile(total, filePath);
+            } catch (IOException e) {
+                // Throw a runtime exception if there is an error writing the file
+                throw new RuntimeException(e.getMessage());
+            }
     }
 
     //Test Check if the totalCost file contains the correct total.
-    public static void writeTotalCost(double total, String filepath){
-        File file = new File(filepath);
+    public static void writeTotalCost(double total, String filepath, FileOutputInterface fileOutput){
         try {
-            FileOutputStream fos = new FileOutputStream(file);
-            DataOutputStream dos = new DataOutputStream(fos);
-            dos.writeDouble(total);
-            dos.close();
-            fos.close();
-        } catch (Exception e) {
-            // Throw a runtime exception if there is an error reading the file
+            fileOutput.writeDoubleToFile(total, filepath);
+        } catch (IOException e) {
+            // Throw a runtime exception if there is an error writing the file
             throw new RuntimeException(e.getMessage());
         }
     }

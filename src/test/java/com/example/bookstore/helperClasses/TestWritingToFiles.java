@@ -383,20 +383,18 @@ class TestWritingToFiles {
 
     }
 
-    //TODO changes withtemp file
-    //CHANGES NEEDSEDD-----
+    //Unit testing for GetTotalBill
     @Test
-    void testGetTotalBillWithExistingFile() {
-        FileOperations fileOperations = new DefaultFileOperations();
+    void testGetTotalBillWithMockExistingFile() {
+        FileOperations fileOperations = new MockFileOperations(true,123.4);
         writingToFiles WriteBill = new writingToFiles(fileOperations);
-        //To with TempFile
 
-        double totalBill = WriteBill.getTotalBill("res/totalBill.bin");
-        assertEquals(1165.32, totalBill, 0.001);
+        double totalBill = WriteBill.getTotalBill("existingFile.bin");
+        assertEquals(123.4, totalBill, 0.001);
     }
 
     @Test
-    void testGetTotalBillWithNonExistingFile() {
+    void testGetTotalBillWithMockNonExistingFile() {
         FileOperations fileOperations = new MockFileOperations(false, 0.0);
         writingToFiles WriteBill = new writingToFiles(fileOperations);
 
@@ -406,7 +404,7 @@ class TestWritingToFiles {
     }
 
     @Test
-    void testGetTotalBillWithIOException() {
+    void testGetTotalBillWithMockIOException() {
         FileOperations fileOperations = new MockFileOperations(true, 0.0) {
             @Override
             public double readDoubleFromFile(String filepath) throws IOException {
@@ -419,14 +417,25 @@ class TestWritingToFiles {
 
         assertEquals(0.0, totalBill, 0.001);
     }
+    //TODO changes with temp file
+    // integrationtesting with totalbill
+    // @Test
+//    void testGetTotalBillWithMockExistingFile() {
+//        FileOperations fileOperations = new DefaultFileOperations();
+//        writingToFiles WriteBill = new writingToFiles(fileOperations);
+//        //To with TempFile
+//
+//        double totalBill = WriteBill.getTotalBill("res/totalBill.bin");
+//        assertEquals(1165.32, totalBill, 0.001);
+//    }
+
+    //Unit Testing for get total cost
     @Test
     void testGetTotalCostWithExistingFile() {
-        FileOperations fileOperations = new DefaultFileOperations();
+        FileOperations fileOperations = new MockFileOperations(true,123.4);
         writingToFiles WriteCost = new writingToFiles(fileOperations);
-        //To with TempFile
-        double totalBill = WriteCost.getTotalCost("res/totalCost.bin");
-        assertEquals(808855.78, totalBill, 0.001);
-
+        double totalCost = WriteCost.getTotalCost("existing file ");
+        assertEquals(123.4, totalCost, 0.001);
 
     }
 
@@ -435,9 +444,9 @@ class TestWritingToFiles {
         FileOperations fileOperations = new MockFileOperations(false, 0.0);
         writingToFiles WriteCost = new writingToFiles(fileOperations);
 
-        double totalBill = WriteCost.getTotalCost("nonExistingFile.bin");
+        double totalCost = WriteCost.getTotalCost("nonExistingFile.bin");
 
-        assertEquals(0.0, totalBill, 0.001);
+        assertEquals(0.0, totalCost, 0.001);
     }
 
     @Test
@@ -450,18 +459,17 @@ class TestWritingToFiles {
         };
         writingToFiles WriteCost = new writingToFiles(fileOperations);
 
-        double totalBill = WriteCost.getTotalCost("existingFile.bin");
+        double totalCost = WriteCost.getTotalCost("existingFile.bin");
 
-        assertEquals(0.0, totalBill, 0.001);
+        assertEquals(0.0, totalCost, 0.001);
     }
 
     @Test
     void testGetBooksSoldWithExistingFile() {
-        FileOperations fileOperations = new DefaultFileOperations();
+        FileOperations fileOperations = new MockFileOperations(true,123);
         writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
-        //To with TempFile
-        int totalBill = WriteBooksSold.getBooksSold("res/booksSold.bin");
-        assertEquals(808786, totalBill);//Fix
+        int booksSold= WriteBooksSold.getBooksSold("res/booksSold.bin");
+        assertEquals(123, booksSold);//Fix
     }
 
     @Test
@@ -469,9 +477,9 @@ class TestWritingToFiles {
         FileOperations fileOperations = new MockFileOperations(false, 0.0);
         writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
 
-        int totalBill = WriteBooksSold.getBooksSold("nonExistingFile.bin");
+        int booksSold = WriteBooksSold.getBooksSold("nonExistingFile.bin");
 
-        assertEquals(0, totalBill);
+        assertEquals(0, booksSold);
     }
 
     @Test
@@ -484,30 +492,10 @@ class TestWritingToFiles {
         };
         writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
 
-        int totalBill = WriteBooksSold.getBooksSold("existingFile.bin");
+        int booksSold = WriteBooksSold.getBooksSold("existingFile.bin");
 
-        assertEquals(0, totalBill);
+        assertEquals(0, booksSold);
     }
-
-    //all mock
-//    @Test
-//    public void testGetTotalBill_forNONExistingPath() {
-//        double totalBill = writingToFiles.getTotalBill("path/to/non-existing-bill");
-//        assertEquals(0.0, totalBill);
-//    }
-//
-//    @Test
-//    public void testGetTotalCost_forNONExistingPath() {
-//        double totalCost = writingToFiles.getTotalCost("path/to/non-existing-bill");
-//        assertEquals(0.0, totalCost);
-//    }
-//
-//    @Test
-//    public void testGetBooksSold_forNONExistingPath() {
-//        double booksSold = writingToFiles.getTotalCost("path/to/non-existing-bill");
-//        assertEquals(0, booksSold);
-//    }
-
     @Test
     public void testWriteBooks_CheckFileIsCreatedCorrectly() throws IOException {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -584,21 +572,56 @@ class TestWritingToFiles {
         });
     }
 
-    //do with mock
-//    @Test
-//    public void testWriteTotalBill_OfExistingFile() {
-//        double sampleTotal = 1165.32;
-//        writingToFiles.writeTotalBill(sampleTotal, "res/totalBill.bin");
-//        double actualTotal = readTotal("res/totalBill.bin");
-//        assertEquals(sampleTotal, actualTotal);
-//    }
-//    @Test
-//    void testWriteTotalCost_OfExistingFile() {
-//        double sampleTotalCost = 756.78;
-//        writingToFiles.writeTotalCost(sampleTotalCost, "res/totalCost.bin");
-//        double actualTotalCost = readTotal("res/totalCost.bin");
-//        assertEquals(sampleTotalCost, actualTotalCost, "File should contain the sample total cost");
-//    }
+    //Unit Testing for write Total Bill
+    @Test
+    void testWriteTotalBillSuccess() {
+        double total = 123.4;
+        String filePath = "testFile.bin";
+        FileOutputInterface fileOutput = new MockFileOutput(false);
+
+        assertDoesNotThrow(() -> writingToFiles.writeTotalBill(total, filePath, fileOutput));
+
+    }
+
+    @Test
+    void testWriteTotalBillWithException() {
+        double total = 123.4;
+        String filePath = "testFile.bin";
+
+        // Create a mock implementation of FileOutputInterface that throws an exception
+        FileOutputInterface fileOutput = new MockFileOutput(true);
+
+        // Call the method with the mock FileOutputInterface
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> writingToFiles.writeTotalBill(total, filePath, fileOutput));
+        assertEquals("Mock write error", exception.getMessage());
+    }
+
+    //Unit Testing for write Total Cost
+    @Test
+    void testWriteTotalCostSuccess() {
+        double total = 123.4;
+        String filePath = "testFile.bin";
+        FileOutputInterface fileOutput = new MockFileOutput(false);
+
+        assertDoesNotThrow(() -> writingToFiles.writeTotalCost(total, filePath, fileOutput));
+
+    }
+
+    @Test
+    void testWriteTotalCostWithException() {
+        double total = 123.4;
+        String filePath = "testFile.bin";
+
+        // Create a mock implementation of FileOutputInterface that throws an exception
+        FileOutputInterface fileOutput = new MockFileOutput(true);
+
+        // Call the method with the mock FileOutputInterface
+        RuntimeException exception = assertThrows(RuntimeException.class,
+                () -> writingToFiles.writeTotalCost(total, filePath, fileOutput));
+        assertEquals("Mock write error", exception.getMessage());
+    }
+    //TODO intergation testing
 
     private String readFileContents(String filePath) {
         StringBuilder content = new StringBuilder();
