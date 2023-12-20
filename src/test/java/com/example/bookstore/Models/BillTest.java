@@ -11,6 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BillTest {
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetBooksValidValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -23,6 +24,7 @@ class BillTest {
         assertEquals(books, bill.getBooks());
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetBooksNull() {
 
@@ -30,6 +32,7 @@ class BillTest {
         assertThrows(IllegalArgumentException.class, () -> bill.setBooks(bill.getBooks()));
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetBillIdValidValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -41,6 +44,8 @@ class BillTest {
         bill.setBillId(bill.getBillId());
         assertEquals("bill123", bill.getBillId());
     }
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetBillIdNullValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -53,6 +58,7 @@ class BillTest {
 
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @ParameterizedTest
     @CsvSource({
             "A,4,39.0,\"dd-MM-yyyy\"",
@@ -67,6 +73,8 @@ class BillTest {
         Bill bill = new Bill(books, billid,  quantity, totalAmount, dateOfTransaction);
         assertEquals(billid, bill.getBillId());
     }
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @ParameterizedTest
     @CsvSource({
             ",4,39.0,\"dd-MM-yyyy\"",
@@ -82,6 +90,7 @@ class BillTest {
         assertThrows(IllegalArgumentException.class, () -> bill.setBillId(billid));
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetQuantityValidValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -93,6 +102,8 @@ class BillTest {
         bill.setQuantity(bill.getQuantity());
         assertEquals(4, bill.getQuantity());
     }
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @ParameterizedTest
     @CsvSource({
             "TEST,1,39.0,\"dd-MM-yyyy\"",
@@ -107,6 +118,8 @@ class BillTest {
         Bill bill = new Bill(books, billid,  quantity, totalAmount, dateOfTransaction);
         assertEquals(quantity, bill.getQuantity());
     }
+
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @ParameterizedTest
     @CsvSource({
             "TEST,0,39.0,\"dd-MM-yyyy\"",
@@ -122,7 +135,7 @@ class BillTest {
         assertThrows(IllegalArgumentException.class, () -> bill.setQuantity(quantity));
     }
 
-
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTotalAmountValidValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -134,6 +147,7 @@ class BillTest {
         assertEquals(23.3, bill.getTotalAmount());
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTotalAmountMinValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -146,6 +160,7 @@ class BillTest {
         assertEquals(0, bill.getTotalAmount());
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTotalAmountLessThanMin() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -157,6 +172,7 @@ class BillTest {
         assertThrows(IllegalArgumentException.class, () -> bill.setTotalAmount(bill.getTotalAmount()));
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetDateOfTransactionValidValue() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -169,6 +185,7 @@ class BillTest {
         assertEquals("dd-MM-yyyy", bill.getDateOfTransaction());
     }
 
+    //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetDateOfTransactionNull() {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));

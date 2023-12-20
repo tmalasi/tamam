@@ -4,6 +4,8 @@ package com.example.bookstore.Models;
 import com.example.bookstore.helperClasses.Role;
 
 public class Person {
+    //TODO fix to do 100 % line coverae from 98 it is
+    //TODO maybe test getters
 
     private String name, birthday, phone;
 

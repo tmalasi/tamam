@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {
+    
 
     //This is a method for EquivalenceTesting
     @Test

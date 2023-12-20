@@ -4,6 +4,8 @@ package com.example.bookstore.Models;
 import com.example.bookstore.helperClasses.Role;
 
 public class Librarian extends Person {
+    //TODO maybe test getters
+
 
     // private variable to store the total amount billed by the librarian
     private double totalBilled;
