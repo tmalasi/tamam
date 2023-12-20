@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 // Model class for representing a bill
 public class Bill {
-    //TODO test this
+    //TODO maybe test getters
 
 
     // List of books in the bill
@@ -107,6 +107,9 @@ public class Bill {
 
     // Setter method for date of transaction
     public void setDateOfTransaction(String dateOfTransaction) {
+        if (dateOfTransaction==null){
+            throw new IllegalArgumentException("Date cannot be null");
+        }
         this.dateOfTransaction = dateOfTransaction;
     }
 
