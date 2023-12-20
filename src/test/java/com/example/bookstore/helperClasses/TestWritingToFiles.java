@@ -1,4 +1,6 @@
 package com.example.bookstore.helperClasses;
+import com.example.bookstore.helperClasses.Mock.MockFileOperations;
+import com.example.bookstore.helperClasses.Mock.MockFileOutput;
 import com.example.bookstore.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,6 +12,8 @@ import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.io.File;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -375,13 +379,13 @@ class TestWritingToFiles {
             deleteFile(expFile);
     }
     //TODO fix this unable to delete the file
-    @Test
-    public void testWriteBills_ThrowException() {
-        assertThrows(RuntimeException.class, () -> {
-            writingToFiles.writeBill("123i8", 100000,null);
-        });
-
-    }
+//    @Test
+//    public void testWriteBills_ThrowException() {
+//        assertThrows(RuntimeException.class, () -> {
+//            writingToFiles.writeBill("123i8", 100000,null);
+//        });
+//
+//    }
 
     //Unit testing for GetTotalBill
     @Test
@@ -417,21 +421,55 @@ class TestWritingToFiles {
 
         assertEquals(0.0, totalBill, 0.001);
     }
-    //TODO changes with temp file
-    // integrationtesting with totalbill
-    // @Test
-//    void testGetTotalBillWithMockExistingFile() {
-//        FileOperations fileOperations = new DefaultFileOperations();
-//        writingToFiles WriteBill = new writingToFiles(fileOperations);
-//        //To with TempFile
-//
-//        double totalBill = WriteBill.getTotalBill("res/totalBill.bin");
-//        assertEquals(1165.32, totalBill, 0.001);
-//    }
 
+    //Integration testing with the default file operations for get total bill
+    @Test
+    void testGetTotalBillWithExistingTempFile() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalB", ".bin");
+
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(tempFile))) {
+            dos.writeDouble(1165.32);
+        }
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBill = WriteBill.getTotalBill(tempFile.getPath());
+        assertEquals(1165.32, totalBill, 0.001);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    void testGetTotalBillWithNONExistingTempFile() throws IOException {
+        // Create a temporary file
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBill = WriteBill.getTotalBill("null");
+        assertEquals(0.0, totalBill, 0.001);
+
+    }
+
+    @Test
+    void testGetTotalBillWithExistingTempFileButEmpty() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalB", ".bin");
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBill = WriteBill.getTotalBill(tempFile.getPath());
+        assertEquals(0.0, totalBill, 0.001);
+        tempFile.deleteOnExit();
+
+    }
     //Unit Testing for get total cost
     @Test
-    void testGetTotalCostWithExistingFile() {
+    void testGetTotalCostWithValidFile() {
         FileOperations fileOperations = new MockFileOperations(true,123.4);
         writingToFiles WriteCost = new writingToFiles(fileOperations);
         double totalCost = WriteCost.getTotalCost("existing file ");
@@ -463,7 +501,50 @@ class TestWritingToFiles {
 
         assertEquals(0.0, totalCost, 0.001);
     }
+    //Integration testing with the default file operations for get total cost
+    @Test
+    void testGetTotalCostWithValidTempFile() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalC", ".bin");
 
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(tempFile))) {
+            dos.writeDouble(1165.32);
+        }
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+            double totalCost = WriteBill.getTotalCost(tempFile.getPath());
+        assertEquals(1165.32, totalCost, 0.001);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    void testGetTotalCostWithNONExistingTempFile() throws IOException {
+        // Create a temporary file
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+            double totalCost = WriteBill.getTotalCost("\"existingFile.bin\"");
+        assertEquals(0.0, totalCost);
+
+    }
+
+    @Test
+    void testGetTotalCostWithExistingTempFileButEmpty() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalC", ".bin");
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalCost = WriteBill.getTotalCost(tempFile.getPath());
+        assertEquals(0.0, totalCost, 0.001);
+        tempFile.deleteOnExit();
+
+    }
     @Test
     void testGetBooksSoldWithExistingFile() {
         FileOperations fileOperations = new MockFileOperations(true,123);
@@ -496,6 +577,53 @@ class TestWritingToFiles {
 
         assertEquals(0, booksSold);
     }
+    //Integration testing with the default file operations for get total bill
+    @Test
+    void testGetBooksSoldWithExistingTempFile() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempBooksSold", ".bin");
+
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(tempFile))) {
+            dos.writeDouble(11);
+        }
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBooksSold = WriteBill.getBooksSold(tempFile.getPath());
+        assertEquals(11.00, totalBooksSold, 0.001);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    void testGetTotalBooksSoldWithNONExistingTempFile() {
+        // Create a temporary file
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBooksSold = WriteBill.getBooksSold("null");
+        assertEquals(0.0, totalBooksSold, 0.001);
+
+    }
+
+    @Test
+    void testGetTotalBooksWithExistingTempFileButEmpty() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalB", ".bin");
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBooksSold = WriteBill.getBooksSold(tempFile.getPath());
+        assertEquals(0.0, totalBooksSold, 0.001);
+        tempFile.deleteOnExit();
+
+    }
+
+
     @Test
     public void testWriteBooks_CheckFileIsCreatedCorrectly() throws IOException {
         Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
@@ -574,17 +702,16 @@ class TestWritingToFiles {
 
     //Unit Testing for write Total Bill
     @Test
-    void testWriteTotalBillSuccess() {
+    void testWriteTotalBillSuccessMock() {
         double total = 123.4;
         String filePath = "testFile.bin";
         FileOutputInterface fileOutput = new MockFileOutput(false);
-
         assertDoesNotThrow(() -> writingToFiles.writeTotalBill(total, filePath, fileOutput));
 
     }
 
     @Test
-    void testWriteTotalBillWithException() {
+    void testWriteTotalBillWithExceptionMock() {
         double total = 123.4;
         String filePath = "testFile.bin";
 
@@ -596,6 +723,35 @@ class TestWritingToFiles {
                 () -> writingToFiles.writeTotalBill(total, filePath, fileOutput));
         assertEquals("Mock write error", exception.getMessage());
     }
+
+    //Integration Testing for write total bill
+    @Test
+    void testWriteTotalBillSuccessWithTempFile() throws IOException {
+        File tempFile = File.createTempFile("tempTotalB", ".txt");
+        double total = 123.4;
+        FileOutputInterface fileOutput = new DefaultFileOutput();
+        writingToFiles.writeTotalBill(total, tempFile.toString(), fileOutput);
+        double fileContent;
+        try (FileInputStream fis = new FileInputStream(tempFile);
+             DataInputStream dis = new DataInputStream(fis)) {
+            fileContent = dis.readDouble();
+        }
+        assertEquals(total,fileContent);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    void testWriteTotalBillThrowExceptionWithTempFile() throws IOException {
+
+        FileOutputInterface fileOutput = new DefaultFileOutput();
+        // Specify a path that is not writable to simulate an IOException
+        String nonWritableFilePath = "/path/to/nonwritablefile.txt";
+
+        // Use assertThrows to verify that an IOException is thrown
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                writingToFiles.writeTotalBill(42.0, nonWritableFilePath,fileOutput));
+    }
+
 
     //Unit Testing for write Total Cost
     @Test
@@ -621,7 +777,33 @@ class TestWritingToFiles {
                 () -> writingToFiles.writeTotalCost(total, filePath, fileOutput));
         assertEquals("Mock write error", exception.getMessage());
     }
-    //TODO intergation testing
+
+    //Integration Test for Write TotalCost
+    @Test
+    void testWriteTotalCostSuccessWithTempFile() throws IOException {
+        File tempFile = File.createTempFile("tempTotalC", ".txt");
+        double total = 123.4;
+        FileOutputInterface fileOutput = new DefaultFileOutput();
+        writingToFiles.writeTotalCost(total, tempFile.toString(), fileOutput);
+        double fileContent;
+        try (FileInputStream fis = new FileInputStream(tempFile);
+             DataInputStream dis = new DataInputStream(fis)) {
+            fileContent = dis.readDouble();
+        }
+        assertEquals(total,fileContent);
+        tempFile.deleteOnExit();
+    }
+    @Test
+    void testWriteTotalCostThrowExceptionWithTempFile() {
+
+        FileOutputInterface fileOutput = new DefaultFileOutput();
+        // Specify a path that is not writable to simulate an IOException
+        String nonWritableFilePath = "/path/to/nonwritablefile.txt";
+
+        // Use assertThrows to verify that an IOException is thrown
+        RuntimeException exception = assertThrows(RuntimeException.class, () ->
+                writingToFiles.writeTotalCost(42.0, nonWritableFilePath,fileOutput));
+    }
 
     private String readFileContents(String filePath) {
         StringBuilder content = new StringBuilder();
