@@ -4,9 +4,6 @@ import java.util.ArrayList;
 
 // Model class for representing a bill
 public class Bill {
-    //TODO maybe test getters
-
-
     // List of books in the bill
     private ArrayList<Book> books;
 

@@ -90,13 +90,6 @@ public class writingToFiles {
             // Throw a runtime exception if there is an error reading the file
             throw new RuntimeException(e.getMessage());
         }
-        //TODO check this possibility
-        //// catch (FileNotFoundException e1)
-        //            e1.printStackTrace();
-        //        } catch (IOException e) {
-        //            System.out.println(e);
-        //        }
-        // Return the list of books
         return books;
     }
 

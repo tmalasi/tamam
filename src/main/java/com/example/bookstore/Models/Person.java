@@ -4,7 +4,6 @@ package com.example.bookstore.Models;
 import com.example.bookstore.helperClasses.Role;
 
 public class Person {
-    //TODO maybe test getters
     private String name, birthday, phone;
     private int salary;
     private String userName;
@@ -118,9 +117,6 @@ public class Person {
             this.name = name;
         }
     }
-
-    //TODO fix default test maybe
-
     public static Person createPerson(String name, String username, String password,
                                       String birthday, int salary, String phone, Role role) {
         switch (role) {

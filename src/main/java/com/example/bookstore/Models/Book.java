@@ -3,8 +3,6 @@ package com.example.bookstore.Models;
 import java.time.LocalDate;
 
 public class Book {
-    //TODO maybe test getters
-
     private String isbn; // The ISBN of the book
     private String title; // The title of the book
     private double purchasePrice, totalPurchased; // The purchase price of the book and the total amount purchased
