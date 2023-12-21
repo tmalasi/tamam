@@ -241,9 +241,8 @@ class PersonTest {
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testCreatePerson_WhenRoleIsNotOneOfTheCases() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Person person = new Person("TestName","TestUsername","TestPassword","01-01-2002",233,"+355686767", Role.valueOf("null"));
-            Person.createPerson(person.getName(),person.getUserName(),person.getPassword(),person.getBirthday(),person.getSalary(),person.getPhone(),person.getRole());
+            assertThrows(IllegalArgumentException.class, () -> {
+            Person.createPerson("TestName","TestUsername","TestPassword","01-01-2002",233,"+355686767", Role.Test);
         });
     }
 

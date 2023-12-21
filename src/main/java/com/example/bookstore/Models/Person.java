@@ -4,7 +4,6 @@ package com.example.bookstore.Models;
 import com.example.bookstore.helperClasses.Role;
 
 public class Person {
-    //TODO fix to do 100 % line coverage from 98 it is
     //TODO maybe test getters
 
     private String name, birthday, phone;
@@ -137,7 +136,7 @@ public class Person {
             case Administrator:
                 return new Administrator(name, username, password, birthday, salary, phone, Role.Administrator);
             default:
-                throw new IllegalArgumentException("Invalid role");
+                throw new IllegalArgumentException("Invalid role: " + role);
         }
     }
     @Override

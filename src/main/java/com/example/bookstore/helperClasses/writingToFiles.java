@@ -192,6 +192,7 @@ public class writingToFiles {
             // Create a new file
             if (file.createNewFile()){
             // Create a FileWriter to write to the file
+
             FileWriter writer = new FileWriter(file);
             // Write the bill header information
             writer.write("Bill Id: " + billId);

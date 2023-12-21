@@ -10,7 +10,8 @@ public enum Role {
     Manager,
 
     // Role for administrators in the system
-    Administrator
+    Administrator,
+    Test;
 }
 
 

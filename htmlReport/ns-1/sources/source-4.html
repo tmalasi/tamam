@@ -1,0 +1,412 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > writingToFiles</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.example.bookstore.helperClasses</a>
+</div>
+
+<h1>Coverage Summary for Class: writingToFiles (com.example.bookstore.helperClasses)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">writingToFiles</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (17/17)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (128/128)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.example.bookstore.helperClasses;
+&nbsp;
+&nbsp;
+&nbsp;import javafx.collections.FXCollections;
+&nbsp;import javafx.collections.ObservableList;
+&nbsp;import com.example.bookstore.Models.*;
+&nbsp;
+&nbsp;import java.io.*;
+&nbsp;import java.text.SimpleDateFormat;
+&nbsp;import java.time.LocalDate;
+&nbsp;import java.util.*;
+&nbsp;
+&nbsp;public class writingToFiles {
+&nbsp;    //TODO look at each method and its test clarify them
+&nbsp;
+&nbsp;    //Method that is used to read the information about the person logging in.
+&nbsp;    //Based on their username and password(which will be saved in a file)
+&nbsp;    //The program decides with which credentials in the text the user&#39;s input matches with
+&nbsp;    //In the roles.txt file,the role of the person is stored as the third element
+&nbsp;    //The method will return data[2] for this reason.
+&nbsp;    public static String readCredentials(String username, String password, String filepath) {
+&nbsp;        // Create a file object for the roles file
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File(filepath);</b>
+&nbsp;            // Create a Scanner object to read the file
+<b class="fc">&nbsp;            Scanner scanner = new Scanner(file);</b>
+&nbsp;            // Read each line of the file
+<b class="fc">&nbsp;            while (scanner.hasNext()) {</b>
+&nbsp;                // Split the line into an array using the comma as a separator
+<b class="fc">&nbsp;                String[] data = scanner.nextLine().split(&quot;,&quot;);</b>
+&nbsp;                // Check if the username and password match the values in the array
+<b class="fc">&nbsp;                if (data[0].equalsIgnoreCase(username) &amp;&amp; data[1].equalsIgnoreCase(password)) {</b>
+&nbsp;                    // Return the role if the match is found
+<b class="fc">&nbsp;                    return data[2];</b>
+&nbsp;                }
+<b class="fc">&nbsp;            }</b>
+&nbsp;            // Return null if no match is found
+<b class="fc">&nbsp;            return null;</b>
+<b class="fc">&nbsp;        } catch (Exception ex) {</b>
+&nbsp;            // Return null if an exception is thrown while reading the file
+<b class="fc">&nbsp;            return null;</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    //Method used to write roles in the roles.txt file
+&nbsp;    public static void writeRoles(String filePath, ArrayList&lt;Person&gt; peopleList) {
+&nbsp;        // Create a file object for the roles file
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File(filePath);</b>
+&nbsp;            // Create a FileWriter object to write to the file
+<b class="fc">&nbsp;            FileWriter writer = new FileWriter(file);</b>
+&nbsp;            //As the first line we need to write some credentials that we ourselves will use to log in
+&nbsp;            // Write the first line of the file with the administrator credentials
+<b class="fc">&nbsp;            writer.write(&quot;admin,admin,Administrator&quot;);</b>
+&nbsp;            // &quot;people&quot; is an ObservableList that is used to store people,getting
+&nbsp;            //information from another method called getPersons.
+&nbsp;            //Accessing it through the Controller component we write
+&nbsp;            //each person&#39;s username, password, and role in separate lines
+<b class="fc">&nbsp;            for (Person person : peopleList) {</b>
+<b class="fc">&nbsp;                writer.write(&quot;\n&quot; + person.getUserName() + &quot;,&quot; + person.getPassword() + &quot;,&quot; + person.getRole().toString());</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;            // Close the writer to save the file
+<b class="fc">&nbsp;            writer.close();</b>
+<b class="fc">&nbsp;        } catch (Exception exception) {</b>
+&nbsp;            // Print the stack trace if an IOException is thrown
+<b class="fc">&nbsp;            throw new RuntimeException(exception);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Method used to write books in the books.txt file
+&nbsp;    public static ObservableList&lt;Book&gt; getBooks( String filepath){
+&nbsp;        // Create an ObservableList to store the books
+<b class="fc">&nbsp;        ObservableList&lt;Book&gt; books = FXCollections.observableArrayList();</b>
+&nbsp;        // Define the file location for the books data
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File( filepath);</b>
+&nbsp;// Check if the file has been created
+<b class="fc">&nbsp;            if (file.exists()){</b>
+&nbsp;                // Create a Scanner object to read the file
+<b class="fc">&nbsp;                Scanner scanner = new Scanner(file);</b>
+&nbsp;                // Read the file line by line
+<b class="fc">&nbsp;                while (scanner.hasNextLine()){</b>
+&nbsp;                    // Split the line into data fields
+<b class="fc">&nbsp;                    String[] Data = scanner.nextLine().split(&quot;,&quot;);</b>
+&nbsp;                    // Create a new book object using the data fields
+<b class="fc">&nbsp;                    books.add(new Book(Data[0],Data[1],Double.parseDouble(Data[2]),Double.parseDouble(Data[3]),Double.parseDouble(Data[4]),Data[5],Data[6],Data[7],Integer.parseInt(Data[8]), LocalDate.parse(Data[9])));</b>
+<b class="fc">&nbsp;                }</b>
+&nbsp;            }
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+&nbsp;            // Throw a runtime exception if there is an error reading the file
+<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;        //TODO check this possibility
+&nbsp;        //// catch (FileNotFoundException e1)
+&nbsp;        //            e1.printStackTrace();
+&nbsp;        //        } catch (IOException e) {
+&nbsp;        //            System.out.println(e);
+&nbsp;        //        }
+&nbsp;        // Return the list of books
+<b class="fc">&nbsp;        return books;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Test same with books !!
+&nbsp;    public static ObservableList&lt;Person&gt; getPersons(String filepath){
+&nbsp;        // Create an ObservableList to store the persons
+<b class="fc">&nbsp;        ObservableList&lt;Person&gt; people = FXCollections.observableArrayList();</b>
+&nbsp;        // Define the file location for the persons data
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File(filepath);</b>
+&nbsp;            // Create the file if it does not exist
+<b class="fc">&nbsp;                if (file.exists()) {</b>
+&nbsp;// If it exists, return the number of files (bills) in the directory
+&nbsp;                    // Create a Scanner object to read the file
+<b class="fc">&nbsp;                    Scanner scanner = new Scanner(file);</b>
+&nbsp;                    // Read the file line by line
+<b class="fc">&nbsp;                    while (scanner.hasNextLine()){</b>
+&nbsp;                        // Split the line into data fields
+<b class="fc">&nbsp;                        String[] Data = scanner.nextLine().split(&quot;,&quot;);</b>
+&nbsp;                        // Determine the type of person based on the role field
+<b class="fc">&nbsp;                        if (Data[6].equalsIgnoreCase(&quot;Librarian&quot;)){</b>
+&nbsp;                            // Create a new Librarian object using the data fields
+<b class="fc">&nbsp;                            people.add(new Librarian(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Librarian,Double.parseDouble(Data[7])));</b>
+<b class="fc">&nbsp;                        }else if (Data[6].equalsIgnoreCase(&quot;Manager&quot;)){</b>
+&nbsp;                            // Create a new Manager object using the data fields
+<b class="fc">&nbsp;                            people.add(new Manager(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Manager));</b>
+<b class="fc">&nbsp;                        }else if (Data[6].equalsIgnoreCase(&quot;Administrator&quot;)){</b>
+&nbsp;                            // Create a new Administrator object using the data fields
+<b class="fc">&nbsp;                            people.add(new Administrator(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Administrator));</b>
+&nbsp;                        }
+<b class="fc">&nbsp;                    }</b>
+&nbsp;                }
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+&nbsp;            // Throw a runtime exception if there is an error reading the file
+<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return people;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public static String getNumberOfLibrarians(ArrayList&lt;Person&gt; peopleList){
+&nbsp;        // retrieve list of people from the BooksPersonsController
+<b class="fc">&nbsp;        int numberOfLibrarians = 0;</b>
+&nbsp;        // iterate over each person in the list
+<b class="fc">&nbsp;        for (Person person: peopleList) {</b>
+&nbsp;            // check if the person is an instance of Librarian
+<b class="fc">&nbsp;            if (person instanceof Librarian){</b>
+<b class="fc">&nbsp;                numberOfLibrarians++;</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+&nbsp;        // return the number of Librarians as a string
+<b class="fc">&nbsp;        return String.valueOf(numberOfLibrarians);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static String getNumberOfManagers(ArrayList &lt;Person&gt; peopleList){
+&nbsp;        // retrieve list of people from the BooksPersonsController
+<b class="fc">&nbsp;        int numberOfManagers = 0;</b>
+&nbsp;        // iterate over each person in the list
+<b class="fc">&nbsp;        for (Person person: peopleList) {</b>
+&nbsp;            // check if the person is an instance of Manager
+<b class="fc">&nbsp;            if (person instanceof Manager){</b>
+<b class="fc">&nbsp;                numberOfManagers++;</b>
+&nbsp;            }
+<b class="fc">&nbsp;        }</b>
+&nbsp;        // return the number of Managers as a string
+<b class="fc">&nbsp;        return String.valueOf(numberOfManagers);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static int getNumberOfBills(String Filepath){
+&nbsp;// Create a File object representing the directory &quot;res/Bills&quot;
+<b class="fc">&nbsp;        File file = new File(Filepath);</b>
+&nbsp;// Check if the directory exists
+&nbsp;        try{
+<b class="fc">&nbsp;            if (file.exists()) {</b>
+&nbsp;// If it exists, return the number of files (bills) in the directory
+<b class="fc">&nbsp;                return Objects.requireNonNull(file.listFiles()).length;</b>
+&nbsp;            }}
+<b class="fc">&nbsp;        catch(NullPointerException e){</b>
+<b class="fc">&nbsp;            throw new RuntimeException(e);</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;// If the directory does not exist, return 0
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public static void writeBill(String billId, double totalBill, List&lt;Book&gt; books, String filePath){
+&nbsp;        // Create a File object representing the bill file
+&nbsp;        // Get the current date and time
+<b class="fc">&nbsp;        Calendar calendar = Calendar.getInstance();</b>
+<b class="fc">&nbsp;        SimpleDateFormat dateFormat = new SimpleDateFormat(&quot;dd-MM-yyyy&quot;);</b>
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File(filePath);</b>
+&nbsp;            // Create a new file
+<b class="fc">&nbsp;            if (file.createNewFile()){</b>
+&nbsp;            // Create a FileWriter to write to the file
+&nbsp;
+<b class="fc">&nbsp;            FileWriter writer = new FileWriter(file);</b>
+&nbsp;            // Write the bill header information
+<b class="fc">&nbsp;            writer.write(&quot;Bill Id: &quot; + billId);</b>
+<b class="fc">&nbsp;            writer.write(&quot;\nDate: &quot; + dateFormat.format(calendar.getTime()));</b>
+&nbsp;            // Write the books included in the bill
+<b class="fc">&nbsp;            int i = 0;</b>
+<b class="fc">&nbsp;            for (Book book: books) {</b>
+<b class="fc">&nbsp;                writer.write(&quot;\n&quot; + ++i + &quot;: &quot; + book.toStringBill());</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;            // Write the total bill amount
+<b class="fc">&nbsp;            writer.write(&quot;\nTotal: &quot; + totalBill);</b>
+&nbsp;            // Close the FileWriter
+<b class="fc">&nbsp;            writer.close();}</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+&nbsp;            // Throw a runtime exception if there is an error reading the file
+<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    private static FileOperations fileOperations = new DefaultFileOperations();</b>
+&nbsp;
+<b class="fc">&nbsp;    public writingToFiles(FileOperations fileOperations) {</b>
+<b class="fc">&nbsp;        this.fileOperations = fileOperations;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static double getTotalBill(String filepath) {
+<b class="fc">&nbsp;        if (fileOperations.fileExists(filepath)) {</b>
+&nbsp;            try {
+<b class="fc">&nbsp;                return fileOperations.readDoubleFromFile(filepath);</b>
+<b class="fc">&nbsp;            } catch (IOException e) {</b>
+<b class="fc">&nbsp;                return 0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static double getTotalCost(String filePath) {
+<b class="fc">&nbsp;        if (fileOperations.fileExists(filePath)) {</b>
+&nbsp;            try {
+<b class="fc">&nbsp;                return fileOperations.readDoubleFromFile(filePath);</b>
+<b class="fc">&nbsp;            } catch (IOException e) {</b>
+<b class="fc">&nbsp;                return 0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static int getBooksSold(String filePath){
+<b class="fc">&nbsp;        if (fileOperations.fileExists(filePath)) {</b>
+&nbsp;            try {
+<b class="fc">&nbsp;                return (int) fileOperations.readDoubleFromFile(filePath);</b>
+<b class="fc">&nbsp;            } catch (IOException e) {</b>
+<b class="fc">&nbsp;                return 0;</b>
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return 0;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void writeBooks(String filepath, ArrayList&lt;Book&gt; bookArrayList){
+&nbsp;        // Create the file &quot;res/books.txt&quot;
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File(filepath);</b>
+&nbsp;            // Create a FileWriter instance to write the data to the file
+<b class="fc">&nbsp;            FileWriter writer = new FileWriter(file);</b>
+&nbsp;            // Write each book&#39;s information to the file
+<b class="fc">&nbsp;            for (Book book: bookArrayList){</b>
+<b class="fc">&nbsp;                writer.write(book.toString() + &quot;\n&quot;);</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;            // Close the FileWriter
+<b class="fc">&nbsp;            writer.close();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+&nbsp;            // Throw a runtime exception if there is an error reading the file
+<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public static void writePersons(String filepath, ArrayList&lt;Person&gt; personArrayList){
+&nbsp;
+&nbsp;        try {
+<b class="fc">&nbsp;            File file = new File(filepath);</b>
+<b class="fc">&nbsp;            FileWriter writer = new FileWriter(file);</b>
+<b class="fc">&nbsp;            for (Person person: personArrayList){</b>
+<b class="fc">&nbsp;                writer.write(person.toString() + &quot;\n&quot;);</b>
+<b class="fc">&nbsp;            }</b>
+<b class="fc">&nbsp;            writer.close();</b>
+<b class="fc">&nbsp;        } catch (Exception e) {</b>
+&nbsp;            // Throw a runtime exception if there is an error reading the file
+<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //TODO fix these
+&nbsp;    public static void writeTotalBill(double total, String filePath, FileOutputInterface fileOutput){
+&nbsp;            try {
+<b class="fc">&nbsp;                fileOutput.writeDoubleToFile(total, filePath);</b>
+<b class="fc">&nbsp;            } catch (IOException e) {</b>
+&nbsp;                // Throw a runtime exception if there is an error writing the file
+<b class="fc">&nbsp;                throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;            }</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void writeTotalCost(double total, String filepath, FileOutputInterface fileOutput){
+&nbsp;        try {
+<b class="fc">&nbsp;            fileOutput.writeDoubleToFile(total, filepath);</b>
+<b class="fc">&nbsp;        } catch (IOException e) {</b>
+&nbsp;            // Throw a runtime exception if there is an error writing the file
+<b class="fc">&nbsp;            throw new RuntimeException(e.getMessage());</b>
+<b class="fc">&nbsp;        }</b>
+&nbsp;    }
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-12-21 17:16</div>
+</div>
+</body>
+</html>
