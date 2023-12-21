@@ -354,8 +354,9 @@ class TestWritingToFiles {
     @Test
     public void testWriteBills_CheckFileIsCreatedCorrectly() {
         ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
-        writingToFiles.writeBill(String.valueOf(1000), 1234, books);
         String expectedFilePath = "res/Bills/" + 1000 + ".txt";
+        writingToFiles.writeBill(String.valueOf(1000), 1234, books,expectedFilePath);
+
         assertTrue(new File(expectedFilePath).exists());
         deleteFile(expectedFilePath);
     }
@@ -367,8 +368,9 @@ class TestWritingToFiles {
             ArrayList<Book> books = new ArrayList<>();
             books.add(book1);
             books.add(book2);
-            writingToFiles.writeBill("123i9", 345, books);
             String expFile = "res/Bills/" + "123i9" + ".txt";
+            writingToFiles.writeBill("123i9", 345, books,expFile);
+
             String fileContent = readFileContents(expFile);
             assertEquals("Bill Id: 123i9\n" +
                     //Fix date
@@ -377,15 +379,13 @@ class TestWritingToFiles {
                     "2: ISBN: 12346 ,Title: NewBook2 ,Author: newAuthor\n" +
                     "Total: 345.0\n", fileContent);
             deleteFile(expFile);
+    }@Test
+    public void testWriteBills_ThrowException() {
+        assertThrows(RuntimeException.class, () -> {
+            writingToFiles.writeBill("123i8", 100000,null, null);
+        });
+
     }
-    //TODO fix this unable to delete the file
-//    @Test
-//    public void testWriteBills_ThrowException() {
-//        assertThrows(RuntimeException.class, () -> {
-//            writingToFiles.writeBill("123i8", 100000,null);
-//        });
-//
-//    }
 
     //Unit testing for GetTotalBill
     @Test
@@ -696,7 +696,7 @@ class TestWritingToFiles {
     @Test
     public void testWritePersons_ThrowException() {
         assertThrows(RuntimeException.class, () -> {
-            writingToFiles.writeBooks(null,null);
+            writingToFiles.writePersons(null,null);
         });
     }
 

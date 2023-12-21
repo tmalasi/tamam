@@ -53,7 +53,7 @@ public class BillView extends BorderPane{
         generateBillButton.setOnAction(e -> {
             if (!books1.isEmpty()) {
 // Call writeBill method of UtilityHelper class to write bill details into a file
-                writingToFiles.writeBill(String.valueOf(billId), totalPrice, books1);
+                writingToFiles.writeBill(String.valueOf(billId), totalPrice, books1,"res/Bills/" + billId + ".txt");
                 // Show an information alert to the user that the bill has been generated
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Bill Generated");
