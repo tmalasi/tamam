@@ -38,7 +38,7 @@ public class Bill {
 
     // Setter method for books
     public void setBooks(ArrayList<Book> books) {
-        if (books==null){
+        if (books == null) {
             throw new IllegalArgumentException("books cannot be null");
         }
         this.books = books;
@@ -51,18 +51,18 @@ public class Bill {
 
     // Setter method for bill id
     public void setBillId(String billId) {
-        int minLength=1;
+        int minLength = 1;
         int maxLength = 15;// Ensure that the ISBN is not null
         if (billId == null) {
             throw new IllegalArgumentException("BillID cannot be null");
         }
         // Ensure that the ISBN does not exceed the maximum length (adjust the value accordingly)
-        else if (billId.length()<minLength || billId.length() > maxLength) {
+        else if (billId.length() < minLength || billId.length() > maxLength) {
             throw new IllegalArgumentException("BillID length exceeds the maximum allowed (" + maxLength + " characters)");
-        }
-        else {
+        } else {
             // Set the ISBN
-            this.billId = billId;}
+            this.billId = billId;
+        }
     }
 
     // Getter method for quantity
@@ -90,8 +90,8 @@ public class Bill {
     }
 
     // Setter method for total amount
-   //test Set a negative quantity using setQuantity() and ensure it throws an IllegalArgumentException
-   // Set the total amount to the minimum valid value (0.0).
+    //test Set a negative quantity using setQuantity() and ensure it throws an IllegalArgumentException
+    // Set the total amount to the minimum valid value (0.0).
     public void setTotalAmount(double totalAmount) {
         if (totalAmount < 0) {
             throw new IllegalArgumentException("Amount must be more than 0");
@@ -107,7 +107,7 @@ public class Bill {
 
     // Setter method for date of transaction
     public void setDateOfTransaction(String dateOfTransaction) {
-        if (dateOfTransaction==null){
+        if (dateOfTransaction == null) {
             throw new IllegalArgumentException("Date cannot be null");
         }
         this.dateOfTransaction = dateOfTransaction;

@@ -1,7 +1,6 @@
 package com.example.bookstore.View;
 
 
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -30,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BillView extends BorderPane{
+public class BillView extends BorderPane {
     private TableView<Book> table = new TableView<>();
     private AtomicInteger quantity = new AtomicInteger();
     private double totalPrice = 0.0;
@@ -49,11 +48,11 @@ public class BillView extends BorderPane{
         Button addBookButton = new Button("Add Book");
         Button generateBillButton = new Button("Generate Bill");
         generateBillButton.setCursor(Cursor.HAND);
-        generateBillButton.setPrefSize(100,20);
+        generateBillButton.setPrefSize(100, 20);
         generateBillButton.setOnAction(e -> {
             if (!books1.isEmpty()) {
 // Call writeBill method of UtilityHelper class to write bill details into a file
-                writingToFiles.writeBill(String.valueOf(billId), totalPrice, books1,"res/Bills/" + billId + ".txt");
+                writingToFiles.writeBill(String.valueOf(billId), totalPrice, books1, "res/Bills/" + billId + ".txt");
                 // Show an information alert to the user that the bill has been generated
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Bill Generated");
@@ -65,7 +64,7 @@ public class BillView extends BorderPane{
 
                 // Update the total billed amount for the librarian if the user is a librarian
                 if (getUser() instanceof Librarian) {
-                    for (Person person1: Controller.people) {
+                    for (Person person1 : Controller.people) {
                         if (person1 instanceof Librarian) {
                             if (person1.equals(getUser())) {
                                 ((Librarian) person1).setTotalBilled(((Librarian) getUser()).getTotalBilled() + totalPrice);
@@ -93,23 +92,23 @@ public class BillView extends BorderPane{
             }
         });
         addBookButton.setPrefSize(100, 20);
-        totalPriceLabel.setFont(Font.font("Tahoma", FontWeight.BOLD,15));
+        totalPriceLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
         addBookButton.setOnAction(event -> bookTable(books));
         setCenter(billTable());
         billIdLabel = new Label("Bill ID: " + ++billId);
-        billIdLabel.setFont(Font.font("Tahoma", FontWeight.BOLD,15));
+        billIdLabel.setFont(Font.font("Tahoma", FontWeight.BOLD, 15));
         GridPane bottomBox = new GridPane();
         bottomBox.setPadding(new Insets(15, 12, 15, 12));
         bottomBox.setVgap(20);
-        bottomBox.add(billIdLabel,0,0);
-        bottomBox.add(totalPriceLabel,0,1);
-        bottomBox.add(addBookButton,0,2);
-        bottomBox.add(generateBillButton,0,3);
+        bottomBox.add(billIdLabel, 0, 0);
+        bottomBox.add(totalPriceLabel, 0, 1);
+        bottomBox.add(addBookButton, 0, 2);
+        bottomBox.add(generateBillButton, 0, 3);
         bottomBox.setAlignment(Pos.CENTER);
         setRight(bottomBox);
     }
 
-    private TableView<Book> billTable(){
+    private TableView<Book> billTable() {
 
         List<TableColumn<Book, ?>> columns = new ArrayList<>();
         // Create a TableColumn object for ISBN
@@ -149,7 +148,7 @@ public class BillView extends BorderPane{
         return table;
     }
 
-//    @NotNull
+    //    @NotNull
     private TableColumn<Book, Void> getBookVoidTableColumn() {
         TableColumn<Book, Void> quantityColumn = new TableColumn<>("Quantity");
         // Define a callback function to create cells for the Quantity column
@@ -177,7 +176,7 @@ public class BillView extends BorderPane{
     }
 
 
-    private void bookTable(ObservableList<Book> books){
+    private void bookTable(ObservableList<Book> books) {
         Stage bookStage = new Stage();
         bookStage.initModality(Modality.APPLICATION_MODAL);
         bookStage.setTitle("Add Book");
@@ -246,7 +245,7 @@ public class BillView extends BorderPane{
                             books1.add(selectedBook);
                             // Close the book stage
                             bookStage.fireEvent(new WindowEvent(bookStage, WindowEvent.WINDOW_CLOSE_REQUEST));
-                        }else {
+                        } else {
                             // Show an error message if the entered quantity is invalid
                             label.setText("Invalid quantity. Please enter a value between 1 and " + selectedBook.getStock());
                         }

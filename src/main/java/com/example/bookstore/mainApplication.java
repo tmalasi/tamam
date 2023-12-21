@@ -56,10 +56,10 @@ public class mainApplication extends Application {
             // Write the data to files when the application is closed
             ArrayList<Book> bookList = new ArrayList<>(Controller.books);
             ArrayList<Person> peopleList = new ArrayList<>(Controller.people);
-            writingToFiles.writeBooks("res/books.txt",bookList );
+            writingToFiles.writeBooks("res/books.txt", bookList);
             writingToFiles.writePersons("res/persons.txt", peopleList);
-            writingToFiles.writeRoles("res/roles.txt",  peopleList);
-            writingToFiles.writeTotalBill(BillView.total, "res/totalBill.bin",fileOutput);
+            writingToFiles.writeRoles("res/roles.txt", peopleList);
+            writingToFiles.writeTotalBill(BillView.total, "res/totalBill.bin", fileOutput);
             writingToFiles.writeTotalCost(Controller.totalCost, "res/totalCost.bin", fileOutput);
         });
         primaryStage.show(); // Show the stage

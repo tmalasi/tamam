@@ -1,6 +1,7 @@
 package com.example.bookstore.Models;
 
 import com.example.bookstore.helperClasses.Role;
+
 // Model class for representing an Administrator
 public class Administrator extends Person {
 

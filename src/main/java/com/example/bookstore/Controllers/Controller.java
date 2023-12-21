@@ -5,8 +5,6 @@ import com.example.bookstore.Models.Book;
 import com.example.bookstore.Models.Person;
 import com.example.bookstore.helperClasses.writingToFiles;
 
-import java.util.List;
-
 // Controller class for managing books and persons data
 
 //Test !

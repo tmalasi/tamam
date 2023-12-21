@@ -68,22 +68,22 @@ public class writingToFiles {
     }
 
     //Method used to write books in the books.txt file
-    public static ObservableList<Book> getBooks( String filepath){
+    public static ObservableList<Book> getBooks(String filepath) {
         // Create an ObservableList to store the books
         ObservableList<Book> books = FXCollections.observableArrayList();
         // Define the file location for the books data
         try {
-            File file = new File( filepath);
+            File file = new File(filepath);
 // Check if the file has been created
-            if (file.exists()){
+            if (file.exists()) {
                 // Create a Scanner object to read the file
                 Scanner scanner = new Scanner(file);
                 // Read the file line by line
-                while (scanner.hasNextLine()){
+                while (scanner.hasNextLine()) {
                     // Split the line into data fields
                     String[] Data = scanner.nextLine().split(",");
                     // Create a new book object using the data fields
-                    books.add(new Book(Data[0],Data[1],Double.parseDouble(Data[2]),Double.parseDouble(Data[3]),Double.parseDouble(Data[4]),Data[5],Data[6],Data[7],Integer.parseInt(Data[8]), LocalDate.parse(Data[9])));
+                    books.add(new Book(Data[0], Data[1], Double.parseDouble(Data[2]), Double.parseDouble(Data[3]), Double.parseDouble(Data[4]), Data[5], Data[6], Data[7], Integer.parseInt(Data[8]), LocalDate.parse(Data[9])));
                 }
             }
         } catch (Exception e) {
@@ -101,34 +101,34 @@ public class writingToFiles {
     }
 
     //Test same with books !!
-    public static ObservableList<Person> getPersons(String filepath){
+    public static ObservableList<Person> getPersons(String filepath) {
         // Create an ObservableList to store the persons
         ObservableList<Person> people = FXCollections.observableArrayList();
         // Define the file location for the persons data
         try {
             File file = new File(filepath);
             // Create the file if it does not exist
-                if (file.exists()) {
+            if (file.exists()) {
 // If it exists, return the number of files (bills) in the directory
-                    // Create a Scanner object to read the file
-                    Scanner scanner = new Scanner(file);
-                    // Read the file line by line
-                    while (scanner.hasNextLine()){
-                        // Split the line into data fields
-                        String[] Data = scanner.nextLine().split(",");
-                        // Determine the type of person based on the role field
-                        if (Data[6].equalsIgnoreCase("Librarian")){
-                            // Create a new Librarian object using the data fields
-                            people.add(new Librarian(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Librarian,Double.parseDouble(Data[7])));
-                        }else if (Data[6].equalsIgnoreCase("Manager")){
-                            // Create a new Manager object using the data fields
-                            people.add(new Manager(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Manager));
-                        }else if (Data[6].equalsIgnoreCase("Administrator")){
-                            // Create a new Administrator object using the data fields
-                            people.add(new Administrator(Data[0],Data[4],Data[5],Data[1],Integer.parseInt(Data[3]),Data[2],Role.Administrator));
-                        }
+                // Create a Scanner object to read the file
+                Scanner scanner = new Scanner(file);
+                // Read the file line by line
+                while (scanner.hasNextLine()) {
+                    // Split the line into data fields
+                    String[] Data = scanner.nextLine().split(",");
+                    // Determine the type of person based on the role field
+                    if (Data[6].equalsIgnoreCase("Librarian")) {
+                        // Create a new Librarian object using the data fields
+                        people.add(new Librarian(Data[0], Data[4], Data[5], Data[1], Integer.parseInt(Data[3]), Data[2], Role.Librarian, Double.parseDouble(Data[7])));
+                    } else if (Data[6].equalsIgnoreCase("Manager")) {
+                        // Create a new Manager object using the data fields
+                        people.add(new Manager(Data[0], Data[4], Data[5], Data[1], Integer.parseInt(Data[3]), Data[2], Role.Manager));
+                    } else if (Data[6].equalsIgnoreCase("Administrator")) {
+                        // Create a new Administrator object using the data fields
+                        people.add(new Administrator(Data[0], Data[4], Data[5], Data[1], Integer.parseInt(Data[3]), Data[2], Role.Administrator));
                     }
                 }
+            }
         } catch (Exception e) {
             // Throw a runtime exception if there is an error reading the file
             throw new RuntimeException(e.getMessage());
@@ -137,13 +137,13 @@ public class writingToFiles {
     }
 
 
-    public static String getNumberOfLibrarians(ArrayList<Person> peopleList){
+    public static String getNumberOfLibrarians(ArrayList<Person> peopleList) {
         // retrieve list of people from the BooksPersonsController
         int numberOfLibrarians = 0;
         // iterate over each person in the list
-        for (Person person: peopleList) {
+        for (Person person : peopleList) {
             // check if the person is an instance of Librarian
-            if (person instanceof Librarian){
+            if (person instanceof Librarian) {
                 numberOfLibrarians++;
             }
         }
@@ -151,13 +151,13 @@ public class writingToFiles {
         return String.valueOf(numberOfLibrarians);
     }
 
-    public static String getNumberOfManagers(ArrayList <Person> peopleList){
+    public static String getNumberOfManagers(ArrayList<Person> peopleList) {
         // retrieve list of people from the BooksPersonsController
         int numberOfManagers = 0;
         // iterate over each person in the list
-        for (Person person: peopleList) {
+        for (Person person : peopleList) {
             // check if the person is an instance of Manager
-            if (person instanceof Manager){
+            if (person instanceof Manager) {
                 numberOfManagers++;
             }
         }
@@ -165,16 +165,16 @@ public class writingToFiles {
         return String.valueOf(numberOfManagers);
     }
 
-    public static int getNumberOfBills(String Filepath){
+    public static int getNumberOfBills(String Filepath) {
 // Create a File object representing the directory "res/Bills"
         File file = new File(Filepath);
 // Check if the directory exists
-        try{
+        try {
             if (file.exists()) {
 // If it exists, return the number of files (bills) in the directory
                 return Objects.requireNonNull(file.listFiles()).length;
-            }}
-        catch(NullPointerException e){
+            }
+        } catch (NullPointerException e) {
             throw new RuntimeException(e);
         }
 // If the directory does not exist, return 0
@@ -182,7 +182,7 @@ public class writingToFiles {
     }
 
 
-    public static void writeBill(String billId, double totalBill, List<Book> books, String filePath){
+    public static void writeBill(String billId, double totalBill, List<Book> books, String filePath) {
         // Create a File object representing the bill file
         // Get the current date and time
         Calendar calendar = Calendar.getInstance();
@@ -190,22 +190,23 @@ public class writingToFiles {
         try {
             File file = new File(filePath);
             // Create a new file
-            if (file.createNewFile()){
-            // Create a FileWriter to write to the file
+            if (file.createNewFile()) {
+                // Create a FileWriter to write to the file
 
-            FileWriter writer = new FileWriter(file);
-            // Write the bill header information
-            writer.write("Bill Id: " + billId);
-            writer.write("\nDate: " + dateFormat.format(calendar.getTime()));
-            // Write the books included in the bill
-            int i = 0;
-            for (Book book: books) {
-                writer.write("\n" + ++i + ": " + book.toStringBill());
+                FileWriter writer = new FileWriter(file);
+                // Write the bill header information
+                writer.write("Bill Id: " + billId);
+                writer.write("\nDate: " + dateFormat.format(calendar.getTime()));
+                // Write the books included in the bill
+                int i = 0;
+                for (Book book : books) {
+                    writer.write("\n" + ++i + ": " + book.toStringBill());
+                }
+                // Write the total bill amount
+                writer.write("\nTotal: " + totalBill);
+                // Close the FileWriter
+                writer.close();
             }
-            // Write the total bill amount
-            writer.write("\nTotal: " + totalBill);
-            // Close the FileWriter
-            writer.close();}
         } catch (Exception e) {
             // Throw a runtime exception if there is an error reading the file
             throw new RuntimeException(e.getMessage());
@@ -241,7 +242,7 @@ public class writingToFiles {
         return 0;
     }
 
-    public static int getBooksSold(String filePath){
+    public static int getBooksSold(String filePath) {
         if (fileOperations.fileExists(filePath)) {
             try {
                 return (int) fileOperations.readDoubleFromFile(filePath);
@@ -252,14 +253,14 @@ public class writingToFiles {
         return 0;
     }
 
-    public static void writeBooks(String filepath, ArrayList<Book> bookArrayList){
+    public static void writeBooks(String filepath, ArrayList<Book> bookArrayList) {
         // Create the file "res/books.txt"
         try {
             File file = new File(filepath);
             // Create a FileWriter instance to write the data to the file
             FileWriter writer = new FileWriter(file);
             // Write each book's information to the file
-            for (Book book: bookArrayList){
+            for (Book book : bookArrayList) {
                 writer.write(book.toString() + "\n");
             }
             // Close the FileWriter
@@ -271,12 +272,12 @@ public class writingToFiles {
     }
 
 
-    public static void writePersons(String filepath, ArrayList<Person> personArrayList){
+    public static void writePersons(String filepath, ArrayList<Person> personArrayList) {
 
         try {
             File file = new File(filepath);
             FileWriter writer = new FileWriter(file);
-            for (Person person: personArrayList){
+            for (Person person : personArrayList) {
                 writer.write(person.toString() + "\n");
             }
             writer.close();
@@ -287,16 +288,16 @@ public class writingToFiles {
     }
 
     //TODO fix these
-    public static void writeTotalBill(double total, String filePath, FileOutputInterface fileOutput){
-            try {
-                fileOutput.writeDoubleToFile(total, filePath);
-            } catch (IOException e) {
-                // Throw a runtime exception if there is an error writing the file
-                throw new RuntimeException(e.getMessage());
-            }
+    public static void writeTotalBill(double total, String filePath, FileOutputInterface fileOutput) {
+        try {
+            fileOutput.writeDoubleToFile(total, filePath);
+        } catch (IOException e) {
+            // Throw a runtime exception if there is an error writing the file
+            throw new RuntimeException(e.getMessage());
+        }
     }
 
-    public static void writeTotalCost(double total, String filepath, FileOutputInterface fileOutput){
+    public static void writeTotalCost(double total, String filepath, FileOutputInterface fileOutput) {
         try {
             fileOutput.writeDoubleToFile(total, filepath);
         } catch (IOException e) {

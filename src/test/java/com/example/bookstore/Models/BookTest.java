@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import static org.junit.jupiter.api.Assertions.*;
 
 class BookTest {
-    
+
 
     //This is a method for EquivalenceTesting
     @Test
@@ -17,6 +17,7 @@ class BookTest {
             book.setCategory(null);
         });
     }
+
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetCategoryWhenItIsSmallerThanMin() {
@@ -173,7 +174,7 @@ class BookTest {
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
-    public void testSetPurchasePrice_WhenPurchasePriceZero () {
+    public void testSetPurchasePrice_WhenPurchasePriceZero() {
         Book book = new Book("123", "SampleTitle", 0, 34.4, "Comedy");
         book.setPurchasePrice(book.getPurchasePrice());
         assertEquals(0, book.getPurchasePrice());
@@ -181,7 +182,7 @@ class BookTest {
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
-    public void testSetPurchasePrice_WhenPurchasePriceValidValue () {
+    public void testSetPurchasePrice_WhenPurchasePriceValidValue() {
         Book book = new Book("123", "SampleTitle", 1000, 34.4, "Comedy");
         book.setPurchasePrice(book.getPurchasePrice());
         assertEquals(1000, book.getPurchasePrice());
@@ -189,7 +190,7 @@ class BookTest {
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
-    public void testSetPurchasePrice_WhenPurchasePriceMaxValue () {
+    public void testSetPurchasePrice_WhenPurchasePriceMaxValue() {
         Book book = new Book("123", "SampleTitle", 5000, 34.4, "Comedy");
         book.setPurchasePrice(book.getPurchasePrice());
         assertEquals(5000, book.getPurchasePrice());
@@ -208,24 +209,24 @@ class BookTest {
     @Test
     void testSetOriginalPrice_WithNegativeOriginalPrice() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Book book = new Book("123","SampleTitle",45.5,-3,45.5,
-                    "SampleAuthor","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+            Book book = new Book("123", "SampleTitle", 45.5, -3, 45.5,
+                    "SampleAuthor", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
             book.setOriginalPrice(book.getOriginalPrice());
         });
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
-    public void testSetOriginalPrice_WhenOriginalPriceZero () {
-        Book book = new Book("123","SampleTitle",45.5,0,45.5,
-                "comedy","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+    public void testSetOriginalPrice_WhenOriginalPriceZero() {
+        Book book = new Book("123", "SampleTitle", 45.5, 0, 45.5,
+                "comedy", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
         book.setOriginalPrice(book.getOriginalPrice());
         assertEquals(0, book.getOriginalPrice());
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
-    public void testSetOriginalPrice_WhenPurchasePriceValid () {
+    public void testSetOriginalPrice_WhenPurchasePriceValid() {
         Book book = new Book();
         book.setOriginalPrice(345);
         assertEquals(345, book.getOriginalPrice());
@@ -235,8 +236,8 @@ class BookTest {
     @Test
     void testSetSellPrice_WithSellPriceSmallerThanPurchasePrice() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Book book = new Book("123","SampleTitle",45.5,-3,45.4,
-                    "SampleAuthor","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+            Book book = new Book("123", "SampleTitle", 45.5, -3, 45.4,
+                    "SampleAuthor", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
             book.setSellPrice(book.getSellPrice());
         });
     }
@@ -244,26 +245,26 @@ class BookTest {
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetSellPrice_EqualWithPurchasePrice() {
-        Book book = new Book("123","SampleTitle",45.5,0,45.5,
-                "comedy","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+        Book book = new Book("123", "SampleTitle", 45.5, 0, 45.5,
+                "comedy", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
         book.setSellPrice(book.getSellPrice());
         assertEquals(45.5, book.getSellPrice());
     }
 
     //Method for EquivalenceTesting
     @Test
-    public void testSetSellPrice_BiggerThanPurchasePriceNormalValue () {
-        Book book = new Book("123","SampleTitle",45.5,0,45.6,
-                "comedy","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+    public void testSetSellPrice_BiggerThanPurchasePriceNormalValue() {
+        Book book = new Book("123", "SampleTitle", 45.5, 0, 45.6,
+                "comedy", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
         book.setSellPrice(book.getSellPrice());
         assertEquals(45.6, book.getSellPrice());
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
-    public void testSetSellPrice_ValidValueAGeneralCase () {
-        Book book = new Book("123","SampleTitle",45.5,15,45.6,
-                "comedy","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+    public void testSetSellPrice_ValidValueAGeneralCase() {
+        Book book = new Book("123", "SampleTitle", 45.5, 15, 45.6,
+                "comedy", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
         book.setSellPrice(book.getSellPrice());
         assertEquals(45.6, book.getSellPrice());
     }
@@ -272,8 +273,8 @@ class BookTest {
     @Test
     void testSetAuthor_WithNullSetAuthor() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Book book = new Book("123","SampleTitle",45.5,0,55.5,
-                    null,"Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+            Book book = new Book("123", "SampleTitle", 45.5, 0, 55.5,
+                    null, "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
             book.setAuthor(book.getAuthor());
         });
     }
@@ -298,8 +299,8 @@ class BookTest {
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetAuthor_WhenNormalLength() {
-        Book book = new Book("123","SampleTitle",45.5,0,55.5,
-                "TestAuthor","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+        Book book = new Book("123", "SampleTitle", 45.5, 0, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
         book.setAuthor(book.getAuthor());
         assertEquals("TestAuthor", book.getAuthor());
     }
@@ -325,8 +326,8 @@ class BookTest {
     @Test
     void testSetSupplier_WithNullValue() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Book book = new Book("123","SampleTitle",45.5,0,55.5,
-                    "TestAuthor","Comedy",null,43, LocalDate.of(2023,1,1));
+            Book book = new Book("123", "SampleTitle", 45.5, 0, 55.5,
+                    "TestAuthor", "Comedy", null, 43, LocalDate.of(2023, 1, 1));
             book.setSupplier(book.getSupplier());
         });
     }
@@ -351,8 +352,8 @@ class BookTest {
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetSupplier_WhenNormalLength() {
-        Book book = new Book("123","SampleTitle",45.5,0,55.5,
-                "TestAuthor","Comedy","SampleSupplier",43, LocalDate.of(2023,1,1));
+        Book book = new Book("123", "SampleTitle", 45.5, 0, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 43, LocalDate.of(2023, 1, 1));
         book.setSupplier(book.getSupplier());
         assertEquals("SampleSupplier", book.getSupplier());
     }
@@ -378,8 +379,8 @@ class BookTest {
     @Test
     void testSetStock_WithNegativeValue() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Book book = new Book("123","SampleTitle",45.5,87,55.5,
-                    "TestAuthor","Comedy",null,-1, LocalDate.of(2023,1,1));
+            Book book = new Book("123", "SampleTitle", 45.5, 87, 55.5,
+                    "TestAuthor", "Comedy", null, -1, LocalDate.of(2023, 1, 1));
             book.setStock(book.getStock());
         });
     }
@@ -388,9 +389,9 @@ class BookTest {
     @Test
     public void testSetStock_WhenTheValueOfItIsZero() {
         assertThrows(IllegalArgumentException.class, () -> {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",0, LocalDate.of(2023,1,1));
-        book.setStock(book.getStock());
+            Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                    "TestAuthor", "Comedy", "SampleSupplier", 0, LocalDate.of(2023, 1, 1));
+            book.setStock(book.getStock());
         });
     }
 
@@ -414,8 +415,8 @@ class BookTest {
     @Test
     void testSetPurchaseDate_WithNullPurchaseDate() {
         assertThrows(IllegalArgumentException.class, () -> {
-            Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                    "TestAuthor","Comedy","SampleSupplier",0, null);
+            Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                    "TestAuthor", "Comedy", "SampleSupplier", 0, null);
             book.setPurchaseDate(book.getPurchaseDate());
         });
     }
@@ -438,7 +439,7 @@ class BookTest {
         LocalDate currentDate = LocalDate.now();
         LocalDate oneYearLater = currentDate.plusYears(1);
         book.setPurchaseDate(oneYearLater);
-        assertEquals(oneYearLater,book.getPurchaseDate());
+        assertEquals(oneYearLater, book.getPurchaseDate());
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
@@ -452,57 +453,57 @@ class BookTest {
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testCanAddBook_WithStockZero() {
-            Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                    "TestAuthor","Comedy","SampleSupplier",0, LocalDate.of(2023,1,1));
-            assertFalse(Book.canAddBook(book,2));
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 0, LocalDate.of(2023, 1, 1));
+        assertFalse(Book.canAddBook(book, 2));
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testCanAddBook_WithEnteredQuantityZero() {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
-        assertFalse(Book.canAddBook(book,0));
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
+        assertFalse(Book.canAddBook(book, 0));
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testCanAddBook_WithEnteredQuantityMoreThanStock() {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
-        assertFalse(Book.canAddBook(book,3));
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
+        assertFalse(Book.canAddBook(book, 3));
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testCanAddBook_WithEnteredQuantityEqualWithTheStock() {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
-        assertTrue(Book.canAddBook(book,2));
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
+        assertTrue(Book.canAddBook(book, 2));
     }
 
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testCanAddBook_WithEnteredQuantityLessThanTheStock() {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
-        assertTrue(Book.canAddBook(book,1));
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
+        assertTrue(Book.canAddBook(book, 1));
     }
 
 
     @Test
     void testToStringMethod() {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
-        assertEquals("123,SampleTitle,45.5,67.0,55.5,TestAuthor,Comedy,SampleSupplier,2,2023-01-01",book.toString());
-    }
-    @Test
-    void testToStringBillMethod() {
-        Book book = new Book("123","SampleTitle",45.5,67,55.5,
-                "TestAuthor","Comedy","SampleSupplier",2, LocalDate.of(2023,1,1));
-        assertEquals("ISBN: 123 ,Title: SampleTitle ,Author: TestAuthor",book.toStringBill());
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
+        assertEquals("123,SampleTitle,45.5,67.0,55.5,TestAuthor,Comedy,SampleSupplier,2,2023-01-01", book.toString());
     }
 
+    @Test
+    void testToStringBillMethod() {
+        Book book = new Book("123", "SampleTitle", 45.5, 67, 55.5,
+                "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
+        assertEquals("ISBN: 123 ,Title: SampleTitle ,Author: TestAuthor", book.toStringBill());
+    }
 
 
 }

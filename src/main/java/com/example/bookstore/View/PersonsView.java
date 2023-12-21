@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class PersonsView extends VBox{
+public class PersonsView extends VBox {
     private TableView<Person> tableView;
 
     public PersonsView(ObservableList<Person> people) {
@@ -115,7 +115,7 @@ public class PersonsView extends VBox{
 
         Label lblHeading = new Label("List of Employees");
         lblHeading.setStyle("-fx-font-size: 20px;");
-        getChildren().addAll(lblHeading,tableView);
+        getChildren().addAll(lblHeading, tableView);
         setSpacing(10);
         setPadding(new Insets(10));
     }
@@ -154,7 +154,7 @@ public class PersonsView extends VBox{
 
         ComboBox<Role> comboBox = new ComboBox<>();
         comboBox.setPromptText("Role");
-        comboBox.setItems(FXCollections.observableArrayList(Role.Librarian,Role.Manager));
+        comboBox.setItems(FXCollections.observableArrayList(Role.Librarian, Role.Manager));
 
         // add the text fields to the grid
         grid.add(new Label("Name"), 0, 0);
@@ -164,18 +164,18 @@ public class PersonsView extends VBox{
         grid.add(new Label("Password"), 0, 2);
         grid.add(passwordField, 1, 2);
         grid.add(new Label("Phone Number"), 0, 3);
-        grid.add(phoneNumberField, 1,3 );
+        grid.add(phoneNumberField, 1, 3);
         grid.add(new Label("Salary"), 0, 4);
         grid.add(salaryField, 1, 4);
         grid.add(new Label("Role"), 0, 5);
-        grid.add(comboBox,1,5);
+        grid.add(comboBox, 1, 5);
 
         // create a save button to save the changes
         Button saveButton = new Button("Save");
         saveButton.setOnAction((ActionEvent event) -> {
             // validate the form
             if (nameField.getText().isEmpty() || userNameField.getText().isEmpty() || salaryField.getText().isEmpty()
-                    || phoneNumberField.getText().isEmpty()|| passwordField.getText().isEmpty()) {
+                    || phoneNumberField.getText().isEmpty() || passwordField.getText().isEmpty()) {
                 // show an error if any of the fields is empty
                 System.out.println("Fill all fields");
             } else {

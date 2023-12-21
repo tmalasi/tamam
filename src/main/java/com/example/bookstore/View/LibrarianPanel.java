@@ -7,6 +7,7 @@ import com.example.bookstore.Models.Person;
 public class LibrarianPanel extends BorderPane {
 
     private Person person;
+
     public LibrarianPanel() {
 
         BillView billView = new BillView(Controller.books);

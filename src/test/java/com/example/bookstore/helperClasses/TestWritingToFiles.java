@@ -1,4 +1,5 @@
 package com.example.bookstore.helperClasses;
+
 import com.example.bookstore.helperClasses.Mock.MockFileOperations;
 import com.example.bookstore.helperClasses.Mock.MockFileOutput;
 import com.example.bookstore.Models.*;
@@ -6,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -177,8 +179,8 @@ class TestWritingToFiles {
     public void testGetBooks_ObservableListNotNull() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
             writer.write(book1 + "\n");
             writer.write(book2 + "\n");
         }
@@ -190,8 +192,8 @@ class TestWritingToFiles {
     public void testGetBooks_ContainsTheCorrectNumberOfBooks() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
             writer.write(book1 + "\n");
             writer.write(book2 + "\n");
         }
@@ -203,8 +205,8 @@ class TestWritingToFiles {
     public void testGetBooks_AttributesOfTheBookCorrectlyPopulated() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
             writer.write(book1 + "\n");
             writer.write(book2 + "\n");
         }
@@ -239,10 +241,10 @@ class TestWritingToFiles {
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
             Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
             Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "+3556767", Role.Manager);
-            Person person3 = new Administrator("SampleName3","sample3","12345678","9202-2-2-",5454,"89878766",Role.Administrator);
+            Person person3 = new Administrator("SampleName3", "sample3", "12345678", "9202-2-2-", 5454, "89878766", Role.Administrator);
             writer.write(person1 + "\n");
             writer.write(person2 + "\n");
-            writer.write(person3+"\n");
+            writer.write(person3 + "\n");
         }
         assertNotNull(writingToFiles.getPersons(tempFile.toString()));
         tempFile.deleteOnExit();
@@ -254,10 +256,10 @@ class TestWritingToFiles {
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
             Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
             Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "+3556767", Role.Manager);
-            Person person3 = new Administrator("SampleName3","sample3","12345678","9202-2-2-",5454,"89878766",Role.Administrator);
+            Person person3 = new Administrator("SampleName3", "sample3", "12345678", "9202-2-2-", 5454, "89878766", Role.Administrator);
             writer.write(person1 + "\n");
             writer.write(person2 + "\n");
-            writer.write(person3+"\n");
+            writer.write(person3 + "\n");
         }
         Assertions.assertEquals(3, writingToFiles.getPersons(tempFile.toString()).size());
         tempFile.deleteOnExit();
@@ -269,10 +271,10 @@ class TestWritingToFiles {
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
             Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
             Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "+3556767", Role.Manager);
-            Person person3 = new Administrator("SampleName3","sample3","12345678","9202-2-2-",5454,"89878766",Role.Administrator);
+            Person person3 = new Administrator("SampleName3", "sample3", "12345678", "9202-2-2-", 5454, "89878766", Role.Administrator);
             writer.write(person1 + "\n");
             writer.write(person2 + "\n");
-            writer.write(person3+"\n");
+            writer.write(person3 + "\n");
         }
         ObservableList<Person> people = writingToFiles.getPersons(tempFile.toString());
         Person firstPerson = people.getFirst();
@@ -355,7 +357,7 @@ class TestWritingToFiles {
     public void testWriteBills_CheckFileIsCreatedCorrectly() {
         ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
         String expectedFilePath = "res/Bills/" + 1000 + ".txt";
-        writingToFiles.writeBill(String.valueOf(1000), 1234, books,expectedFilePath);
+        writingToFiles.writeBill(String.valueOf(1000), 1234, books, expectedFilePath);
 
         assertTrue(new File(expectedFilePath).exists());
         deleteFile(expectedFilePath);
@@ -363,26 +365,28 @@ class TestWritingToFiles {
 
     @Test
     public void testWriteBills_CheckFileContentIsCreatedCorrectly() {
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            ArrayList<Book> books = new ArrayList<>();
-            books.add(book1);
-            books.add(book2);
-            String expFile = "res/Bills/" + "123i9" + ".txt";
-            writingToFiles.writeBill("123i9", 345, books,expFile);
+        Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+        Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(book1);
+        books.add(book2);
+        String expFile = "res/Bills/" + "123i9" + ".txt";
+        writingToFiles.writeBill("123i9", 345, books, expFile);
 
-            String fileContent = readFileContents(expFile);
-            assertEquals("Bill Id: 123i9\n" +
-                    //Fix date
-                    "Date: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))+"\n" +
-                    "1: ISBN: 12345 ,Title: NewBook1 ,Author: newAuthor\n" +
-                    "2: ISBN: 12346 ,Title: NewBook2 ,Author: newAuthor\n" +
-                    "Total: 345.0\n", fileContent);
-            deleteFile(expFile);
-    }@Test
+        String fileContent = readFileContents(expFile);
+        assertEquals("Bill Id: 123i9\n" +
+                //Fix date
+                "Date: " + LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy")) + "\n" +
+                "1: ISBN: 12345 ,Title: NewBook1 ,Author: newAuthor\n" +
+                "2: ISBN: 12346 ,Title: NewBook2 ,Author: newAuthor\n" +
+                "Total: 345.0\n", fileContent);
+        deleteFile(expFile);
+    }
+
+    @Test
     public void testWriteBills_ThrowException() {
         assertThrows(RuntimeException.class, () -> {
-            writingToFiles.writeBill("123i8", 100000,null, null);
+            writingToFiles.writeBill("123i8", 100000, null, null);
         });
 
     }
@@ -390,7 +394,7 @@ class TestWritingToFiles {
     //Unit testing for GetTotalBill
     @Test
     void testGetTotalBillWithMockExistingFile() {
-        FileOperations fileOperations = new MockFileOperations(true,123.4);
+        FileOperations fileOperations = new MockFileOperations(true, 123.4);
         writingToFiles WriteBill = new writingToFiles(fileOperations);
 
         double totalBill = WriteBill.getTotalBill("existingFile.bin");
@@ -467,10 +471,11 @@ class TestWritingToFiles {
         tempFile.deleteOnExit();
 
     }
+
     //Unit Testing for get total cost
     @Test
     void testGetTotalCostWithValidFile() {
-        FileOperations fileOperations = new MockFileOperations(true,123.4);
+        FileOperations fileOperations = new MockFileOperations(true, 123.4);
         writingToFiles WriteCost = new writingToFiles(fileOperations);
         double totalCost = WriteCost.getTotalCost("existing file ");
         assertEquals(123.4, totalCost, 0.001);
@@ -501,6 +506,7 @@ class TestWritingToFiles {
 
         assertEquals(0.0, totalCost, 0.001);
     }
+
     //Integration testing with the default file operations for get total cost
     @Test
     void testGetTotalCostWithValidTempFile() throws IOException {
@@ -515,7 +521,7 @@ class TestWritingToFiles {
         FileOperations fileOperations = new DefaultFileOperations();
         writingToFiles WriteBill = new writingToFiles(fileOperations);
         // Call the getTotalBill method with the path of the temporary file
-            double totalCost = WriteBill.getTotalCost(tempFile.getPath());
+        double totalCost = WriteBill.getTotalCost(tempFile.getPath());
         assertEquals(1165.32, totalCost, 0.001);
         tempFile.deleteOnExit();
     }
@@ -526,7 +532,7 @@ class TestWritingToFiles {
         // Use the DefaultFileOperations and writingToFiles instances
         FileOperations fileOperations = new DefaultFileOperations();
         writingToFiles WriteBill = new writingToFiles(fileOperations);
-            double totalCost = WriteBill.getTotalCost("\"existingFile.bin\"");
+        double totalCost = WriteBill.getTotalCost("\"existingFile.bin\"");
         assertEquals(0.0, totalCost);
 
     }
@@ -545,11 +551,12 @@ class TestWritingToFiles {
         tempFile.deleteOnExit();
 
     }
+
     @Test
     void testGetBooksSoldWithExistingFile() {
-        FileOperations fileOperations = new MockFileOperations(true,123);
+        FileOperations fileOperations = new MockFileOperations(true, 123);
         writingToFiles WriteBooksSold = new writingToFiles(fileOperations);
-        int booksSold= WriteBooksSold.getBooksSold("res/booksSold.bin");
+        int booksSold = WriteBooksSold.getBooksSold("res/booksSold.bin");
         assertEquals(123, booksSold);//Fix
     }
 
@@ -577,6 +584,7 @@ class TestWritingToFiles {
 
         assertEquals(0, booksSold);
     }
+
     //Integration testing with the default file operations for get total bill
     @Test
     void testGetBooksSoldWithExistingTempFile() throws IOException {
@@ -626,8 +634,8 @@ class TestWritingToFiles {
 
     @Test
     public void testWriteBooks_CheckFileIsCreatedCorrectly() throws IOException {
-        Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-        Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
+        Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+        Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
         ArrayList<Book> books = new ArrayList<>();
         books.add(book1);
         books.add(book2);
@@ -641,14 +649,14 @@ class TestWritingToFiles {
     @Test
     public void testWriteBooks_CheckFileContentIsCreatedCorrectly() throws IOException {
 
-            Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023,1,1));
-            ArrayList<Book> books = new ArrayList<>();
-            books.add(book1);
-            books.add(book2);
-            File tempFile = File.createTempFile("prefix", "txt");
-            writingToFiles.writeBooks(tempFile.toString(), books);
-            String fileContent = readFileContents(tempFile.toString());
+        Book book1 = new Book("12345", "NewBook1", 34.4, 21, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+        Book book2 = new Book("12346", "NewBook2", 24.4, 30.66, 45.3, "newAuthor", "Comedy", "newSupplier", 34, LocalDate.of(2023, 1, 1));
+        ArrayList<Book> books = new ArrayList<>();
+        books.add(book1);
+        books.add(book2);
+        File tempFile = File.createTempFile("prefix", "txt");
+        writingToFiles.writeBooks(tempFile.toString(), books);
+        String fileContent = readFileContents(tempFile.toString());
 
         assertEquals("""
                 12345,NewBook1,34.4,21.0,45.3,newAuthor,Comedy,newSupplier,34,2023-01-01
@@ -656,12 +664,14 @@ class TestWritingToFiles {
                 """, fileContent);
         tempFile.deleteOnExit();
     }
+
     @Test
     public void testWriteBooks_ThrowException() {
         assertThrows(RuntimeException.class, () -> {
-            writingToFiles.writeBooks(null,null);
+            writingToFiles.writeBooks(null, null);
         });
     }
+
     @Test
     public void testWritePersons_CheckFileIsCreated() throws IOException {
         ArrayList<Person> people = new ArrayList<>();
@@ -670,7 +680,7 @@ class TestWritingToFiles {
         File tempFile = File.createTempFile("prefix", "txt");
         people.add(person1);
         people.add(person2);
-        writingToFiles.writePersons(tempFile.toString(),people);
+        writingToFiles.writePersons(tempFile.toString(), people);
         assertTrue(new File(tempFile.toString()).exists());
         tempFile.deleteOnExit();
     }
@@ -684,7 +694,7 @@ class TestWritingToFiles {
         File tempFile = File.createTempFile("prefix", "txt");
         people.add(person1);
         people.add(person2);
-        writingToFiles.writePersons(tempFile.toString(),people);
+        writingToFiles.writePersons(tempFile.toString(), people);
         String fileContent = readFileContents(tempFile.toString());
 
         assertEquals("""
@@ -693,10 +703,11 @@ class TestWritingToFiles {
                 """, fileContent);
         tempFile.deleteOnExit();
     }
+
     @Test
     public void testWritePersons_ThrowException() {
         assertThrows(RuntimeException.class, () -> {
-            writingToFiles.writePersons(null,null);
+            writingToFiles.writePersons(null, null);
         });
     }
 
@@ -736,7 +747,7 @@ class TestWritingToFiles {
              DataInputStream dis = new DataInputStream(fis)) {
             fileContent = dis.readDouble();
         }
-        assertEquals(total,fileContent);
+        assertEquals(total, fileContent);
         tempFile.deleteOnExit();
     }
 
@@ -749,7 +760,7 @@ class TestWritingToFiles {
 
         // Use assertThrows to verify that an IOException is thrown
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                writingToFiles.writeTotalBill(42.0, nonWritableFilePath,fileOutput));
+                writingToFiles.writeTotalBill(42.0, nonWritableFilePath, fileOutput));
     }
 
 
@@ -790,9 +801,10 @@ class TestWritingToFiles {
              DataInputStream dis = new DataInputStream(fis)) {
             fileContent = dis.readDouble();
         }
-        assertEquals(total,fileContent);
+        assertEquals(total, fileContent);
         tempFile.deleteOnExit();
     }
+
     @Test
     void testWriteTotalCostThrowExceptionWithTempFile() {
 
@@ -802,7 +814,7 @@ class TestWritingToFiles {
 
         // Use assertThrows to verify that an IOException is thrown
         RuntimeException exception = assertThrows(RuntimeException.class, () ->
-                writingToFiles.writeTotalCost(42.0, nonWritableFilePath,fileOutput));
+                writingToFiles.writeTotalCost(42.0, nonWritableFilePath, fileOutput));
     }
 
     private String readFileContents(String filePath) {
@@ -817,6 +829,7 @@ class TestWritingToFiles {
         }
         return content.toString();
     }
+
     private void deleteFile(String filePath) {
         File file = new File(filePath);
         if (!file.delete()) {

@@ -5,15 +5,13 @@ import com.example.bookstore.helperClasses.Role;
 
 public class Person {
     //TODO maybe test getters
-
     private String name, birthday, phone;
-
     private int salary;
     private String userName;
     private String password;
     private Role role;
 
-    public Person(String name, String userName, String password, String Birthday, int salary, String Phone,  Role role) {
+    public Person(String name, String userName, String password, String Birthday, int salary, String Phone, Role role) {
         this.name = name;
         this.userName = userName;
         this.password = password;
@@ -22,6 +20,7 @@ public class Person {
         this.phone = Phone;
         this.salary = salary;
     }
+
     public String getBirthday() {
         return birthday;
     }
@@ -40,10 +39,9 @@ public class Person {
     public void setPhone(String phone) {
         if (phone == null) {
             throw new IllegalArgumentException("Phone cannot be null");
-        } else if (phone.length()<6) {
+        } else if (phone.length() < 6) {
             throw new IllegalArgumentException("Phone length needs to be at least 6");
-        }
-        else{
+        } else {
             this.phone = phone;
         }
     }
@@ -66,14 +64,13 @@ public class Person {
     }
 
     public void setUserName(String userName) {
-        int minUsernameLength=5;
-        int maxUserNameLength=15;
+        int minUsernameLength = 5;
+        int maxUserNameLength = 15;
         if (userName == null) {
             throw new IllegalArgumentException("UserName cannot be null");
-        } else if (userName.length()<minUsernameLength || userName.length()>maxUserNameLength) {
+        } else if (userName.length() < minUsernameLength || userName.length() > maxUserNameLength) {
             throw new IllegalArgumentException("userName length needs to be from 5-15");
-        }
-        else{
+        } else {
             this.userName = userName;
         }
     }
@@ -85,15 +82,15 @@ public class Person {
 
     //test +add req
     public void setPassword(String password) {
-        int minPasswordLength =5;
+        int minPasswordLength = 5;
         if (password == null) {
             throw new IllegalArgumentException("Password cannot be null");
-        } else if (password.length()< minPasswordLength) {
+        } else if (password.length() < minPasswordLength) {
             throw new IllegalArgumentException("Password length needs to be from 5");
-        }
-        else{
+        } else {
             this.password = password;
-        }}
+        }
+    }
 
     public Role getRole() {
         return role;
@@ -102,9 +99,8 @@ public class Person {
     public void setRole(Role role) {
         if (role == null) {
             throw new IllegalArgumentException("Role cannot be null");
-        }
-        else{
-            this.role=role;
+        } else {
+            this.role = role;
         }
     }
 
@@ -113,13 +109,12 @@ public class Person {
     }
 
     public void setName(String name) {
-        int minNameLength =3;
+        int minNameLength = 3;
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be null");
-        } else if (name.length()< minNameLength) {
+        } else if (name.length() < minNameLength) {
             throw new IllegalArgumentException("Name length needs to be from 5");
-        }
-        else{
+        } else {
             this.name = name;
         }
     }
@@ -139,6 +134,7 @@ public class Person {
                 throw new IllegalArgumentException("Invalid role: " + role);
         }
     }
+
     @Override
     public String toString() {
         return name + "," + birthday + "," +

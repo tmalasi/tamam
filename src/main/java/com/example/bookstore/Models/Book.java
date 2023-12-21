@@ -1,7 +1,5 @@
 package com.example.bookstore.Models;
 
-import javafx.scene.control.Label;
-
 import java.time.LocalDate;
 
 public class Book {
@@ -21,17 +19,19 @@ public class Book {
 
     // A constructor with isbn, title, purchase price, selling price, and category
 
-    public Book(String isbn,String title,double purchasePrice,double sellPrice,String category) {
+    public Book(String isbn, String title, double purchasePrice, double sellPrice, String category) {
         this.isbn = isbn;
         this.title = title;
         this.purchasePrice = purchasePrice;
         this.sellPrice = sellPrice;
         this.category = category;
     }
-    public Book(){}
+
+    public Book() {
+    }
 
     // A constructor with isbn, title, purchase price, selling price, category, and stock
-    public Book(String isbn,String title,double purchasePrice,double sellPrice,String category, int stock) {
+    public Book(String isbn, String title, double purchasePrice, double sellPrice, String category, int stock) {
         this.isbn = isbn;
         this.title = title;
         this.purchasePrice = purchasePrice;
@@ -86,55 +86,54 @@ public class Book {
 
     public void setCategory(String category) {
         // Ensure that the category is not null
-        int minLength=1;
+        int minLength = 1;
         int maxLength = 25;
         if (category == null) {
             throw new IllegalArgumentException("Category cannot be null");
-        } else if(minLength > category.length() || category.length() > maxLength) {
+        } else if (minLength > category.length() || category.length() > maxLength) {
             throw new IllegalArgumentException("Category length exceeds the maximum allowed (" + maxLength + " characters)");
-        } else{
+        } else {
             this.category = category;
         }
     }
 
 
     public void setIsbn(String isbn) {
-        int minLength=1;
+        int minLength = 1;
         int maxLength = 15;// Ensure that the ISBN is not null
         if (isbn == null) {
             throw new IllegalArgumentException("ISBN cannot be null");
         }
         // Ensure that the ISBN does not exceed the maximum length (adjust the value accordingly)
-        else if (isbn.length()<minLength || isbn.length() > maxLength) {
+        else if (isbn.length() < minLength || isbn.length() > maxLength) {
             throw new IllegalArgumentException("ISBN length exceeds the maximum allowed (" + maxLength + " characters)");
-        }
-        else {
+        } else {
             // Set the ISBN
-            this.isbn = isbn;}
+            this.isbn = isbn;
+        }
     }
 
     public void setTitle(String title) {
         int maxLength = 100;
-        int minLength=3;
+        int minLength = 3;
         // Ensure that the title is not null
         if (title == null) {
             throw new IllegalArgumentException("Title cannot be null");
         }
         // Ensure that the title does not exceed the maximum length (adjust the value accordingly)
-        else if (title.length() >= maxLength || title.length()<minLength) {
+        else if (title.length() >= maxLength || title.length() < minLength) {
             throw new IllegalArgumentException("Title length exceeds the maximum allowed (" + maxLength + " characters)");
-        }
-        else {
+        } else {
             // Set the title
-            this.title = title;}
+            this.title = title;
+        }
     }
-
 
 
     //Test Attempt to set a negative purchase price.
 // Set a valid positive purchase price.
     public void setPurchasePrice(double purchasePrice) {
-        if (purchasePrice < 0|| purchasePrice>5000) {
+        if (purchasePrice < 0 || purchasePrice > 5000) {
             throw new IllegalArgumentException("cant be negative");
         } else {
             this.purchasePrice = purchasePrice; // Stock is within the valid range
@@ -169,20 +168,19 @@ public class Book {
 
 
     public void setAuthor(String author) {
-        int minLength=1;
+        int minLength = 1;
         int maxLength = 25;
         // Ensure that the author is not null
         if (author == null) {
             throw new IllegalArgumentException("Author cannot be null");
         }
         // Ensure that the author does not exceed the maximum length (adjust the value accordingly)
-        else if (author.length()<minLength || author.length() > maxLength) {
+        else if (author.length() < minLength || author.length() > maxLength) {
             throw new IllegalArgumentException("Author length exceeds the maximum allowed (" + maxLength + " characters)");
+        } else {// Set the author
+            this.author = author;
         }
-        else{// Set the author
-            this.author = author;}
     }
-
 
 
     public String getSupplier() {
@@ -191,19 +189,20 @@ public class Book {
 
     public void setSupplier(String supplier) {
         // Ensure that the supplier is not null
-        int minLength=1;
+        int minLength = 1;
         int maxLength = 25;
         if (supplier == null) {
             throw new IllegalArgumentException("Supplier cannot be null");
         }
         // Ensure that the supplier does not exceed the maximum length (adjust the value accordingly)
-        else if (supplier.length()<minLength || supplier.length() > maxLength) {
+        else if (supplier.length() < minLength || supplier.length() > maxLength) {
             throw new IllegalArgumentException("Supplier length exceeds the maximum allowed (" + maxLength + " characters)");
-        }
-        else{
+        } else {
             // Set the supplier
-            this.supplier = supplier;}
+            this.supplier = supplier;
+        }
     }
+
     public int getStock() {
         return stock;
     }
@@ -217,6 +216,7 @@ public class Book {
             this.stock = stock; // Stock is within the valid range
         }
     }
+
     public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
@@ -233,12 +233,13 @@ public class Book {
             throw new IllegalArgumentException("Purchase date cannot be in the future");
         }
         // Set the purchase date
-        else{
-        this.purchaseDate = purchaseDate;}
+        else {
+            this.purchaseDate = purchaseDate;
+        }
     }
 
     public static boolean canAddBook(Book selectedBook, int enteredQuantity) {
-        if(selectedBook.getStock() > 0 && enteredQuantity>0 && enteredQuantity<= selectedBook.getStock()) {
+        if (selectedBook.getStock() > 0 && enteredQuantity > 0 && enteredQuantity <= selectedBook.getStock()) {
             return true;
         } else {
             return false;
@@ -259,7 +260,6 @@ public class Book {
                 " ,Title: " + getTitle() +
                 " ,Author: " + getAuthor();
     }
-
 
 
 }

@@ -32,13 +32,14 @@ public class LoginPage extends GridPane {
     public Button btn = new Button("Sign In");
     public TextField userTextField;
     public PasswordField pwBox;
+
     public LoginPage() {
         Background background = new Background(new BackgroundFill(new LinearGradient(
                 0, 0, 1, 1, true,                      //sizing
                 CycleMethod.REPEAT,                  //cycling
                 new Stop(0, Color.web("#89CFF0")),
                 new Stop(1, Color.web("#ffffff")))   //colors
-                ,null,null));
+                , null, null));
 
         setBackground(background);
         setAlignment(Pos.CENTER);
@@ -67,7 +68,7 @@ public class LoginPage extends GridPane {
         pwBox.setStyle("-fx-background-radius: 5, 5, 4, 3;" +
                 "-fx-background-color: linear-gradient(to bottom, derive(#989898,60%) 5%, derive(#989898,40%) 100%), linear-gradient(to bottom, #E6E6E6 0%, #FFFFFF 100%);" +
                 "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
-        add(pwBox,0, 2);
+        add(pwBox, 0, 2);
         btn.setCursor(Cursor.HAND);
         btn.setPrefWidth(100);
         btn.setDefaultButton(true);
@@ -81,9 +82,9 @@ public class LoginPage extends GridPane {
         // -fx-body-color: rgb(r, g, b);
         // with r, g, b integers between 0 and 255
         final StringBinding cssColorSpec = Bindings.createStringBinding(() -> String.format("-fx-body-color: rgb(%d, %d, %d);",
-                (int) (256*color.get().getRed()),
-                (int) (256*color.get().getGreen()),
-                (int) (256*color.get().getBlue())), color);
+                (int) (256 * color.get().getRed()),
+                (int) (256 * color.get().getGreen()),
+                (int) (256 * color.get().getBlue())), color);
 
         // bind the button's style property
         btn.styleProperty().bind(cssColorSpec);
@@ -98,6 +99,6 @@ public class LoginPage extends GridPane {
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
         hbBtn.getChildren().add(btn);
         add(hbBtn, 0, 3);
-        setPrefSize(700,475);
+        setPrefSize(700, 475);
     }
 }

@@ -1,7 +1,6 @@
 package com.example.bookstore.helperClasses.Mock;
 
 import com.example.bookstore.helperClasses.FileOutputInterface;
-
 import java.io.IOException;
 
 public class MockFileOutput implements FileOutputInterface {

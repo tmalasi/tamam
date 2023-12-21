@@ -47,7 +47,7 @@ public class AdminPanel extends BorderPane {
                 CycleMethod.REPEAT,                  //cycling
                 new Stop(0, Color.web("#89CFF0")),
                 new Stop(1, Color.web("#ffffff")))   //colors
-                ,null,null));
+                , null, null));
         setBackground(background);
 
         // Setting the center of the BorderPane to the homePage() method
@@ -111,7 +111,7 @@ public class AdminPanel extends BorderPane {
         menu.getItems().add(item1);
 
 // Add the book related menu items to the books menu
-        menu1.getItems().addAll(item2,item3);
+        menu1.getItems().addAll(item2, item3);
 
 // Add the bill related menu item to the bills menu
         menu2.getItems().addAll(item4);
@@ -121,7 +121,7 @@ public class AdminPanel extends BorderPane {
         bar.setCursor(Cursor.HAND);
 
 // Add all the menus to the menu bar
-        bar.getMenus().addAll(men,menu,menu1,menu2);
+        bar.getMenus().addAll(men, menu, menu1, menu2);
 
 // Set the background color of the menu bar
         bar.setStyle("-fx-background-color: lightgray;");
@@ -129,7 +129,7 @@ public class AdminPanel extends BorderPane {
         setTop(vBox);
     }
 
-    private GridPane registerEmployee(){
+    private GridPane registerEmployee() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -174,10 +174,10 @@ public class AdminPanel extends BorderPane {
 
         Label roleLabel = new Label("Role:");
         ComboBox<Role> roleComboBox = new ComboBox<>();
-        roleComboBox.getItems().addAll(Role.Administrator,Role.Manager,Role.Librarian);
+        roleComboBox.getItems().addAll(Role.Administrator, Role.Manager, Role.Librarian);
         roleComboBox.setPromptText("Select Role");
-        grid.add(roleLabel,0,7);
-        grid.add(roleComboBox,1,7);
+        grid.add(roleLabel, 0, 7);
+        grid.add(roleComboBox, 1, 7);
 
         Button registerButton = new Button("Register");
         registerButton.setPrefWidth(100);
@@ -192,9 +192,9 @@ public class AdminPanel extends BorderPane {
         // -fx-body-color: rgb(r, g, b);
         // with r, g, b integers between 0 and 255
         final StringBinding cssColorSpec = Bindings.createStringBinding(() -> String.format("-fx-body-color: rgb(%d, %d, %d);",
-                (int) (256*color.get().getRed()),
-                (int) (256*color.get().getGreen()),
-                (int) (256*color.get().getBlue())), color);
+                (int) (256 * color.get().getRed()),
+                (int) (256 * color.get().getGreen()),
+                (int) (256 * color.get().getBlue())), color);
 
         // bind the button's style property
         registerButton.styleProperty().bind(cssColorSpec);
@@ -270,7 +270,7 @@ public class AdminPanel extends BorderPane {
         return grid;
     }
 
-    private GridPane addNewBook(){
+    private GridPane addNewBook() {
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(25, 25, 25, 25));
         grid.setVgap(8);
@@ -357,9 +357,9 @@ public class AdminPanel extends BorderPane {
         // -fx-body-color: rgb(r, g, b);
         // with r, g, b integers between 0 and 255
         final StringBinding cssColorSpec = Bindings.createStringBinding(() -> String.format("-fx-body-color: rgb(%d, %d, %d);",
-                (int) (256*color.get().getRed()),
-                (int) (256*color.get().getGreen()),
-                (int) (256*color.get().getBlue())), color);
+                (int) (256 * color.get().getRed()),
+                (int) (256 * color.get().getGreen()),
+                (int) (256 * color.get().getBlue())), color);
 
         // bind the button's style property
         submitButton.styleProperty().bind(cssColorSpec);
@@ -442,7 +442,7 @@ public class AdminPanel extends BorderPane {
         return grid;
     }
 
-    private GridPane homePage(){
+    private GridPane homePage() {
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
         grid.setHgap(10);
@@ -450,8 +450,8 @@ public class AdminPanel extends BorderPane {
         grid.setPadding(new Insets(25, 25, 25, 25));
 
         Label welcomeLabel = new Label("Welcome to Administrative Panel");
-        welcomeLabel.setFont(Font.font("Tahoma",FontWeight.EXTRA_BOLD,22));
-        grid.add(welcomeLabel,0,0);
+        welcomeLabel.setFont(Font.font("Tahoma", FontWeight.EXTRA_BOLD, 22));
+        grid.add(welcomeLabel, 0, 0);
 
         ///
         ArrayList<Person> peopleList = new ArrayList<>(Controller.people);
