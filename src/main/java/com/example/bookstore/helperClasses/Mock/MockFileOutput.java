@@ -4,7 +4,7 @@ import com.example.bookstore.helperClasses.FileOutputInterface;
 import java.io.IOException;
 
 public class MockFileOutput implements FileOutputInterface {
-    private boolean throwExceptionOnWrite = false;
+    private final boolean throwExceptionOnWrite;
 
     public MockFileOutput(boolean throwExceptionOnWrite) {
         this.throwExceptionOnWrite = throwExceptionOnWrite;
