@@ -1,4 +1,4 @@
-package com.example.bookstore.Mock;
+package com.example.bookstore.View;
 
 import com.example.bookstore.View.Logger;
 
