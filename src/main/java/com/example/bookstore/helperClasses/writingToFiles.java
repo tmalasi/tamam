@@ -279,8 +279,6 @@ public class writingToFiles {
             throw new RuntimeException(e.getMessage());
         }
     }
-
-    //TODO fix these
     public static void writeTotalBill(double total, String filePath, FileOutputInterface fileOutput) {
         try {
             fileOutput.writeDoubleToFile(total, filePath);
