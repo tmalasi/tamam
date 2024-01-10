@@ -6,6 +6,8 @@ import com.example.bookstore.helperClasses.DefaultFileOutput;
 import com.example.bookstore.helperClasses.FileOutputInterface;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Dialog;
 import javafx.stage.Stage;
 import com.example.bookstore.Controllers.Controller;
 import com.example.bookstore.Models.Librarian;
@@ -21,20 +23,32 @@ public class mainApplication extends Application {
         launch(args);
     }
 
+
     @Override
     public void start(Stage primaryStage) {
         primaryStage.setTitle("Login"); // Set the title of the stage to "Login"
         LoginPage page = new LoginPage(); // Create an instance of the LoginPage class
         AdminPanel panel = new AdminPanel(); // Create an instance of the AdminPanel class
+        panel.setId("administratorPanel");
         ManagerPanel panel1 = new ManagerPanel(); // Create an instance of the ManagerPanel class
+        panel1.setId("managerPanel");
         LibrarianPanel panel2 = new LibrarianPanel(); // Create an instance of the LibrarianPanel class
+        panel2.setId("librarianPanel");
         Scene scene = new Scene(page); // Create a new Scene object and set its root to the LoginPage object
         // Add an action to the button on the LoginPage
-        page.btn.setOnAction(actionEvent -> {
+        page.LogInBtn.setOnAction(actionEvent -> {
             String username = page.userTextField.getText(); // Get the entered username
             String password = page.pwBox.getText(); // Get the entered password
             String Role = writingToFiles.readCredentials(username, password, "res/roles.txt"); // Get the user's role based on the entered credentials
-            assert Role != null;
+            if (Role == null) {
+                // Handle the case where the role is null, for example, display an error message
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Login Error");
+                alert.setHeaderText(null);
+                alert.setContentText("Invalid username or password");
+                alert.showAndWait();
+                return;  // Exit the method to prevent further execution
+            }
             if (Role.equalsIgnoreCase("Administrator")) {
                 scene.setRoot(panel); // Set the scene's root to the AdminPanel if the user is an Administrator
             } else if (Role.equalsIgnoreCase("Manager")) {

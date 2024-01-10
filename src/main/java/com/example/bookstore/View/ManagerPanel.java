@@ -50,8 +50,8 @@ public class ManagerPanel extends BorderPane {
         background = new Background(new BackgroundFill(new LinearGradient(
                 0, 0, 1, 1, true,                      //sizing
                 CycleMethod.REPEAT,                  //cycling
-                new Stop(0, Color.web("#FFFFFF")),
-                new Stop(1, Color.web("#6C6C6CFF")))   //colors
+                new Stop(0, Color.web("#89CFF0")),
+                new Stop(1, Color.web("#ffffff")))   //colors
                 , null, null));
 
         setBackground(background);

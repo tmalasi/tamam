@@ -29,7 +29,7 @@ import javafx.util.Duration;
 
 public class LoginPage extends GridPane {
 
-    public Button btn = new Button("Sign In");
+    public Button LogInBtn = new Button("Sign In");
     public TextField userTextField;
     public PasswordField pwBox;
 
@@ -53,6 +53,7 @@ public class LoginPage extends GridPane {
         add(sceneTitle, 0, 0, 2, 1);
 
         userTextField = new TextField();
+        userTextField.setId("userTextField");
         userTextField.setPrefWidth(250);
         userTextField.setPromptText("Username");
         userTextField.setFocusTraversable(false);
@@ -62,6 +63,7 @@ public class LoginPage extends GridPane {
         add(userTextField, 0, 1);
 
         pwBox = new PasswordField();
+        pwBox.setId("pwBox");
         pwBox.setPromptText("Password");
         pwBox.setPrefWidth(250);
         pwBox.setFocusTraversable(false);
@@ -69,9 +71,9 @@ public class LoginPage extends GridPane {
                 "-fx-background-color: linear-gradient(to bottom, derive(#989898,60%) 5%, derive(#989898,40%) 100%), linear-gradient(to bottom, #E6E6E6 0%, #FFFFFF 100%);" +
                 "-fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.6) , 5, 0.0 , 0 , 1 );");
         add(pwBox, 0, 2);
-        btn.setCursor(Cursor.HAND);
-        btn.setPrefWidth(100);
-        btn.setDefaultButton(true);
+        LogInBtn.setCursor(Cursor.HAND);
+        LogInBtn.setPrefWidth(100);
+        LogInBtn.setDefaultButton(true);
 
         final Color startColor = Color.web("#6C6C6CFF");
         final Color endColor = Color.web("#FFFFFF");
@@ -87,17 +89,17 @@ public class LoginPage extends GridPane {
                 (int) (256 * color.get().getBlue())), color);
 
         // bind the button's style property
-        btn.styleProperty().bind(cssColorSpec);
+        LogInBtn.styleProperty().bind(cssColorSpec);
 
         final Timeline timeline = new Timeline(
                 new KeyFrame(Duration.ZERO, new KeyValue(color, startColor)),
                 new KeyFrame(Duration.seconds(1), new KeyValue(color, endColor)));
 
-        btn.setOnAction(event -> timeline.play());
+        LogInBtn.setOnAction(event -> timeline.play());
 
         HBox hbBtn = new HBox(10);
         hbBtn.setAlignment(Pos.BOTTOM_RIGHT);
-        hbBtn.getChildren().add(btn);
+        hbBtn.getChildren().add(LogInBtn);
         add(hbBtn, 0, 3);
         setPrefSize(700, 475);
     }
