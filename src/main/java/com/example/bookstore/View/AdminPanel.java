@@ -33,7 +33,7 @@ public class AdminPanel extends BorderPane {
 
     private Logger logger;
     MenuBar bar;
-    public BooksView view = new BooksView(Controller.books);
+    public BooksView booksView = new BooksView(Controller.books);
     public PersonsView personsView = new PersonsView(Controller.people);
     public BillView billView = new BillView(Controller.books);
     Background background;
@@ -65,6 +65,7 @@ public class AdminPanel extends BorderPane {
 
         // Creating the "Employees" menu with two menu items
         Menu menu = new Menu("Employees");
+        menu.setId("Employees");
         menu.setStyle("-fx-font-size: 9pt; -fx-font-family: 'Arial'; -fx-font-weight: bold;");
         MenuItem item = new MenuItem("Register Employee");
         item.setOnAction(event -> {
@@ -87,8 +88,8 @@ public class AdminPanel extends BorderPane {
         });
         MenuItem item3 = new MenuItem("Manage Books");
         item3.setOnAction(event -> {
-            // Setting the center of the BorderPane to the view object when the menu item is clicked
-            setCenter(view);
+            // Setting the center of the BorderPane to the booksView object when the menu item is clicked
+            setCenter(booksView);
         });
 
         // Create a menu named "Bills"
@@ -144,42 +145,50 @@ public class AdminPanel extends BorderPane {
 
         Label nameLabel = new Label("Name:");
         TextField nameField = new TextField();
+        nameField.setId("nameField");
         grid.add(nameLabel, 0, 1);
         grid.add(nameField, 1, 1);
 
         Label usernameLabel = new Label("Username:");
         TextField usernameField = new TextField();
+        usernameField.setId("usernameField");
         grid.add(usernameLabel, 0, 2);
         grid.add(usernameField, 1, 2);
 
         Label birthdayLabel = new Label("Birthday:");
         DatePicker birthdayField = new DatePicker();
+        birthdayField.setId("birthdayField");
         grid.add(birthdayLabel, 0, 3);
         grid.add(birthdayField, 1, 3);
 
         Label phoneLabel = new Label("Phone:");
         TextField phoneField = new TextField();
+        phoneField.setId("phoneField");
         grid.add(phoneLabel, 0, 4);
         grid.add(phoneField, 1, 4);
 
         Label salaryLabel = new Label("Salary:");
         TextField salaryField = new TextField();
+        salaryField.setId("salaryField");
         grid.add(salaryLabel, 0, 5);
         grid.add(salaryField, 1, 5);
 
         Label passwordLabel = new Label("Password:");
         PasswordField passwordField = new PasswordField();
+        passwordField.setId("passwordField");
         grid.add(passwordLabel, 0, 6);
         grid.add(passwordField, 1, 6);
 
         Label roleLabel = new Label("Role:");
         ComboBox<Role> roleComboBox = new ComboBox<>();
+        roleComboBox.setId("roleComboBox");
         roleComboBox.getItems().addAll(Role.Administrator, Role.Manager, Role.Librarian);
         roleComboBox.setPromptText("Select Role");
         grid.add(roleLabel, 0, 7);
         grid.add(roleComboBox, 1, 7);
 
         Button registerButton = new Button("Register");
+        registerButton.setId("registerButton");
         registerButton.setPrefWidth(100);
         registerButton.setDefaultButton(true);
 
@@ -248,7 +257,9 @@ public class AdminPanel extends BorderPane {
                     // Show success alert
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Successful!");
-                    alert.setContentText("Person is added!");
+                    ButtonType customOkButton = new ButtonType("Person is added!", ButtonType.OK.getButtonData());
+
+                    alert.getButtonTypes().setAll(customOkButton);
                     alert.showAndWait();
                 } catch (Exception e) {
                     // Catch any exception and show error alert
@@ -263,6 +274,8 @@ public class AdminPanel extends BorderPane {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error!");
                 alert.setContentText("There is some error, check if all fields are filled!");
+                ButtonType customOkButton = new ButtonType("!Ok!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
                 alert.showAndWait();
             }
         });
