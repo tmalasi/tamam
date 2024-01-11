@@ -32,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ManagerPanel extends BorderPane {
-    private Logger logger;
     MenuBar bar;
     public BooksView view = new BooksView(Controller.books);
     Background background;
@@ -67,6 +66,7 @@ public class ManagerPanel extends BorderPane {
         men.getItems().add(men1);
 
         Menu menu1 = new Menu("Books");
+        menu1.setId("Books");
         menu1.setStyle("-fx-font-size: 9pt; -fx-font-family: 'Arial'; -fx-font-weight: bold;");
         MenuItem item2 = new MenuItem("New Book");
         item2.setOnAction(event -> {
@@ -103,11 +103,14 @@ public class ManagerPanel extends BorderPane {
         grid.setAlignment(Pos.CENTER);
         grid.setBackground(background);
 
+
         // ISBN of the book
         Label isbnLabel = new Label("ISBN:");
         GridPane.setConstraints(isbnLabel, 0, 0);
 
         TextField isbnInput = new TextField();
+        isbnInput.setId("isbnInput");
+
         GridPane.setConstraints(isbnInput, 1, 0);
 
         // Title of the book
@@ -115,6 +118,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(titleLabel, 0, 1);
 
         TextField titleInput = new TextField();
+        titleInput.setId("titleInput");
         GridPane.setConstraints(titleInput, 1, 1);
 
         // Category of the book
@@ -122,6 +126,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(categoryLabel, 0, 2);
 
         TextField categoryInput = new TextField();
+        categoryInput.setId("categoryInput");
         GridPane.setConstraints(categoryInput, 1, 2);
 
         // Supplier
@@ -129,6 +134,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(supplierLabel, 0, 3);
 
         TextField supplierInput = new TextField();
+        supplierInput.setId("supplierInput");
         GridPane.setConstraints(supplierInput, 1, 3);
 
         // Purchased date
@@ -136,6 +142,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(purchasedDateLabel, 0, 4);
 
         DatePicker purchasedDateInput = new DatePicker();
+        purchasedDateInput.setId("purchasedDateInput");
         GridPane.setConstraints(purchasedDateInput, 1, 4);
 
         // Purchased price
@@ -143,12 +150,14 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(purchasedPriceLabel, 0, 5);
 
         TextField purchasedPriceInput = new TextField();
+        purchasedPriceInput.setId("purchasedPriceInput");
         GridPane.setConstraints(purchasedPriceInput, 1, 5);
 
         // Original price
         Label originalPriceLabel = new Label("Original Price:");
         GridPane.setConstraints(originalPriceLabel, 0, 6);
         TextField originalPriceInput = new TextField();
+        originalPriceInput.setId("originalPriceInput");
         GridPane.setConstraints(originalPriceInput, 1, 6);
 
         // Selling price
@@ -156,6 +165,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(sellingPriceLabel, 0, 7);
 
         TextField sellingPriceInput = new TextField();
+        sellingPriceInput.setId("sellingPriceInput");
         GridPane.setConstraints(sellingPriceInput, 1, 7);
 
         // Author
@@ -163,6 +173,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(authorLabel, 0, 8);
 
         TextField authorInput = new TextField();
+        authorInput.setId("authorInput");
         GridPane.setConstraints(authorInput, 1, 8);
 
         // Stock
@@ -170,6 +181,7 @@ public class ManagerPanel extends BorderPane {
         GridPane.setConstraints(stockLabel, 0, 9);
 
         TextField stockInput = new TextField();
+        stockInput.setId("stockInput");
         GridPane.setConstraints(stockInput, 1, 9);
 
         Button submitButton = new Button("Submit");
@@ -188,6 +200,7 @@ public class ManagerPanel extends BorderPane {
 
         // bind the button's style property
         submitButton.styleProperty().bind(cssColorSpec);
+        submitButton.setId("submitButton");
         submitButton.setCursor(Cursor.HAND);
 
         final Timeline timeline = new Timeline(
@@ -218,9 +231,10 @@ public class ManagerPanel extends BorderPane {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Successful");
                     alert.setContentText("Book is added successfully!");
+                    ButtonType customOkButton = new ButtonType("Book is added!", ButtonType.OK.getButtonData());
+                    alert.getButtonTypes().setAll(customOkButton);
                     alert.showAndWait();
                 } catch (Exception e) {
-                    logger.log(e.getMessage());
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Error");
                     alert.setContentText("Please make sure you don't enter any character in prices and stock fields");
@@ -230,6 +244,9 @@ public class ManagerPanel extends BorderPane {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Error");
                 alert.setContentText("There is some error, please confirm all fields are filled!");
+                alert.setContentText("There is some error, please confirm all fields are filled!");
+                ButtonType customOkButton = new ButtonType("!OK!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
                 alert.showAndWait();
             }
         });
@@ -309,4 +326,5 @@ public class ManagerPanel extends BorderPane {
     }
 
 }
+
 
