@@ -29,6 +29,7 @@ public class PersonsView extends VBox {
     public PersonsView(ObservableList<Person> people) {
 
         tableView = new TableView<>();
+        tableView.setId("tablePersons");
 
         TableColumn<Person, String> ISBNColumn = new TableColumn<>("Name");
         ISBNColumn.setCellValueFactory(new PropertyValueFactory<>("name"));

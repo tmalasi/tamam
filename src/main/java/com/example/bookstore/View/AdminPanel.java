@@ -31,7 +31,6 @@ import java.util.ArrayList;
 
 public class AdminPanel extends BorderPane {
 
-    private Logger logger;
     MenuBar bar;
     public BooksView booksView = new BooksView(Controller.books);
     public PersonsView personsView = new PersonsView(Controller.people);
@@ -73,6 +72,7 @@ public class AdminPanel extends BorderPane {
             setCenter(registerEmployee());
         });
         MenuItem item1 = new MenuItem("Manage Employee");
+        personsView.setId("personsView");
         item1.setOnAction(actionEvent -> {
             // Setting the center of the BorderPane to the personsView object when the menu item is clicked
             setCenter(personsView);
@@ -259,7 +259,6 @@ public class AdminPanel extends BorderPane {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setTitle("Successful!");
                     ButtonType customOkButton = new ButtonType("Person is added!", ButtonType.OK.getButtonData());
-
                     alert.getButtonTypes().setAll(customOkButton);
                     alert.showAndWait();
                 } catch (Exception e) {
