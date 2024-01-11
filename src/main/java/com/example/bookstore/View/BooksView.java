@@ -21,6 +21,7 @@ import java.util.List;
 
 public class BooksView extends VBox {
     private TableView<Book> tableView;
+
     private ObservableList<Book> books;
 
     public BooksView(ObservableList<Book> book) {
@@ -28,6 +29,7 @@ public class BooksView extends VBox {
         this.books = book;
 
         tableView = new TableView<>();
+        tableView.setId("tableBooks");
 
         TableColumn<Book, String> ISBNColumn = new TableColumn<>("ISBN");
         ISBNColumn.setCellValueFactory(new PropertyValueFactory<>("isbn"));
