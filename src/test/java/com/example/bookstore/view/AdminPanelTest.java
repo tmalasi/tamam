@@ -16,10 +16,8 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.testfx.api.FxAssert.verifyThat;
 
 //6 threads
-
 public class AdminPanelTest extends ApplicationTest {
     Button button;
     @Override
@@ -254,6 +252,50 @@ public class AdminPanelTest extends ApplicationTest {
         TableView<Person> updatedTableView = lookup("#tablePersons").query();
         assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
     }
+    @Test
+    public void testOpenEmployeeListError() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        TableView<Person> tableView = lookup("#tablePersons").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Register Employee");
+        clickOn("#nameField").write("John Doe");
+        clickOn("#usernameField").write("johndoe");
+        DatePicker datePicker = lookup("#birthdayField").query();
+        datePicker.setValue(LocalDate.of(2000, 1, 1));
+        clickOn("#phoneField").write("1234567890");
+        clickOn("#salaryField").write("not number");
+        clickOn("#passwordField").write("password");
+        clickOn("#roleComboBox").clickOn("Administrator"); // Assuming Administrator role is selected
+        // Click on the "Register" button
+        clickOn("#registerButton");
+
+        interact(() -> {
+            (lookup("OK").queryButton()).fire();
+        });
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        TableView<Person> updatedTableView = lookup("#tablePersons").query();
+        assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
+    }
 
     @Test
     public void testOpenManageBooksListSuccessUpdated() {
@@ -302,5 +344,53 @@ public class AdminPanelTest extends ApplicationTest {
         }
         TableView<Person> updatedTableView = lookup("#tableBooks").query();
         assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
+    }
+    @Test
+    public void testOpenManageBooksListError() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+        clickOn("#Books");
+        clickOn("Manage Books");
+        TableView<Person> tableView = lookup("#tableBooks").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Books");
+
+        // Click on the "New Book" menu item
+        clickOn("New Book");
+        // Fill in the book details
+        clickOn("#isbnInput").write("9781234567890");
+        clickOn("#titleInput").write("Test Book");
+        clickOn("#categoryInput").write("Test Category");
+        clickOn("#supplierInput").write("Test Supplier");
+        DatePicker purchasedDatePicker = lookup("#purchasedDateInput").query();
+        purchasedDatePicker.setValue(LocalDate.of(2023, 1, 1));
+        clickOn("#purchasedPriceInput").write("not number");
+        clickOn("#originalPriceInput").write("40.0");
+        clickOn("#sellingPriceInput").write("50.0");
+        clickOn("#authorInput").write("Test Author");
+        clickOn("#stockInput").write("10");
+
+        // Click on the "Submit" button
+        clickOn("#submitButton");
+
+        interact(() -> {
+            (lookup("OK").queryButton()).fire();
+        });
+        clickOn("#Books");
+        clickOn("Manage Books");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        TableView<Person> updatedTableView = lookup("#tableBooks").query();
+        assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
     }
 }
