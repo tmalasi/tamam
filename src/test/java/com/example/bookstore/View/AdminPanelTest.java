@@ -1,4 +1,4 @@
-package com.example.bookstore.view;
+package com.example.bookstore.View;
 
 
 import com.example.bookstore.Models.Person;
@@ -14,8 +14,7 @@ import org.testfx.framework.junit5.ApplicationTest;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 //6 threads
 public class AdminPanelTest extends ApplicationTest {
@@ -392,5 +391,197 @@ public class AdminPanelTest extends ApplicationTest {
         }
         TableView<Person> updatedTableView = lookup("#tableBooks").query();
         assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
+    }
+
+    @Test
+    public void testOpenNewBillSuccessUpdated() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+
+        clickOn("#Bills");
+        clickOn("New Bill");
+        clickOn("#addBookButton");
+        doubleClickOn("#bookTable");
+        clickOn("OK");
+        clickOn("#generateBillButton");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(lookup("Success!").queryButton().isVisible());
+
+        interact(() -> {
+            (lookup("Success!").queryButton()).fire();
+        });
+    }
+    @Test
+    public void testOpenNewBillEmptyBillError() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+
+        clickOn("#Bills");
+        clickOn("New Bill");
+        clickOn("#generateBillButton");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(lookup("Error!").queryButton().isVisible());
+
+        interact(() -> {
+            (lookup("Error!").queryButton()).fire();
+        });
+    }
+    @Test
+    public void testOpenEmployeeListEditedSuccessUpdated() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        TableView<Person> tableView = lookup("#tablePersons").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Register Employee");
+        clickOn("#nameField").write("John Doe");
+        clickOn("#usernameField").write("johndoe");
+        DatePicker datePicker = lookup("#birthdayField").query();
+        datePicker.setValue(LocalDate.of(2000, 1, 1));
+        clickOn("#phoneField").write("1234567890");
+        clickOn("#salaryField").write("50000");
+        clickOn("#passwordField").write("password");
+        clickOn("#roleComboBox").clickOn("Administrator"); // Assuming Administrator role is selected
+        // Click on the "Register" button
+        clickOn("#registerButton");
+
+        interact(() -> {
+            (lookup("Person is added!").queryButton()).fire();
+        });
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        clickOn("#editButton");
+        clickOn("#editName").write(".N");
+        clickOn("#passwordField").write("password");
+        clickOn("#comboBox").clickOn("Administrator"); // Assuming Administrator role is selected
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        clickOn("#saveButton");
+        assertTrue(lookup("Person is edited!").queryButton().isVisible());
+
+
+    }
+    @Test
+    public void testOpenEmployeeListEditedNotSuccessBecauseEmptyCredentials() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        TableView<Person> tableView = lookup("#tablePersons").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Register Employee");
+        clickOn("#nameField").write("John Doe");
+        clickOn("#usernameField").write("johndoe");
+        DatePicker datePicker = lookup("#birthdayField").query();
+        datePicker.setValue(LocalDate.of(2000, 1, 1));
+        clickOn("#phoneField").write("1234567890");
+        clickOn("#salaryField").write("50000");
+        clickOn("#passwordField").write("password");
+        clickOn("#roleComboBox").clickOn("Administrator"); // Assuming Administrator role is selected
+        // Click on the "Register" button
+        clickOn("#registerButton");
+
+        interact(() -> {
+            (lookup("Person is added!").queryButton()).fire();
+        });
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        clickOn("#editButton");
+        clickOn("#editName").write(".N");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        clickOn("#saveButton");
+        assertTrue(lookup("Error!").queryButton().isVisible());
+
+
+    }
+    @Test
+    public void testOpenEmployeeListDeletedSuccessUpdated() {
+
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("admin");
+        clickOn("#pwBox").write("admin");
+        clickOn(button);
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        TableView<Person> tableView = lookup("#tablePersons").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Register Employee");
+        clickOn("#nameField").write("John Doe");
+        clickOn("#usernameField").write("johndoe");
+        DatePicker datePicker = lookup("#birthdayField").query();
+        datePicker.setValue(LocalDate.of(2000, 1, 1));
+        clickOn("#phoneField").write("1234567890");
+        clickOn("#salaryField").write("50000");
+        clickOn("#passwordField").write("password");
+        clickOn("#roleComboBox").clickOn("Administrator"); // Assuming Administrator role is selected
+        // Click on the "Register" button
+        clickOn("#registerButton");
+
+        interact(() -> {
+            (lookup("Person is added!").queryButton()).fire();
+        });
+        clickOn("#Employees");
+        // Click on the "Register Employee" menu item
+        clickOn("Manage Employee");
+        clickOn("#deleteButton");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        TableView<Person> updatedTableView = lookup("#tablePersons").query();
+        assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
+
     }
 }
