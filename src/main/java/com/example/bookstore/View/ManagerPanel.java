@@ -79,6 +79,7 @@ public class ManagerPanel extends BorderPane {
         });
 
         Menu menu2 = new Menu("Stats");
+        menu2.setId("Stats");
         menu2.setStyle("-fx-font-size: 9pt; -fx-font-family: 'Arial'; -fx-font-weight: bold;");
         MenuItem item4 = new MenuItem("Stats");
         item4.setOnAction(actionEvent -> {
@@ -263,6 +264,7 @@ public class ManagerPanel extends BorderPane {
         VBox vBox = new VBox();
 
         TableView<Librarian> tableView = new TableView<>();
+        tableView.setId("tableStats");
 
         TableColumn<Librarian, String> ISBNColumn = new TableColumn<>("Name");
         ISBNColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
