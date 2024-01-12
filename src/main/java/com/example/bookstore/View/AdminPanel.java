@@ -72,7 +72,6 @@ public class AdminPanel extends BorderPane {
             setCenter(registerEmployee());
         });
         MenuItem item1 = new MenuItem("Manage Employee");
-        personsView.setId("personsView");
         item1.setOnAction(actionEvent -> {
             // Setting the center of the BorderPane to the personsView object when the menu item is clicked
             setCenter(personsView);

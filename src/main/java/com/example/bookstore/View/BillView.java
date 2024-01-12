@@ -59,6 +59,8 @@ public class BillView extends BorderPane {
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Bill Generated");
                 alert.setHeaderText("Bill has been generated in the res folder named by Bill Id.");
+                ButtonType customOkButton = new ButtonType("Success!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
                 alert.showAndWait();
 
                 // Increase the total billed amount by the current bill amount
@@ -90,6 +92,8 @@ public class BillView extends BorderPane {
                 alert.setTitle("Error");
                 alert.setHeaderText("An error has occurred");
                 alert.setContentText("Bill is Empty. Kindly add books in the bill first.");
+                ButtonType customOkButton = new ButtonType("Error!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
                 alert.showAndWait();
             }
         });
@@ -120,6 +124,7 @@ public class BillView extends BorderPane {
 
         // Create a TableColumn object for Title
         TableColumn<Book, String> titleColumn = new TableColumn<>("Title");
+        titleColumn.setId("titleColumn");
         // Bind the Title value from the Book object to the Title column
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
 
@@ -141,6 +146,7 @@ public class BillView extends BorderPane {
         columnsArray.add(categoryColumn);
         columnsArray.add(sellPriceColumn);
         columnsArray.add(quantityColumn);
+
 
 // Add all columnsArray to the table
         table.getColumns().addAll(columnsArray);
@@ -187,6 +193,7 @@ public class BillView extends BorderPane {
 
         TableView<Book> bookTable = new TableView<>();
         bookTable.setItems(books);
+        bookTable.setId("bookTable");
         List<TableColumn<Book, ?>> columns = new ArrayList<>();
 
 // Assuming TableColumn types are TableColumn<Book, Void>
@@ -196,7 +203,6 @@ public class BillView extends BorderPane {
 
         TableColumn<Book, String> titleColumn = new TableColumn<>("Title");
         titleColumn.setCellValueFactory(new PropertyValueFactory<>("title"));
-        columns.add(titleColumn);
 
         TableColumn<Book, String> categoryColumn = new TableColumn<>("Category");
         categoryColumn.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -211,6 +217,11 @@ public class BillView extends BorderPane {
         columns.add(stockColumn);
 
         bookTable.getColumns().addAll(columns);
+        bookTable.setRowFactory(tv -> {
+            TableRow<Book> row = new TableRow<>();
+            row.setId("row" + row.getIndex()); // Assign an ID based on the row index
+            return row;
+        });
 
         // Handle the double-click event on a row in the book table
         bookTable.setOnMouseClicked(e -> {
@@ -238,7 +249,7 @@ public class BillView extends BorderPane {
                         if (Book.canAddBook(selectedBook, quantity.get())) {
                             double totalPrice = selectedBook.getSellPrice() * quantity.get();
                             totalPriceLabel.setText("Total: $" + totalPrice);
-
+                            totalPriceLabel.setId("totalPriceLabel");
                             // Call the model method to update the book and total
                             selectedBook.setStock(selectedBook.getStock() - quantity.get());
 

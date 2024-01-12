@@ -1,4 +1,4 @@
-package com.example.bookstore.view;
+package com.example.bookstore.View;
 
 import com.example.bookstore.mainApplication;
 import javafx.scene.control.Button;

@@ -24,6 +24,8 @@ import java.util.List;
 
 
 public class PersonsView extends VBox {
+
+    //TODO TEST FOR EDIT
     private TableView<Person> tableView;
 
     public PersonsView(ObservableList<Person> people) {
@@ -68,14 +70,15 @@ public class PersonsView extends VBox {
                         deleteIcon.setFitWidth(15);
                         deleteIcon.setFitHeight(15);
                         deleteButton.setGraphic(deleteIcon);
+                        deleteButton.setId("deleteButton");
                         editButton.setGraphic(editIcon);
+                        editButton.setId("editButton");
                         editButton.setStyle("-fx-background-color: transparent;");
                         deleteButton.setStyle("-fx-background-color: transparent;");
-
                         editButton.setOnAction((ActionEvent event) -> {
                             Person person = getTableView().getItems().get(getIndex());
                             showEditPersonWindow(person);
-                            PersonsView.this.tableView.refresh();
+                            tableView.refresh();
                         });
                         deleteButton.setOnAction((ActionEvent event) -> {
                             // logic to handle delete action
@@ -120,20 +123,18 @@ public class PersonsView extends VBox {
         setSpacing(10);
         setPadding(new Insets(10));
     }
-
     private void showEditPersonWindow(Person person) {
         // create a new window to show the form to edit the person
         Stage stage = new Stage();
         stage.setTitle("Edit Person");
-
         // create the form to edit the person
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
         grid.setVgap(8);
         grid.setHgap(10);
-
         // create text fields for the Person properties
         TextField nameField = new TextField();
+        nameField.setId("editName");
         nameField.setPromptText("Name");
         nameField.setText(person.getName());
 
@@ -142,7 +143,8 @@ public class PersonsView extends VBox {
         userNameField.setText(person.getUserName());
 
         TextField passwordField = new TextField();
-        userNameField.setPromptText("Password");
+        passwordField.setPromptText("Password");
+        passwordField.setId("passwordField");
         userNameField.setText(person.getPassword());
 
         TextField phoneNumberField = new TextField();
@@ -154,8 +156,9 @@ public class PersonsView extends VBox {
         salaryField.setText(String.valueOf(person.getSalary()));
 
         ComboBox<Role> comboBox = new ComboBox<>();
-        comboBox.setPromptText("Role");
-        comboBox.setItems(FXCollections.observableArrayList(Role.Librarian, Role.Manager));
+        comboBox.setId("comboBox");
+        comboBox.getItems().addAll(Role.Administrator, Role.Manager, Role.Librarian);
+        comboBox.setPromptText("Select Role");
 
         // add the text fields to the grid
         grid.add(new Label("Name"), 0, 0);
@@ -173,21 +176,31 @@ public class PersonsView extends VBox {
 
         // create a save button to save the changes
         Button saveButton = new Button("Save");
+        saveButton.setId("saveButton");
         saveButton.setOnAction((ActionEvent event) -> {
             // validate the form
             if (nameField.getText().isEmpty() || userNameField.getText().isEmpty() || salaryField.getText().isEmpty()
-                    || phoneNumberField.getText().isEmpty() || passwordField.getText().isEmpty()) {
+                    || phoneNumberField.getText().isEmpty() || passwordField.getText().isEmpty() || comboBox.getSelectionModel().isEmpty()) {
                 // show an error if any of the fields is empty
-                System.out.println("Fill all fields");
-            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Fill the fields");
+                ButtonType customOkButton = new ButtonType("Error! ", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
+                alert.showAndWait();            }
+            else {
                 // update the person with the new values
                 person.setName(nameField.getText());
                 person.setUserName(userNameField.getText());
                 person.setPassword(passwordField.getText());
                 person.setSalary(Integer.parseInt(salaryField.getText()));
                 person.setPhone(phoneNumberField.getText());
-                person.setRole(comboBox.getValue());
+                person.setRole(comboBox.getSelectionModel().getSelectedItem());
                 stage.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successful!");
+                ButtonType customOkButton = new ButtonType("Person is edited!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
+                alert.showAndWait();
             }
         });
         grid.add(saveButton, 1, 10);
