@@ -1,20 +1,5 @@
 package com.example.bookstore.Controllers;
 
-import com.example.bookstore.Models.Book;
-import com.example.bookstore.Models.Person;
-import com.example.bookstore.helperClasses.writingToFiles;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import static org.mockito.Mockito.when;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
 //TODO TRY WITHOUT MOCK
 
 class ControllerTest {

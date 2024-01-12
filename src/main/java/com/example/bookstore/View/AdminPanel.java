@@ -95,6 +95,7 @@ public class AdminPanel extends BorderPane {
 
         // Create a menu named "Bills"
         Menu menu2 = new Menu("Bills");
+        menu2.setId("Bills");
 
 // Set font style for the menu
         menu2.setStyle("-fx-font-size: 9pt; -fx-font-family: 'Arial'; -fx-font-weight: bold;");
