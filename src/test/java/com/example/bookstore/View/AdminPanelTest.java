@@ -16,7 +16,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-//6 threads
+//15 threads
 public class AdminPanelTest extends ApplicationTest {
     Button button;
     @Override

@@ -1,17 +1,11 @@
 package com.example.bookstore.View;
 
-<<<<<<< HEAD
-import com.example.bookstore.mainApplication;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-=======
 import com.example.bookstore.Models.Person;
 import com.example.bookstore.mainApplication;
 import javafx.application.Platform;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableView;
->>>>>>> origin/main
 import javafx.stage.Stage;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,12 +14,9 @@ import org.testfx.framework.junit5.ApplicationTest;
 import java.time.LocalDate;
 
 
-<<<<<<< HEAD
-=======
 import static org.junit.jupiter.api.Assertions.assertFalse;
->>>>>>> origin/main
 import static org.junit.jupiter.api.Assertions.assertTrue;
-//3 threads
+//6 threads
 class ManagerPanelTest extends ApplicationTest {
     Button button;
     @Override
@@ -141,8 +132,6 @@ class ManagerPanelTest extends ApplicationTest {
         assertTrue(lookup("OK").queryButton().isVisible());
     }
 
-<<<<<<< HEAD
-=======
 
     @Test
     public void testOpenManageBooksListSuccessUpdated() {
@@ -258,5 +247,4 @@ class ManagerPanelTest extends ApplicationTest {
         TableView<Person> updatedTableView = lookup("#tableStats").query();
         assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
     }
->>>>>>> origin/main
 }

@@ -16,9 +16,6 @@ public class LibrarianPanel extends BorderPane {
 
     }
 
-    public Person getPerson() {
-        return person;
-    }
 
     public void setPerson(Person person) {
         this.person = person;
