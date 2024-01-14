@@ -6,7 +6,6 @@ import com.example.bookstore.Models.Manager;
 import com.example.bookstore.Models.Person;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.BufferedWriter;
@@ -15,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class BasisPathTestingForGetPersons {
 
@@ -63,7 +63,7 @@ public class BasisPathTestingForGetPersons {
             Person person = new Person("TestName", "TestUsername", "TestPassword", null, 233, "+355686767", Role.Test);
            writer.write(person + "\n");
             }
-        Assertions.assertEquals(0, writingToFiles.getPersons(tempFile.toString()).size());
+        assertEquals(0, writingToFiles.getPersons(tempFile.toString()).size());
         tempFile.deleteOnExit();
     }
 
