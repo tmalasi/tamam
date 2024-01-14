@@ -70,7 +70,9 @@ public class BooksView extends VBox {
                         deleteIcon.setFitWidth(15);
                         deleteIcon.setFitHeight(15);
                         deleteButton.setGraphic(deleteIcon);
+                        deleteButton.setId("deleteButton");
                         editButton.setGraphic(editIcon);
+                        editButton.setId("editButton");
                         editButton.setStyle("-fx-background-color: transparent;");
                         deleteButton.setStyle("-fx-background-color: transparent;");
 
@@ -141,6 +143,7 @@ public class BooksView extends VBox {
 
         TextField titleField = new TextField();
         titleField.setPromptText("Title");
+        titleField.setId("titleField");
         titleField.setText(book.getTitle());
 
         TextField categoryField = new TextField();
@@ -198,14 +201,18 @@ public class BooksView extends VBox {
 
 // create a save button to save the changes
         Button saveButton = new Button("Save");
+        saveButton.setId("SaveEdited");
         saveButton.setOnAction((ActionEvent event) -> {
             // validate the form
             if (isbnField.getText().isEmpty() || titleField.getText().isEmpty() || categoryField.getText().isEmpty()
                     || supplierField.getText().isEmpty() || purchasedPriceField.getText().isEmpty() || originalPriceField.getText().isEmpty()
                     || sellingPriceField.getText().isEmpty() || authorField.getText().isEmpty()
                     || stockField.getText().isEmpty()) {
-                // show an error if any of the fields is empty
-                System.out.println("Fill all fields");
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Fill the fields");
+                ButtonType customOkButton = new ButtonType("Error!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
+                alert.showAndWait();
             } else {
                 // update the book with the new values
                 book.setIsbn(isbnField.getText());
@@ -219,6 +226,11 @@ public class BooksView extends VBox {
                 book.setStock(Integer.parseInt(stockField.getText()));
                 book.setPurchaseDate(purchasedDate.getValue());
                 stage.close();
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Successful!");
+                ButtonType customOkButton = new ButtonType("Book is edited!", ButtonType.OK.getButtonData());
+                alert.getButtonTypes().setAll(customOkButton);
+                alert.showAndWait();
             }
         });
         grid.add(saveButton, 1, 10);

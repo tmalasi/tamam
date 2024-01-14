@@ -49,7 +49,7 @@ public class MainApplicationTest extends ApplicationTest {
 
     @Test
     public void testValidCredentialsLibrarian(){
-        clickOn("#userTextField").write("Llaca");
+        clickOn("#userTextField").write("123457");
         clickOn("#pwBox").write("12345");
         clickOn(button);
         verifyThat("#librarianPanel", Node::isVisible);

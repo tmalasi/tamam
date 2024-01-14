@@ -184,7 +184,7 @@ public class PersonsView extends VBox {
                 // show an error if any of the fields is empty
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Fill the fields");
-                ButtonType customOkButton = new ButtonType("Error! ", ButtonType.OK.getButtonData());
+                ButtonType customOkButton = new ButtonType("Error!", ButtonType.OK.getButtonData());
                 alert.getButtonTypes().setAll(customOkButton);
                 alert.showAndWait();            }
             else {

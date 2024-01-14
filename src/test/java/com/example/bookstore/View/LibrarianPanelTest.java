@@ -23,7 +23,7 @@ class LibrarianPanelTest extends ApplicationTest {
         button = lookup(".button").queryAs(Button.class);
     }
     @Test
-    public void testOpenNewBillSuccessUpdated() {
+    public void testOpeningNewBillAndGeneratingABillSuccessfully() {
 
         // Assuming valid administrator credentials
         clickOn("#userTextField").write("123457");
@@ -46,7 +46,7 @@ class LibrarianPanelTest extends ApplicationTest {
         });
     }
     @Test
-    public void testOpenNewBillEmptyBillError() {
+    public void testOpenNewBillAndGeneratingEmptyBillError() {
 
         // Assuming valid administrator credentials
         clickOn("#userTextField").write("123457");

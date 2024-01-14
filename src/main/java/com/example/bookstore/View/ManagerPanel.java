@@ -81,7 +81,7 @@ public class ManagerPanel extends BorderPane {
         Menu menu2 = new Menu("Stats");
         menu2.setId("Stats");
         menu2.setStyle("-fx-font-size: 9pt; -fx-font-family: 'Arial'; -fx-font-weight: bold;");
-        MenuItem item4 = new MenuItem("Stats");
+        MenuItem item4 = new MenuItem("Stats of librarians");
         item4.setOnAction(actionEvent -> {
             setCenter(statsPanel(librarians));
         });

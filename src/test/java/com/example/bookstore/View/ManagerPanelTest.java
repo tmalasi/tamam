@@ -134,7 +134,7 @@ class ManagerPanelTest extends ApplicationTest {
 
 
     @Test
-    public void testOpenManageBooksListSuccessUpdated() {
+    public void testOpenManageBooksListSuccessUpdatedAfterBookAddition() {
 
         // Assuming valid administrator credentials
         clickOn("#userTextField").write("1");
@@ -182,7 +182,7 @@ class ManagerPanelTest extends ApplicationTest {
         assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
     }
     @Test
-    public void testOpenManageBooksListError() {
+    public void testOpenManageBooksListAfterErrorInBookAddition() {
 
         // Assuming valid administrator credentials
         clickOn("#userTextField").write("1");
@@ -230,15 +230,113 @@ class ManagerPanelTest extends ApplicationTest {
         assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
     }
     @Test
-    public void testOpenStatsViewListError() {
+    public void testOpenEditBooksListSuccessUpdatedAfterBookEdit() {
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("1");
+        clickOn("#pwBox").write("12345678");
+        clickOn(button);
+        clickOn("#Books");
+        clickOn("Manage Books");
+        TableView<Person> tableView = lookup("#tableBooks").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Books");
+
+        // Click on the "New Book" menu item
+        clickOn("New Book");
+        // Fill in the book details
+        clickOn("#isbnInput").write("9781234567890");
+        clickOn("#titleInput").write("Test Book");
+        clickOn("#categoryInput").write("Test Category");
+        clickOn("#supplierInput").write("Test Supplier");
+        DatePicker purchasedDatePicker = lookup("#purchasedDateInput").query();
+        purchasedDatePicker.setValue(LocalDate.of(2023, 1, 1));
+        clickOn("#purchasedPriceInput").write("34.4");
+        clickOn("#originalPriceInput").write("40.0");
+        clickOn("#sellingPriceInput").write("50.0");
+        clickOn("#authorInput").write("Test Author");
+        clickOn("#stockInput").write("10");
+
+        // Click on the "Submit" button
+        clickOn("#submitButton");
+
+        interact(() -> {
+            (lookup("Book is added!").queryButton()).fire();
+        });
+        clickOn("#Books");
+        clickOn("Manage Books");
+        clickOn("#editButton");
+        clickOn("#titleField").write("a");
+        clickOn("#SaveEdited");
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        assertTrue(lookup("Book is edited!").queryButton().isVisible());
+    }
+
+    @Test
+    public void testOpenDeleteBookCheckingListUpdatedAfterBookEdit() {
+        // Assuming valid administrator credentials
+        clickOn("#userTextField").write("1");
+        clickOn("#pwBox").write("12345678");
+        clickOn(button);
+        clickOn("#Books");
+        clickOn("Manage Books");
+        TableView<Person> tableView = lookup("#tableBooks").query();
+        Platform.runLater(() -> {
+            tableView.getItems().clear();
+        });
+
+        // Click on the "Employees" menu
+        clickOn("#Books");
+
+        // Click on the "New Book" menu item
+        clickOn("New Book");
+        // Fill in the book details
+        clickOn("#isbnInput").write("9781234567890");
+        clickOn("#titleInput").write("Test Book");
+        clickOn("#categoryInput").write("Test Category");
+        clickOn("#supplierInput").write("Test Supplier");
+        DatePicker purchasedDatePicker = lookup("#purchasedDateInput").query();
+        purchasedDatePicker.setValue(LocalDate.of(2023, 1, 1));
+        clickOn("#purchasedPriceInput").write("34.4");
+        clickOn("#originalPriceInput").write("40.0");
+        clickOn("#sellingPriceInput").write("50.0");
+        clickOn("#authorInput").write("Test Author");
+        clickOn("#stockInput").write("10");
+
+        // Click on the "Submit" button
+        clickOn("#submitButton");
+
+        interact(() -> {
+            (lookup("Book is added!").queryButton()).fire();
+        });
+        clickOn("#Books");
+        clickOn("Manage Books");
+        clickOn("#deleteButton");
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        TableView<Person> updatedTableView = lookup("#tableBooks").query();
+        assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
+    }
+    @Test
+    public void testOpenLibrarianStatsViewList() {
 
         // Assuming valid administrator credentials
         clickOn("#userTextField").write("1");
         clickOn("#pwBox").write("12345678");
         clickOn(button);
         clickOn("#Stats");
-        clickOn("Stats");
-        TableView<Person> tableView = lookup("#tableStats").query();
+        clickOn("Stats of librarians");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
