@@ -74,6 +74,26 @@ public class BasisPathTestingForGetPersons {
         assertEquals(people, writingToFiles.getPersons(tempFile.toString()));
         tempFile.deleteOnExit();
     }
+    @Test
+    public void testGetPersons_ExistingFileTestForPit1() throws IOException {
+        File tempFile = File.createTempFile("prefix", "txt");
+        try (BufferedWriter writer = Files.newBufferedWriter(tempFile.toPath())) {
+            // Add some data to the file
+            writer.write("TestName,TestUsername,TestPassword,Librarian,30,+355686767,Role.Librarian,100.0");
+        }
+        assertNotNull(writingToFiles.getPersons(tempFile.toString()));
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    public void testGetPersons_NonExistingFileTestForPit2() {
+        // Intentionally delete the file if it exists to simulate non-existence
+        File tempFile = new File("nonExistingFile.txt");
+        if (tempFile.exists()) {
+            tempFile.delete();
+        }
+        assertEquals(0, writingToFiles.getPersons("nonExistingFile.txt").size());
+    }
 
 
 }
