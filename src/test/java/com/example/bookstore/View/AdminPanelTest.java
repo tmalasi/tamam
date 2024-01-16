@@ -56,7 +56,7 @@ public class AdminPanelTest extends ApplicationTest {
         }
         assertTrue(lookup("Person is added!").queryButton().isVisible());
     }
-
+    //From KEVIN
     @Test
     public void testOpenEmployeeRegisterEmptyCredentials() {
         // Assuming valid administrator credentials
@@ -76,7 +76,7 @@ public class AdminPanelTest extends ApplicationTest {
         }
         assertTrue(lookup("!Ok!").queryButton().isVisible());
     }
-
+    //From KEVIN
     @Test
     public void testOpenEmployeeRegisterExceptionThrown() {
         // Assuming valid administrator credentials
@@ -104,7 +104,7 @@ public class AdminPanelTest extends ApplicationTest {
         }
         assertTrue(lookup("OK").queryButton().isVisible());
     }
-
+    //From KEVIN
     @Test
     public void testAddNewBookSuccess() {
         // Assuming valid administrator credentials
@@ -143,7 +143,7 @@ public class AdminPanelTest extends ApplicationTest {
         // Assuming that a success message is displayed
         assertTrue(lookup("Book is added!").queryButton().isVisible());
     }
-
+    //From KEVIN
     @Test
     public void testAddNewBookEmptyCredentials() {
         // Assuming valid administrator credentials
@@ -169,6 +169,7 @@ public class AdminPanelTest extends ApplicationTest {
         // Assuming that a success message is displayed
         assertTrue(lookup("!OK!").queryButton().isVisible());
     }
+    //From KEVIN
     @Test
     public void testAddNewBookExceptionThrown() {
         // Assuming valid administrator credentials
@@ -251,6 +252,7 @@ public class AdminPanelTest extends ApplicationTest {
         TableView<Person> updatedTableView = lookup("#tablePersons").query();
         assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
     }
+    //From KEVIN
     @Test
     public void testOpenEmployeeListAfterErrorInEmployeeRegistration() {
 
@@ -295,7 +297,7 @@ public class AdminPanelTest extends ApplicationTest {
         TableView<Person> updatedTableView = lookup("#tablePersons").query();
         assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
     }
-
+    //From KEVIN
     @Test
     public void testOpenManageBooksListSuccessUpdatedAfterBookAddition() {
 
@@ -344,6 +346,7 @@ public class AdminPanelTest extends ApplicationTest {
         TableView<Person> updatedTableView = lookup("#tableBooks").query();
         assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
     }
+    //From KEVIN
     @Test
     public void testOpenManageBooksListAfterErrorInBookAddition() {
 

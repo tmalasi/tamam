@@ -3,7 +3,6 @@ package com.example.bookstore.helperClasses;
 import com.example.bookstore.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.io.*;
@@ -273,7 +272,7 @@ class TestWritingToFilesUnit {
             writingToFiles.writeRoles(null, null);
         });
     }
-
+//FROM KEVIN
     // Test case: Check if the file is created correctly but contains no books
     @Test
     public void testGetBooks_CheckFileIsCreatedCorrectlyButIsEmpty() throws IOException {
@@ -581,7 +580,7 @@ class TestWritingToFilesUnit {
         boolean isBiggerThen0 = (numberOfBills > 0);
         assertTrue(isBiggerThen0);
     }
-
+    //TILL HERE
     // Test case: Check if the bill file is created correctly
     @Test
     public void testWriteBills_CheckFileIsCreatedCorrectly() {
@@ -787,7 +786,7 @@ class TestWritingToFilesUnit {
         int booksSold = WriteBooksSold.getBooksSold("existingFile.bin");
         assertEquals(0, booksSold);
     }
-
+//BY KEVIN
     // Test case for writing books and checking if the file is created correctly
     @Test
     public void testWriteBooks_CheckFileIsCreatedCorrectly() throws IOException {
@@ -890,7 +889,7 @@ class TestWritingToFilesUnit {
             writingToFiles.writePersons(null, null);
         });
     }
-
+    //TILL HERE
 // Unit Testing for writing Total Bill
 
     // Test case for writing total bill successfully with a mock implementation of FileOutputInterface

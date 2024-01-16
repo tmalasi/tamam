@@ -18,6 +18,7 @@ class BookTest {
         });
     }
 
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetCategoryWhenItIsSmallerThanMin() {
@@ -27,6 +28,7 @@ class BookTest {
         });
     }
 
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetCategoryWhenItsMinimumValidLength() {
@@ -69,6 +71,7 @@ class BookTest {
         });
     }
 
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetISBNWhenItIsSmallerThanMin() {
@@ -77,7 +80,7 @@ class BookTest {
             book.setIsbn("");
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetISBNWhenItsMinimumValidLength() {
@@ -119,7 +122,7 @@ class BookTest {
             book.setTitle(book.getTitle());
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTitle_WhenLessThanMinLength() {
@@ -128,7 +131,7 @@ class BookTest {
             book.setTitle(book.getTitle());
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetTitle_WhenCloseToMinLength() {
@@ -179,7 +182,7 @@ class BookTest {
         book.setPurchasePrice(book.getPurchasePrice());
         assertEquals(0, book.getPurchasePrice());
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetPurchasePrice_WhenPurchasePriceValidValue() {
@@ -195,7 +198,7 @@ class BookTest {
         book.setPurchasePrice(book.getPurchasePrice());
         assertEquals(5000, book.getPurchasePrice());
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testSetPurchasePrice_WithMoreThanMaxPurchasePrice() {
@@ -259,7 +262,7 @@ class BookTest {
         book.setSellPrice(book.getSellPrice());
         assertEquals(45.6, book.getSellPrice());
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetSellPrice_ValidValueAGeneralCase() {
@@ -278,7 +281,7 @@ class BookTest {
             book.setAuthor(book.getAuthor());
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetAuthor_LessThanMinLength() {
@@ -287,7 +290,7 @@ class BookTest {
             book.setAuthor("");
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetAuthor_WhenMinimumValidLength() {
@@ -332,6 +335,7 @@ class BookTest {
         });
     }
 
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetSupplier_WhenLessThanLength() {
@@ -340,7 +344,7 @@ class BookTest {
             book.setSupplier("");
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetSupplier_WhenMinimumValidLength() {
@@ -394,7 +398,7 @@ class BookTest {
             book.setStock(book.getStock());
         });
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetStock_WhenNormalValueBiggerThan0_UpperBound() {
@@ -402,7 +406,7 @@ class BookTest {
         book.setStock(1);
         assertEquals(1, book.getStock());
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetStock_WhenValidValueInRange() {
@@ -481,7 +485,7 @@ class BookTest {
                 "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
         assertTrue(Book.canAddBook(book, 2));
     }
-
+    //From KEVIN
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     void testCanAddBook_WithEnteredQuantityLessThanTheStock() {
@@ -489,7 +493,6 @@ class BookTest {
                 "TestAuthor", "Comedy", "SampleSupplier", 2, LocalDate.of(2023, 1, 1));
         assertTrue(Book.canAddBook(book, 1));
     }
-
 
     @Test
     void testToStringMethod() {

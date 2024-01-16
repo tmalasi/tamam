@@ -59,7 +59,7 @@ class PersonTest {
         person.setPhone(person.getPhone());
         assertEquals("123456", person.getPhone());
     }
-
+//From TEA
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetPhoneWhenLengthLargerThan6() {
@@ -67,7 +67,7 @@ class PersonTest {
         person.setPhone(person.getPhone());
         assertEquals("1234567", person.getPhone());
     }
-
+//From TEA
     //Method for BoundaryValueTesting and EquivalenceTesting
     @Test
     public void testSetPhoneWithEmptyString() {

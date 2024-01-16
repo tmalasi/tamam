@@ -229,6 +229,7 @@ class ManagerPanelTest extends ApplicationTest {
         TableView<Person> updatedTableView = lookup("#tableBooks").query();
         assertTrue(updatedTableView.getItems().isEmpty(), "TableView should be empty");
     }
+    //From TEA
     @Test
     public void testOpenEditBooksListSuccessUpdatedAfterBookEdit() {
         // Assuming valid administrator credentials
@@ -278,7 +279,7 @@ class ManagerPanelTest extends ApplicationTest {
         }
         assertTrue(lookup("Book is edited!").queryButton().isVisible());
     }
-
+//From TEA
     @Test
     public void testOpenDeleteBookCheckingListUpdatedAfterBookEdit() {
         // Assuming valid administrator credentials

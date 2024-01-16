@@ -8,6 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class TestingWritingToFilesIntegration {
 
+    //FROM KEVIN
     // Integration testing with the default file operations for getTotalCost
     @Test
     void shouldCalculateTotalCostWithValidTempFile() throws IOException {
@@ -129,7 +130,7 @@ public class TestingWritingToFilesIntegration {
         // Delete the temporary file
         tempFile.deleteOnExit();
     }
-
+//TILL HERE
     // Integration testing with the default file operations for getBooksSold
     @Test
     void shouldCalculateBooksSoldWithExistingTempFile() throws IOException {
