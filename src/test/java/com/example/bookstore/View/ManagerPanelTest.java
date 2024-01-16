@@ -344,6 +344,6 @@ class ManagerPanelTest extends ApplicationTest {
             e.printStackTrace();
         }
         TableView<Person> updatedTableView = lookup("#tableStats").query();
-        assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldnt be empty");
+        assertFalse(updatedTableView.getItems().isEmpty(), "TableView shouldn't be empty");
     }
 }

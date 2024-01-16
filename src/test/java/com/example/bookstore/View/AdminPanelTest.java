@@ -482,13 +482,14 @@ public class AdminPanelTest extends ApplicationTest {
         clickOn("#editButton");
         clickOn("#editName").write(".N");
         clickOn("#passwordField").write("password");
-        clickOn("#comboBox").clickOn("Administrator"); // Assuming Administrator role is selected
+        clickOn("#roleComboBoxEdit").clickOn("Librarian"); // Assuming Administrator role is selected
+
+        clickOn("#saveButton");
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        clickOn("#saveButton");
         assertTrue(lookup("Person is edited!").queryButton().isVisible());
 
 

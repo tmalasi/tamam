@@ -155,10 +155,10 @@ public class PersonsView extends VBox {
         salaryField.setPromptText("Salary");
         salaryField.setText(String.valueOf(person.getSalary()));
 
-        ComboBox<Role> comboBox = new ComboBox<>();
-        comboBox.setId("comboBox");
-        comboBox.getItems().addAll(Role.Administrator, Role.Manager, Role.Librarian);
-        comboBox.setPromptText("Select Role");
+        ComboBox<Role> roleComboBox = new ComboBox<>();
+        roleComboBox.setId("roleComboBoxEdit");
+        roleComboBox.getItems().addAll(Role.Administrator, Role.Manager, Role.Librarian);
+        roleComboBox.setPromptText("Select Role");
 
         // add the text fields to the grid
         grid.add(new Label("Name"), 0, 0);
@@ -172,7 +172,7 @@ public class PersonsView extends VBox {
         grid.add(new Label("Salary"), 0, 4);
         grid.add(salaryField, 1, 4);
         grid.add(new Label("Role"), 0, 5);
-        grid.add(comboBox, 1, 5);
+        grid.add(roleComboBox, 1, 5);
 
         // create a save button to save the changes
         Button saveButton = new Button("Save");
@@ -180,7 +180,7 @@ public class PersonsView extends VBox {
         saveButton.setOnAction((ActionEvent event) -> {
             // validate the form
             if (nameField.getText().isEmpty() || userNameField.getText().isEmpty() || salaryField.getText().isEmpty()
-                    || phoneNumberField.getText().isEmpty() || passwordField.getText().isEmpty() || comboBox.getSelectionModel().isEmpty()) {
+                    || phoneNumberField.getText().isEmpty() || passwordField.getText().isEmpty() || roleComboBox.getSelectionModel().isEmpty()) {
                 // show an error if any of the fields is empty
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Fill the fields");
@@ -194,7 +194,7 @@ public class PersonsView extends VBox {
                 person.setPassword(passwordField.getText());
                 person.setSalary(Integer.parseInt(salaryField.getText()));
                 person.setPhone(phoneNumberField.getText());
-                person.setRole(comboBox.getSelectionModel().getSelectedItem());
+                person.setRole(roleComboBox.getSelectionModel().getSelectedItem());
                 stage.close();
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Successful!");
