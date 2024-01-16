@@ -30,7 +30,6 @@ public class TestingWritingToFilesIntegration {
 
     @Test
     void testGetTotalCostWithNONExistingTempFile() {
-        // Create a temporary file
         // Use the DefaultFileOperations and writingToFiles instances
         FileOperations fileOperations = new DefaultFileOperations();
         writingToFiles WriteBill = new writingToFiles(fileOperations);
