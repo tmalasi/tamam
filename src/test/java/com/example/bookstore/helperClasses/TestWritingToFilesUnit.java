@@ -289,6 +289,13 @@ class TestWritingToFilesUnit {
         ArrayList<Person> people = new ArrayList<>();
         assertEquals("0", writingToFiles.getNumberOfLibrarians(people));
     }
+    @Test
+    public void testGetNumberOfLibrarians_inWritingToFilesButThereAreNoLibrarians() {
+        ArrayList<Person> people = new ArrayList<>();
+        Person person2 = new Manager("Book 2", "Author 2", "2024", "9202-2-2-", 2323, "+3556767", Role.Manager);
+        people.add(person2);
+        assertEquals("0", writingToFiles.getNumberOfLibrarians(people));
+    }
 
     @Test
     public void testGetNumberOfLibrarians_inWritingToFiles() {
@@ -308,7 +315,13 @@ class TestWritingToFilesUnit {
         ArrayList<Person> people = new ArrayList<>();
         assertEquals("0", writingToFiles.getNumberOfManagers(people));
     }
-
+    @Test
+    public void testGetNumberOfManagers_inWritingToFilesButThereAreNoManagers() {
+        ArrayList<Person> people = new ArrayList<>();
+        Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
+        people.add(person1);
+        assertEquals("0", writingToFiles.getNumberOfLibrarians(people));
+    }
     @Test
     public void testGetNumberOfManagers_inWritingToFiles() {
         ArrayList<Person> people = new ArrayList<>();
