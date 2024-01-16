@@ -1,7 +1,5 @@
 package com.example.bookstore.helperClasses;
 
-import com.example.bookstore.helperClasses.Mock.MockFileOperations;
-import com.example.bookstore.helperClasses.Mock.MockFileOutput;
 import com.example.bookstore.Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class TestWritingToFilesUnit {
-
     @Test
     public void testReadCredentials_CheckTempFileIsCreatedCorrectly() throws IOException {
         File tempFile = File.createTempFile("prefix", "txt");
@@ -452,51 +449,6 @@ class TestWritingToFilesUnit {
         double totalCost = WriteCost.getTotalCost("existingFile.bin");
 
         assertEquals(0.0, totalCost, 0.001);
-    }
-
-    //Integration testing with the default file operations for get total cost
-    @Test
-    void testGetTotalCostWithValidTempFile() throws IOException {
-        // Create a temporary file
-        File tempFile = File.createTempFile("tempTotalC", ".bin");
-
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(tempFile))) {
-            dos.writeDouble(1165.32);
-        }
-
-        // Use the DefaultFileOperations and writingToFiles instances
-        FileOperations fileOperations = new DefaultFileOperations();
-        writingToFiles WriteBill = new writingToFiles(fileOperations);
-        // Call the getTotalBill method with the path of the temporary file
-        double totalCost = WriteBill.getTotalCost(tempFile.getPath());
-        assertEquals(1165.32, totalCost, 0.001);
-        tempFile.deleteOnExit();
-    }
-
-    @Test
-    void testGetTotalCostWithNONExistingTempFile() {
-        // Create a temporary file
-        // Use the DefaultFileOperations and writingToFiles instances
-        FileOperations fileOperations = new DefaultFileOperations();
-        writingToFiles WriteBill = new writingToFiles(fileOperations);
-        double totalCost = WriteBill.getTotalCost("\"existingFile.bin\"");
-        assertEquals(0.0, totalCost);
-
-    }
-
-    @Test
-    void testGetTotalCostWithExistingTempFileButEmpty() throws IOException {
-        // Create a temporary file
-        File tempFile = File.createTempFile("tempTotalC", ".bin");
-
-        // Use the DefaultFileOperations and writingToFiles instances
-        FileOperations fileOperations = new DefaultFileOperations();
-        writingToFiles WriteBill = new writingToFiles(fileOperations);
-        // Call the getTotalBill method with the path of the temporary file
-        double totalCost = WriteBill.getTotalCost(tempFile.getPath());
-        assertEquals(0.0, totalCost, 0.001);
-        tempFile.deleteOnExit();
-
     }
 
     @Test

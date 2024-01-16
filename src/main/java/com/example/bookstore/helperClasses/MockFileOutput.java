@@ -1,4 +1,4 @@
-package com.example.bookstore.helperClasses.Mock;
+package com.example.bookstore.helperClasses;
 
 import com.example.bookstore.helperClasses.FileOutputInterface;
 import java.io.IOException;
