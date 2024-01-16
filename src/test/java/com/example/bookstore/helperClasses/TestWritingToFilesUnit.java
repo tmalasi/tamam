@@ -320,7 +320,7 @@ class TestWritingToFilesUnit {
         ArrayList<Person> people = new ArrayList<>();
         Person person1 = new Librarian("SampleName", "SampleAddress", "SamplePhone", "SampleEmail", 30, "SampleUsername", Role.Librarian, 100.0);
         people.add(person1);
-        assertEquals("0", writingToFiles.getNumberOfLibrarians(people));
+        assertEquals("0", writingToFiles.getNumberOfManagers(people));
     }
     @Test
     public void testGetNumberOfManagers_inWritingToFiles() {
@@ -360,8 +360,13 @@ class TestWritingToFilesUnit {
     public void testWriteBills_CheckFileIsCreatedCorrectly() {
         ObservableList<Book> books = writingToFiles.getBooks("res/books.txt");
         String expectedFilePath = "res/Bills/" + 1000 + ".txt";
+
+        // Ensure the file does not exist before calling writeBill
+        assertFalse(new File(expectedFilePath).exists());
+
         writingToFiles.writeBill(String.valueOf(1000), 1234, books, expectedFilePath);
 
+        // Ensure the file is now created
         assertTrue(new File(expectedFilePath).exists());
         deleteFile(expectedFilePath);
     }
@@ -374,7 +379,14 @@ class TestWritingToFilesUnit {
         books.add(book1);
         books.add(book2);
         String expFile = "res/Bills/" + "123i9" + ".txt";
+
+        // Ensure the file does not exist before calling writeBill
+        assertFalse(new File(expFile).exists());
+
         writingToFiles.writeBill("123i9", 345, books, expFile);
+
+        // Ensure the file is now created
+        assertTrue(new File(expFile).exists());
 
         String fileContent = readFileContents(expFile);
         assertEquals("Bill Id: 123i9\n" +
@@ -391,8 +403,8 @@ class TestWritingToFilesUnit {
         assertThrows(RuntimeException.class, () -> {
             writingToFiles.writeBill("123i8", 100000, null, null);
         });
-
     }
+
 
     //Unit testing for GetTotalBill
     @Test
