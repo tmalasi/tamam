@@ -8,51 +8,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class TestingWritingToFilesIntegration {
-    //Integration testing with the default file operations for get total bill
-    @Test
-    void testGetTotalBillWithExistingTempFile() throws IOException {
-        // Create a temporary file
-        File tempFile = File.createTempFile("tempTotalB", ".bin");
-
-        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(tempFile))) {
-            dos.writeDouble(1165.32);
-        }
-
-        // Use the DefaultFileOperations and writingToFiles instances
-        FileOperations fileOperations = new DefaultFileOperations();
-        writingToFiles WriteBill = new writingToFiles(fileOperations);
-        // Call the getTotalBill method with the path of the temporary file
-        double totalBill = WriteBill.getTotalBill(tempFile.getPath());
-        assertEquals(1165.32, totalBill, 0.001);
-        tempFile.deleteOnExit();
-    }
-
-    @Test
-    void testGetTotalBillWithNONExistingTempFile()  {
-        // Create a temporary file
-        // Use the DefaultFileOperations and writingToFiles instances
-        FileOperations fileOperations = new DefaultFileOperations();
-        writingToFiles WriteBill = new writingToFiles(fileOperations);
-        // Call the getTotalBill method with the path of the temporary file
-        double totalBill = WriteBill.getTotalBill("null");
-        assertEquals(0.0, totalBill, 0.001);
-
-    }
-
-    @Test
-    void testGetTotalBillWithExistingTempFileButEmpty() throws IOException {
-        // Create a temporary file
-        File tempFile = File.createTempFile("tempTotalB", ".bin");
-
-        // Use the DefaultFileOperations and writingToFiles instances
-        FileOperations fileOperations = new DefaultFileOperations();
-        writingToFiles WriteBill = new writingToFiles(fileOperations);
-        // Call the getTotalBill method with the path of the temporary file
-        double totalBill = WriteBill.getTotalBill(tempFile.getPath());
-        assertEquals(0.0, totalBill, 0.001);
-        tempFile.deleteOnExit();
-
-    }
 
     //Integration testing with the default file operations for get total cost
     @Test
@@ -95,6 +50,51 @@ public class TestingWritingToFilesIntegration {
         // Call the getTotalBill method with the path of the temporary file
         double totalCost = WriteBill.getTotalCost(tempFile.getPath());
         assertEquals(0.0, totalCost, 0.001);
+        tempFile.deleteOnExit();
+
+    }
+    //Integration testing with the default file operations for get total bill
+    @Test
+    void testGetTotalBillWithExistingTempFile() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalB", ".bin");
+
+        try (DataOutputStream dos = new DataOutputStream(new FileOutputStream(tempFile))) {
+            dos.writeDouble(1165.32);
+        }
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBill = WriteBill.getTotalBill(tempFile.getPath());
+        assertEquals(1165.32, totalBill, 0.001);
+        tempFile.deleteOnExit();
+    }
+
+    @Test
+    void testGetTotalBillWithNONExistingTempFile()  {
+        // Create a temporary file
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBill = WriteBill.getTotalBill("null");
+        assertEquals(0.0, totalBill, 0.001);
+
+    }
+
+    @Test
+    void testGetTotalBillWithExistingTempFileButEmpty() throws IOException {
+        // Create a temporary file
+        File tempFile = File.createTempFile("tempTotalB", ".bin");
+
+        // Use the DefaultFileOperations and writingToFiles instances
+        FileOperations fileOperations = new DefaultFileOperations();
+        writingToFiles WriteBill = new writingToFiles(fileOperations);
+        // Call the getTotalBill method with the path of the temporary file
+        double totalBill = WriteBill.getTotalBill(tempFile.getPath());
+        assertEquals(0.0, totalBill, 0.001);
         tempFile.deleteOnExit();
 
     }
