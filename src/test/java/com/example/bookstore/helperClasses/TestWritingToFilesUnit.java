@@ -411,7 +411,6 @@ class TestWritingToFilesUnit {
     void testGetTotalBillWithMockExistingFile() {
         FileOperations fileOperations = new MockFileOperations(true, 123.4);
         writingToFiles WriteBill = new writingToFiles(fileOperations);
-
         double totalBill = WriteBill.getTotalBill("existingFile.bin");
         assertEquals(123.4, totalBill, 0.001);
     }

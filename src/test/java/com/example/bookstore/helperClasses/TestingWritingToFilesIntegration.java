@@ -4,8 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.*;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TestingWritingToFilesIntegration {
 
@@ -22,6 +21,7 @@ public class TestingWritingToFilesIntegration {
         // Use the DefaultFileOperations and writingToFiles instances
         FileOperations fileOperations = new DefaultFileOperations();
         writingToFiles WriteBill = new writingToFiles(fileOperations);
+        assertTrue(tempFile.exists());
         // Call the getTotalBill method with the path of the temporary file
         double totalCost = WriteBill.getTotalCost(tempFile.getPath());
         assertEquals(1165.32, totalCost, 0.001);
@@ -36,7 +36,6 @@ public class TestingWritingToFilesIntegration {
         writingToFiles WriteBill = new writingToFiles(fileOperations);
         double totalCost = WriteBill.getTotalCost("\"existingFile.bin\"");
         assertEquals(0.0, totalCost);
-
     }
 
     @Test
@@ -47,6 +46,7 @@ public class TestingWritingToFilesIntegration {
         // Use the DefaultFileOperations and writingToFiles instances
         FileOperations fileOperations = new DefaultFileOperations();
         writingToFiles WriteBill = new writingToFiles(fileOperations);
+        assertTrue(tempFile.exists());
         // Call the getTotalBill method with the path of the temporary file
         double totalCost = WriteBill.getTotalCost(tempFile.getPath());
         assertEquals(0.0, totalCost, 0.001);
