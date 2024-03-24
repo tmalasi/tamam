@@ -10,3 +10,4 @@ Equivalence Testing
 - JavaFx Testing
 - Mutation Testing
 ## Project report
+The file with the name: PROJECT REPORT STQA.pdf
